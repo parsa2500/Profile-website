@@ -1,0 +1,154 @@
+{
+  "meta": {
+    "title": "Parsa Saffarpour — Developer",
+    "description": "Profile of Parsa Saffarpour, a Python developer moving into web development, aiming at full-stack work."
+  },
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "experience": "Experience",
+    "projects": "Projects",
+    "contact": "Contact",
+    "skip": "Skip to content",
+    "menu": "Page sections",
+    "home": "Parsa Saffarpour"
+  },
+  "theme": {
+    "toDark": "Dark mode",
+    "toLight": "Light mode"
+  },
+  "locale": {
+    "switchToEn": "English",
+    "switchToFa": "فارسی"
+  },
+  "hero": {
+    "eyebrow": "Personal profile",
+    "name": "Parsa Saffarpour",
+    "role": "Python developer moving into web development",
+    "summary": "I am working toward full-stack development. I have built dynamic websites, responsive pages, and improvements to load speed and code structure.",
+    "projects": "View projects",
+    "contact": "Get in touch",
+    "locationLabel": "City",
+    "location": "Tehran",
+    "focusLabel": "Focus",
+    "focus": "Python, web, full-stack",
+    "studyLabel": "Education",
+    "study": "B.Sc. Computer Engineering"
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "The path so far",
+    "body": "I studied computer engineering at Islamic Azad University, West Tehran. I started programming with Python, then built sites with HTML, CSS, JavaScript, Bootstrap, and WordPress.",
+    "englishTitle": "English",
+    "englishBody": "I can read, write, speak, and listen in English, and I am taking a language course at the same time.",
+    "educationTitle": "Education",
+    "educationBody": "B.Sc. Computer Engineering, Islamic Azad University, West Tehran."
+  },
+  "skills": {
+    "eyebrow": "Skills",
+    "title": "What I have worked with",
+    "items": {
+      "python": {
+        "name": "Python",
+        "detail": "Programming, including a small game."
+      },
+      "web": {
+        "name": "HTML, CSS, JavaScript",
+        "detail": "Building and designing web pages."
+      },
+      "wordpress": {
+        "name": "WordPress",
+        "detail": "Building a site with WordPress."
+      },
+      "bootstrap": {
+        "name": "Bootstrap",
+        "detail": "Responsive pages."
+      },
+      "photoshop": {
+        "name": "Photoshop",
+        "detail": "Image editing for the web."
+      },
+      "icdl": {
+        "name": "ICDL",
+        "detail": "Core computer skills."
+      },
+      "english": {
+        "name": "English",
+        "detail": "Currently taking a language course."
+      }
+    }
+  },
+  "experience": {
+    "eyebrow": "Experience",
+    "title": "Work I have done",
+    "items": {
+      "webIntern": {
+        "role": "Web development intern",
+        "place": "Tehran",
+        "period": "From Farvardin 1402",
+        "points": [
+          "Built dynamic websites with programming languages, including HTML, CSS, and JavaScript.",
+          "Designed and implemented responsive pages with Bootstrap.",
+          "Improved load speed, images, and code structure."
+        ]
+      },
+      "seo": {
+        "role": "SEO specialist and article writer",
+        "place": "Tehran",
+        "period": "From Esfand 1402",
+        "points": [
+          "Optimized sites for search engines.",
+          "Wrote articles."
+        ]
+      }
+    }
+  },
+  "projects": {
+    "eyebrow": "Projects",
+    "title": "Selected work",
+    "intro": "The first three come from the resume. The next three are projects on this machine, described without private details.",
+    "resumeGroup": "From the resume",
+    "recentGroup": "Recent work",
+    "items": {
+      "pythonGame": {
+        "title": "Python game",
+        "meta": "Tir 1402 · Student project",
+        "summary": "A game built with Python."
+      },
+      "wordpress": {
+        "title": "WordPress site",
+        "meta": "Shahrivar 1402 · Institute project",
+        "summary": "A WordPress site built for an institute."
+      },
+      "htmlSite": {
+        "title": "HTML and CSS site",
+        "meta": "Shahrivar 1402 · Client",
+        "summary": "A site designed and built with HTML and CSS."
+      },
+      "cafePos": {
+        "title": "Cafe POS",
+        "meta": "Local project",
+        "summary": "A point-of-sale system for a cafe."
+      },
+      "rag": {
+        "title": "RAG Chat",
+        "meta": "Local project",
+        "summary": "A chat service that builds answers by retrieving from data."
+      },
+      "movahed": {
+        "title": "Movahed",
+        "meta": "Local project",
+        "summary": "The Movahed application."
+      }
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Reach me on GitHub",
+    "body": "The email and phone number in the resume were not readable, so only the public GitHub account is listed here.",
+    "action": "Open GitHub"
+  },
+  "footer": {
+    "note": "Parsa Saffarpour"
+  }
+}
