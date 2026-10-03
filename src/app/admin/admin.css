@@ -1,0 +1,216 @@
+/* Admin shell — scoped so the public site keeps its own templates. */
+html[data-shell="admin"] {
+  --color-bg: #eef3f5;
+  --color-fg: #102027;
+  --color-card: #ffffff;
+  --color-muted: #e2eaee;
+  --color-muted-fg: #5b6b74;
+  --color-border: #cfdce3;
+  --color-accent: #0f766e;
+  --color-on-accent: #f4fffd;
+  --color-ring: #0f766e;
+  --admin-sidebar: #f7fbfc;
+  --admin-rail: #0f766e;
+  --admin-glow-a: color-mix(in srgb, #14b8a6 28%, transparent);
+  --admin-glow-b: color-mix(in srgb, #0ea5e9 18%, transparent);
+  --admin-success: #047857;
+  --admin-danger: #b91c1c;
+  --header-bg: color-mix(in srgb, var(--color-bg) 82%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-shell="admin"]:not(.light) {
+    --color-bg: #081018;
+    --color-fg: #e8f1f4;
+    --color-card: #101a24;
+    --color-muted: #182433;
+    --color-muted-fg: #9db0bb;
+    --color-border: #243443;
+    --color-accent: #2dd4bf;
+    --color-on-accent: #042f2e;
+    --color-ring: #2dd4bf;
+    --admin-sidebar: #0b1520;
+    --admin-rail: #2dd4bf;
+    --admin-glow-a: color-mix(in srgb, #2dd4bf 22%, transparent);
+    --admin-glow-b: color-mix(in srgb, #38bdf8 14%, transparent);
+    --admin-success: #34d399;
+    --admin-danger: #f87171;
+  }
+}
+
+html[data-shell="admin"].dark {
+  --color-bg: #081018;
+  --color-fg: #e8f1f4;
+  --color-card: #101a24;
+  --color-muted: #182433;
+  --color-muted-fg: #9db0bb;
+  --color-border: #243443;
+  --color-accent: #2dd4bf;
+  --color-on-accent: #042f2e;
+  --color-ring: #2dd4bf;
+  --admin-sidebar: #0b1520;
+  --admin-rail: #2dd4bf;
+  --admin-glow-a: color-mix(in srgb, #2dd4bf 22%, transparent);
+  --admin-glow-b: color-mix(in srgb, #38bdf8 14%, transparent);
+  --admin-success: #34d399;
+  --admin-danger: #f87171;
+}
+
+html[data-shell="admin"].light {
+  --color-bg: #eef3f5;
+  --color-fg: #102027;
+  --color-card: #ffffff;
+  --color-muted: #e2eaee;
+  --color-muted-fg: #5b6b74;
+  --color-border: #cfdce3;
+  --color-accent: #0f766e;
+  --color-on-accent: #f4fffd;
+  --color-ring: #0f766e;
+  --admin-sidebar: #f7fbfc;
+  --admin-rail: #0f766e;
+  --admin-glow-a: color-mix(in srgb, #14b8a6 28%, transparent);
+  --admin-glow-b: color-mix(in srgb, #0ea5e9 18%, transparent);
+  --admin-success: #047857;
+  --admin-danger: #b91c1c;
+}
+
+.admin-shell {
+  position: relative;
+  min-height: 100%;
+  isolation: isolate;
+}
+
+.admin-shell::before,
+.admin-shell::after {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  z-index: 0;
+  border-radius: 999px;
+  filter: blur(72px);
+  opacity: 0.85;
+}
+
+.admin-shell::before {
+  inset-inline-end: -8rem;
+  top: -6rem;
+  width: 22rem;
+  height: 22rem;
+  background: var(--admin-glow-a);
+}
+
+.admin-shell::after {
+  inset-inline-start: -6rem;
+  bottom: 10%;
+  width: 18rem;
+  height: 18rem;
+  background: var(--admin-glow-b);
+}
+
+.admin-mesh {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.45;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-fg) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-fg) 5%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black, transparent);
+}
+
+.admin-panel {
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-card) 92%, transparent);
+  box-shadow:
+    0 1px 0 color-mix(in srgb, white 40%, transparent) inset,
+    0 18px 40px color-mix(in srgb, #102027 6%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+html[data-shell="admin"].dark .admin-panel {
+  box-shadow:
+    0 1px 0 color-mix(in srgb, white 8%, transparent) inset,
+    0 18px 40px color-mix(in srgb, black 35%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-shell="admin"]:not(.light) .admin-panel {
+    box-shadow:
+      0 1px 0 color-mix(in srgb, white 8%, transparent) inset,
+      0 18px 40px color-mix(in srgb, black 35%, transparent);
+  }
+}
+
+.admin-nav-item {
+  position: relative;
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.65rem;
+  border-radius: 0.9rem;
+  padding: 0.65rem 0.8rem;
+  text-align: start;
+  font-size: 0.9rem;
+  color: var(--color-muted-fg);
+  transition:
+    background-color 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+}
+
+.admin-nav-item:hover {
+  background: var(--color-muted);
+  color: var(--color-fg);
+}
+
+.admin-nav-item[data-active="true"] {
+  background: color-mix(in srgb, var(--color-accent) 14%, var(--color-card));
+  color: var(--color-fg);
+  font-weight: 500;
+}
+
+.admin-nav-item[data-active="true"]::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0.2rem;
+  top: 0.55rem;
+  bottom: 0.55rem;
+  width: 0.22rem;
+  border-radius: 999px;
+  background: var(--admin-rail);
+}
+
+.admin-field {
+  width: 100%;
+  border-radius: 0.95rem;
+  border: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-bg) 70%, var(--color-card));
+  padding: 0.65rem 0.85rem;
+  font-size: 0.9rem;
+  color: var(--color-fg);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+}
+
+.admin-field:focus {
+  border-color: color-mix(in srgb, var(--color-accent) 55%, var(--color-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent) 18%, transparent);
+  outline: none;
+}
+
+.admin-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid var(--color-border);
+  background: var(--color-muted);
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--color-muted-fg);
+}

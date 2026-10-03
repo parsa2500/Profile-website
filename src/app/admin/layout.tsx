@@ -1,5 +1,7 @@
 import localFont from "next/font/local";
+import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
+import "./admin.css";
 
 const spaceGrotesk = localFont({
   src: "../../fonts/space-grotesk-latin-wght-normal.woff2",
@@ -34,10 +36,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     <html
       lang="fa"
       dir="rtl"
+      suppressHydrationWarning
+      data-shell="admin"
       data-scroll-behavior="smooth"
       className={`${spaceGrotesk.variable} ${vazirmatn.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-paper text-ink">{children}</body>
+      <body className="min-h-full bg-paper text-ink">
+        <ThemeProvider>
+          <div className="admin-shell">
+            <div className="admin-mesh" aria-hidden="true" />
+            <div className="relative z-10">{children}</div>
+          </div>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

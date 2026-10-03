@@ -8,7 +8,7 @@ export default async function LoginPage() {
   }
 
   return (
-    <main className="grid min-h-full place-items-center px-5 py-16">
+    <main className="grid min-h-full place-items-center px-5 py-16 md:py-24">
       <LoginForm />
     </main>
   );
