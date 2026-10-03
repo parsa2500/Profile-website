@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useSyncExternalStore } from "react";
+import { createContext, useContext, useLayoutEffect, useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 
@@ -22,7 +22,9 @@ function readTheme(): Theme {
 }
 
 function applyTheme(theme: Theme) {
-  document.documentElement.classList.toggle("dark", theme === "dark");
+  const root = document.documentElement;
+  root.classList.toggle("dark", theme === "dark");
+  root.classList.toggle("light", theme === "light");
 }
 
 function subscribe(listener: () => void) {
@@ -61,6 +63,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     readTheme,
     () => "light",
   );
+
+  useLayoutEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
 
   return <ThemeContext.Provider value={theme}>{children}</ThemeContext.Provider>;
 }

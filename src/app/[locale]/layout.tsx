@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages, getTranslations, setRequestLocale } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { ThemeProvider } from "@/components/theme-provider";
+import { getContent } from "@/content/store";
+import { pick } from "@/content/types";
 import { isLocale, routing } from "@/i18n/routing";
 import "../globals.css";
 
@@ -31,6 +33,8 @@ const vazirmatn = localFont({
   display: "swap",
 });
 
+export const dynamic = "force-dynamic";
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -44,11 +48,11 @@ export async function generateMetadata({
   if (!isLocale(locale)) {
     return {};
   }
-  const t = await getTranslations({ locale, namespace: "meta" });
+  const content = await getContent();
 
   return {
-    title: t("title"),
-    description: t("description"),
+    title: pick(content.meta.title, locale),
+    description: pick(content.meta.description, locale),
   };
 }
 
@@ -67,23 +71,19 @@ export default async function LocaleLayout({
 
   setRequestLocale(locale);
   const messages = await getMessages();
+  const content = await getContent();
   const dir = locale === "fa" ? "rtl" : "ltr";
 
   return (
     <html
       lang={locale}
       dir={dir}
+      data-template={content.template}
       suppressHydrationWarning
       className={`${spaceGrotesk.variable} ${vazirmatn.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full">
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){try{var t=localStorage.getItem('theme');var d=t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.classList.toggle('dark',d);}catch(e){}})();",
-          }}
-        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider>{children}</ThemeProvider>
         </NextIntlClientProvider>

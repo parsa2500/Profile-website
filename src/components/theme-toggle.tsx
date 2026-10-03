@@ -1,7 +1,6 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useTranslations } from "next-intl";
 import { useSyncExternalStore } from "react";
 import { setTheme, useTheme } from "./theme-provider";
 
@@ -13,18 +12,23 @@ function useIsClient() {
   );
 }
 
-export function ThemeToggle() {
-  const t = useTranslations("theme");
+export function ThemeToggle({
+  toDark,
+  toLight,
+}: {
+  toDark: string;
+  toLight: string;
+}) {
   const theme = useTheme();
   const mounted = useIsClient();
   const isDark = mounted && theme === "dark";
-  const label = isDark ? t("toLight") : t("toDark");
+  const label = isDark ? toLight : toDark;
 
   return (
     <button
       type="button"
       className="inline-flex size-10 cursor-pointer items-center justify-center rounded-full border border-line bg-card text-ink transition-colors duration-200 hover:border-accent"
-      aria-label={mounted ? label : t("toDark")}
+      aria-label={label}
       onClick={() => setTheme(isDark ? "light" : "dark")}
     >
       {isDark ? (

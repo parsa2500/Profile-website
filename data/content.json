@@ -1,0 +1,559 @@
+{
+  "template": "editorial",
+  "githubUrl": "https://github.com/parsa2500",
+  "githubHandle": "parsa2500",
+  "meta": {
+    "title": {
+      "fa": "پارسا صفارپور — برنامه‌نویس",
+      "en": "Parsa Saffarpour — Developer"
+    },
+    "description": {
+      "fa": "پروفایل پارسا صفارپور، برنامه‌نویس پایتون در مسیر توسعه وب، با هدف فول‌استک.",
+      "en": "Profile of Parsa Saffarpour, a Python developer moving into web development, aiming at full-stack work."
+    }
+  },
+  "nav": {
+    "home": {
+      "fa": "پارسا صفارپور",
+      "en": "Parsa Saffarpour"
+    },
+    "menu": {
+      "fa": "بخش‌های صفحه",
+      "en": "Page sections"
+    },
+    "skip": {
+      "fa": "رفتن به محتوا",
+      "en": "Skip to content"
+    },
+    "about": {
+      "fa": "درباره",
+      "en": "About"
+    },
+    "skills": {
+      "fa": "مهارت‌ها",
+      "en": "Skills"
+    },
+    "experience": {
+      "fa": "تجربه",
+      "en": "Experience"
+    },
+    "projects": {
+      "fa": "پروژه‌ها",
+      "en": "Projects"
+    },
+    "contact": {
+      "fa": "تماس",
+      "en": "Contact"
+    }
+  },
+  "theme": {
+    "toDark": {
+      "fa": "حالت تیره",
+      "en": "Dark mode"
+    },
+    "toLight": {
+      "fa": "حالت روشن",
+      "en": "Light mode"
+    }
+  },
+  "locale": {
+    "switchToEn": {
+      "fa": "English",
+      "en": "English"
+    },
+    "switchToFa": {
+      "fa": "فارسی",
+      "en": "فارسی"
+    }
+  },
+  "hero": {
+    "eyebrow": {
+      "fa": "پروفایل شخصی",
+      "en": "Personal profile"
+    },
+    "name": {
+      "fa": "پارسا صفارپور",
+      "en": "Parsa Saffarpour"
+    },
+    "role": {
+      "fa": "برنامه‌نویس پایتون در مسیر توسعه وب",
+      "en": "Python developer moving into web development"
+    },
+    "summary": {
+      "fa": "هدفم حرکت به سمت فول‌استک است. روی وب‌سایت‌های داینامیک، صفحه‌های ریسپانسیو، و بهتر شدن سرعت و ساختار کد کار کرده‌ام.",
+      "en": "I am working toward full-stack development. I have built dynamic websites, responsive pages, and improvements to load speed and code structure."
+    },
+    "projects": {
+      "fa": "دیدن پروژه‌ها",
+      "en": "View projects"
+    },
+    "contact": {
+      "fa": "راه ارتباطی",
+      "en": "Get in touch"
+    },
+    "locationLabel": {
+      "fa": "شهر",
+      "en": "City"
+    },
+    "location": {
+      "fa": "تهران",
+      "en": "Tehran"
+    },
+    "focusLabel": {
+      "fa": "تمرکز",
+      "en": "Focus"
+    },
+    "focus": {
+      "fa": "پایتون، وب، فول‌استک",
+      "en": "Python, web, full-stack"
+    },
+    "studyLabel": {
+      "fa": "تحصیلات",
+      "en": "Education"
+    },
+    "study": {
+      "fa": "کارشناسی مهندسی کامپیوتر",
+      "en": "B.Sc. Computer Engineering"
+    },
+    "image": "/templates/hero.jpg",
+    "detailImage": "/templates/hero-detail.jpg",
+    "accentImage": "/templates/hero-accent.jpg"
+  },
+  "about": {
+    "image": "/templates/about.jpg",
+    "eyebrow": {
+      "fa": "درباره",
+      "en": "About"
+    },
+    "title": {
+      "fa": "مسیر تا اینجا",
+      "en": "The path so far"
+    },
+    "body": {
+      "fa": "کارشناسی مهندسی کامپیوتر را در دانشگاه آزاد اسلامی، غرب تهران خوانده‌ام. برنامه‌نویسی را با پایتون شروع کردم و بعد سراغ ساخت سایت با HTML، CSS، JavaScript، Bootstrap و وردپرس رفتم.",
+      "en": "I studied computer engineering at Islamic Azad University, West Tehran. I started programming with Python, then built sites with HTML, CSS, JavaScript, Bootstrap, and WordPress."
+    },
+    "educationTitle": {
+      "fa": "تحصیلات",
+      "en": "Education"
+    },
+    "educationBody": {
+      "fa": "کارشناسی مهندسی کامپیوتر، دانشگاه آزاد اسلامی، غرب تهران.",
+      "en": "B.Sc. Computer Engineering, Islamic Azad University, West Tehran."
+    },
+    "englishTitle": {
+      "fa": "انگلیسی",
+      "en": "English"
+    },
+    "englishBody": {
+      "fa": "خواندن، نوشتن، گفتار و شنیدار را بلد هستم و هم‌زمان دوره زبان را می‌گذرانم.",
+      "en": "I can read, write, speak, and listen in English, and I am taking a language course at the same time."
+    }
+  },
+  "skills": {
+    "eyebrow": {
+      "fa": "مهارت‌ها",
+      "en": "Skills"
+    },
+    "title": {
+      "fa": "آنچه با آن کار کرده‌ام",
+      "en": "What I have worked with"
+    },
+    "items": [
+      {
+        "id": "python",
+        "visible": true,
+        "span": "feature",
+        "name": {
+          "fa": "Python",
+          "en": "Python"
+        },
+        "detail": {
+          "fa": "برنامه‌نویسی و ساخت یک بازی.",
+          "en": "Programming, including a small game."
+        }
+      },
+      {
+        "id": "web",
+        "visible": true,
+        "span": "wide",
+        "name": {
+          "fa": "HTML، CSS، JavaScript",
+          "en": "HTML, CSS, JavaScript"
+        },
+        "detail": {
+          "fa": "ساخت و دیزاین صفحه وب.",
+          "en": "Building and designing web pages."
+        }
+      },
+      {
+        "id": "wordpress",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "WordPress",
+          "en": "WordPress"
+        },
+        "detail": {
+          "fa": "ساخت سایت با وردپرس.",
+          "en": "Building a site with WordPress."
+        }
+      },
+      {
+        "id": "bootstrap",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "Bootstrap",
+          "en": "Bootstrap"
+        },
+        "detail": {
+          "fa": "صفحه‌های ریسپانسیو.",
+          "en": "Responsive pages."
+        }
+      },
+      {
+        "id": "photoshop",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "Photoshop",
+          "en": "Photoshop"
+        },
+        "detail": {
+          "fa": "ویرایش تصویر برای وب.",
+          "en": "Image editing for the web."
+        }
+      },
+      {
+        "id": "icdl",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "ICDL",
+          "en": "ICDL"
+        },
+        "detail": {
+          "fa": "مهارت‌های پایه رایانه.",
+          "en": "Core computer skills."
+        }
+      },
+      {
+        "id": "english",
+        "visible": true,
+        "span": "wide",
+        "name": {
+          "fa": "English",
+          "en": "English"
+        },
+        "detail": {
+          "fa": "در حال گذراندن دوره زبان.",
+          "en": "Currently taking a language course."
+        }
+      }
+    ]
+  },
+  "experience": {
+    "eyebrow": {
+      "fa": "تجربه",
+      "en": "Experience"
+    },
+    "title": {
+      "fa": "کارهایی که انجام داده‌ام",
+      "en": "Work I have done"
+    },
+    "items": [
+      {
+        "id": "webIntern",
+        "visible": true,
+        "role": {
+          "fa": "کارآموز توسعه وب",
+          "en": "Web development intern"
+        },
+        "place": {
+          "fa": "تهران",
+          "en": "Tehran"
+        },
+        "period": {
+          "fa": "از فروردین ۱۴۰۲",
+          "en": "From Farvardin 1402"
+        },
+        "points": [
+          {
+            "fa": "توسعه وب‌سایت‌های داینامیک با زبان‌های برنامه‌نویسی، از جمله HTML، CSS و JavaScript.",
+            "en": "Built dynamic websites with programming languages, including HTML, CSS, and JavaScript."
+          },
+          {
+            "fa": "طراحی و پیاده‌سازی صفحه‌های ریسپانسیو با Bootstrap.",
+            "en": "Designed and implemented responsive pages with Bootstrap."
+          },
+          {
+            "fa": "بهتر کردن سرعت بارگذاری، تصاویر و ساختار کد.",
+            "en": "Improved load speed, images, and code structure."
+          }
+        ]
+      },
+      {
+        "id": "seo",
+        "visible": true,
+        "role": {
+          "fa": "کارشناس سئو و مقاله‌نویس",
+          "en": "SEO specialist and article writer"
+        },
+        "place": {
+          "fa": "تهران",
+          "en": "Tehran"
+        },
+        "period": {
+          "fa": "از اسفند ۱۴۰۲",
+          "en": "From Esfand 1402"
+        },
+        "points": [
+          {
+            "fa": "بهینه‌سازی سایت برای موتورهای جستجو.",
+            "en": "Optimized sites for search engines."
+          },
+          {
+            "fa": "نوشتن مقاله.",
+            "en": "Wrote articles."
+          }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": {
+      "fa": "پروژه‌ها",
+      "en": "Projects"
+    },
+    "title": {
+      "fa": "نمونه‌کار",
+      "en": "Selected work"
+    },
+    "intro": {
+      "fa": "سه مورد اول از رزومه است. سه مورد بعد پروژه‌های همین رایانه است و جزئیات خصوصی در آن‌ها نیست.",
+      "en": "The first three come from the resume. The next three are projects on this machine, described without private details."
+    },
+    "resumeGroup": {
+      "fa": "از رزومه",
+      "en": "From the resume"
+    },
+    "recentGroup": {
+      "fa": "کارهای اخیر",
+      "en": "Recent work"
+    },
+    "items": [
+      {
+        "id": "pythonGame",
+        "visible": true,
+        "group": "resume",
+        "title": {
+          "fa": "بازی با پایتون",
+          "en": "Python game"
+        },
+        "meta": {
+          "fa": "تیر ۱۴۰۲ · پروژه دانشجویی",
+          "en": "Tir 1402 · Student project"
+        },
+        "summary": {
+          "fa": "یک بازی ساخته‌شده با پایتون.",
+          "en": "A game built with Python."
+        },
+        "url": "",
+        "image": "/templates/python-game.jpg"
+      },
+      {
+        "id": "wordpress",
+        "visible": true,
+        "group": "resume",
+        "title": {
+          "fa": "سایت وردپرس",
+          "en": "WordPress site"
+        },
+        "meta": {
+          "fa": "شهریور ۱۴۰۲ · پروژه مؤسسه",
+          "en": "Shahrivar 1402 · Institute project"
+        },
+        "summary": {
+          "fa": "ساخت سایت با وردپرس برای یک مؤسسه.",
+          "en": "A WordPress site built for an institute."
+        },
+        "url": "",
+        "image": "/templates/wordpress.jpg"
+      },
+      {
+        "id": "htmlSite",
+        "visible": true,
+        "group": "resume",
+        "title": {
+          "fa": "سایت HTML و CSS",
+          "en": "HTML and CSS site"
+        },
+        "meta": {
+          "fa": "شهریور ۱۴۰۲ · کارفرما",
+          "en": "Shahrivar 1402 · Client"
+        },
+        "summary": {
+          "fa": "دیزاین و ساخت سایت با HTML و CSS.",
+          "en": "A site designed and built with HTML and CSS."
+        },
+        "url": "",
+        "image": "/templates/html-site.jpg"
+      },
+      {
+        "id": "cafePos",
+        "visible": true,
+        "group": "recent",
+        "title": {
+          "fa": "Cafe POS",
+          "en": "Cafe POS"
+        },
+        "meta": {
+          "fa": "پروژه محلی",
+          "en": "Local project"
+        },
+        "summary": {
+          "fa": "سیستم فروش و صندوق برای کافه.",
+          "en": "A point-of-sale system for a cafe."
+        },
+        "url": "",
+        "image": "/templates/cafe-pos.jpg"
+      },
+      {
+        "id": "rag",
+        "visible": true,
+        "group": "recent",
+        "title": {
+          "fa": "RAG Chat",
+          "en": "RAG Chat"
+        },
+        "meta": {
+          "fa": "پروژه محلی",
+          "en": "Local project"
+        },
+        "summary": {
+          "fa": "سرویس چت که پاسخ را با بازیابی از داده می‌سازد.",
+          "en": "A chat service that builds answers by retrieving from data."
+        },
+        "url": "",
+        "image": "/templates/rag-chat.jpg"
+      },
+      {
+        "id": "movahed",
+        "visible": true,
+        "group": "recent",
+        "title": {
+          "fa": "موحد",
+          "en": "Movahed"
+        },
+        "meta": {
+          "fa": "پروژه محلی",
+          "en": "Local project"
+        },
+        "summary": {
+          "fa": "اپلیکیشن موحد.",
+          "en": "The Movahed application."
+        },
+        "url": "",
+        "image": "/templates/movahed.jpg"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": {
+      "fa": "تماس",
+      "en": "Contact"
+    },
+    "title": {
+      "fa": "از گیت‌هاب در ارتباط باشید",
+      "en": "Reach me on GitHub"
+    },
+    "body": {
+      "fa": "ایمیل و تلفن در رزومه خوانا نبود، برای همین اینجا فقط حساب عمومی گیت‌هاب آمده است.",
+      "en": "The email and phone number in the resume were not readable, so only the public GitHub account is listed here."
+    },
+    "action": {
+      "fa": "باز کردن گیت‌هاب",
+      "en": "Open GitHub"
+    }
+  },
+  "footer": {
+    "note": {
+      "fa": "پارسا صفارپور",
+      "en": "Parsa Saffarpour"
+    }
+  },
+  "stats": [
+    {
+      "id": "projects",
+      "visible": true,
+      "value": "۶",
+      "label": {
+        "fa": "پروژه",
+        "en": "Projects"
+      }
+    },
+    {
+      "id": "skills",
+      "visible": true,
+      "value": "۷",
+      "label": {
+        "fa": "مهارت",
+        "en": "Skills"
+      }
+    }
+  ],
+  "customSections": [],
+  "socials": [
+    {
+      "id": "linkedin",
+      "kind": "linkedin",
+      "visible": true,
+      "label": {
+        "fa": "لینکدین",
+        "en": "LinkedIn"
+      },
+      "url": ""
+    },
+    {
+      "id": "instagram",
+      "kind": "instagram",
+      "visible": true,
+      "label": {
+        "fa": "اینستاگرام",
+        "en": "Instagram"
+      },
+      "url": ""
+    },
+    {
+      "id": "telegram",
+      "kind": "telegram",
+      "visible": true,
+      "label": {
+        "fa": "تلگرام",
+        "en": "Telegram"
+      },
+      "url": ""
+    },
+    {
+      "id": "youtube",
+      "kind": "youtube",
+      "visible": true,
+      "label": {
+        "fa": "یوتیوب",
+        "en": "YouTube"
+      },
+      "url": ""
+    },
+    {
+      "id": "website",
+      "kind": "website",
+      "visible": true,
+      "label": {
+        "fa": "وب‌سایت",
+        "en": "Website"
+      },
+      "url": ""
+    }
+  ]
+}

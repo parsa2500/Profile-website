@@ -33,7 +33,23 @@
   --color-ring: var(--blue-600);
 }
 
-.dark {
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-bg: var(--night-950);
+    --color-fg: #f4f4f5;
+    --color-card: var(--night-900);
+    --color-muted: var(--night-800);
+    --color-muted-fg: var(--zinc-400);
+    --color-border: var(--line-dark);
+    --color-accent: var(--blue-500);
+    --color-on-accent: var(--white);
+    --color-ring: var(--blue-500);
+    --glow-a: color-mix(in srgb, #3b82f6 34%, transparent);
+    --glow-b: color-mix(in srgb, #93c5fd 16%, transparent);
+  }
+}
+
+:root.dark {
   --color-bg: var(--night-950);
   --color-fg: #f4f4f5;
   --color-card: var(--night-900);
@@ -43,6 +59,20 @@
   --color-accent: var(--blue-500);
   --color-on-accent: var(--white);
   --color-ring: var(--blue-500);
+  --glow-a: color-mix(in srgb, #3b82f6 34%, transparent);
+  --glow-b: color-mix(in srgb, #93c5fd 16%, transparent);
+}
+
+:root.light {
+  --color-bg: var(--paper-50);
+  --color-fg: var(--ink-950);
+  --color-card: var(--white);
+  --color-muted: var(--zinc-100);
+  --color-muted-fg: var(--zinc-600);
+  --color-border: var(--line-light);
+  --color-accent: var(--blue-600);
+  --color-on-accent: var(--white);
+  --color-ring: var(--blue-600);
 }
 
 /* Component */
@@ -52,6 +82,8 @@
   --card-bg: var(--color-card);
   --card-border: var(--color-border);
   --header-bg: color-mix(in srgb, var(--color-bg) 86%, transparent);
+  --glow-a: color-mix(in srgb, #e7d7b8 72%, transparent);
+  --glow-b: color-mix(in srgb, #2563eb 22%, transparent);
 }
 
 @theme inline {
@@ -72,16 +104,71 @@ html {
   scroll-behavior: smooth;
 }
 
+@media (prefers-color-scheme: dark) {
+  html:not(.light) {
+    color-scheme: dark;
+  }
+}
+
 html.dark {
   color-scheme: dark;
 }
 
+html.light {
+  color-scheme: light;
+}
+
 body {
+  position: relative;
+  z-index: 0;
   background: var(--color-bg);
   color: var(--color-fg);
   transition:
     background-color 200ms ease,
     color 200ms ease;
+}
+
+.atmosphere-grid {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--color-fg) 7%, transparent) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.35;
+}
+
+.pointer-light {
+  background: radial-gradient(
+    420px circle at var(--lx, 50%) var(--ly, 18%),
+    color-mix(in srgb, var(--color-accent) 16%, transparent),
+    transparent 62%
+  );
+}
+
+.glow-a {
+  animation: drift 18s ease-in-out infinite;
+}
+
+.glow-b {
+  animation: drift 24s ease-in-out infinite reverse;
+}
+
+@keyframes drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(28px, -20px, 0);
+  }
+}
+
+.surface-card {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 62%, transparent);
+}
+
+:root.dark .surface-card,
+.dark .surface-card {
+  box-shadow: inset 0 1px 0 color-mix(in srgb, white 14%, transparent);
 }
 
 html[lang="fa"] body {
@@ -90,6 +177,79 @@ html[lang="fa"] body {
 
 html[lang="en"] body {
   font-family: var(--font-latin), sans-serif;
+}
+
+html[data-template="studio"] {
+  --color-bg: #e7e7ee;
+  --color-card: #f4f4f8;
+  --color-accent: #5b4dff;
+  --glow-a: color-mix(in srgb, #c8c6ff 70%, transparent);
+  --glow-b: color-mix(in srgb, #5b4dff 18%, transparent);
+}
+
+html[data-template="studio"].dark,
+html.dark[data-template="studio"] {
+  --color-bg: #0c0c12;
+  --color-fg: #f4f4f5;
+  --color-card: #16161e;
+  --color-muted: #22222c;
+  --color-muted-fg: #a1a1aa;
+  --color-border: #2c2c38;
+  --color-accent: #9b8cff;
+  --glow-a: color-mix(in srgb, #6d5efc 36%, transparent);
+  --glow-b: color-mix(in srgb, #c4b5fd 14%, transparent);
+}
+
+html[data-template="studio"] #top {
+  color: white;
+}
+
+html[data-template="studio"] #top .text-ink,
+html[data-template="studio"] #top h1 {
+  color: white;
+}
+
+html[data-template="studio"] #top .text-muted-fg {
+  color: rgb(255 255 255 / 0.82);
+}
+
+html[data-template="studio"] #top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(to top, rgb(0 0 0 / 0.72), rgb(0 0 0 / 0.2) 55%, rgb(0 0 0 / 0.35));
+}
+
+html[data-template="signal"] {
+  --color-bg: #f6f1e7;
+  --color-fg: #111111;
+  --color-card: #fffdf8;
+  --color-muted: #efe7d8;
+  --color-border: #111111;
+  --color-accent: #e85d04;
+  --color-on-accent: #fffdf8;
+  --glow-a: color-mix(in srgb, #e85d04 16%, transparent);
+  --glow-b: transparent;
+}
+
+html[data-template="signal"].dark,
+html.dark[data-template="signal"] {
+  --color-bg: #090909;
+  --color-fg: #f6f1e7;
+  --color-card: #121212;
+  --color-muted: #1c1c1c;
+  --color-muted-fg: #d6d0c4;
+  --color-border: #f6f1e7;
+  --color-accent: #ff7a1a;
+  --glow-a: color-mix(in srgb, #ff7a1a 22%, transparent);
+  --glow-b: transparent;
+}
+
+html[data-template="signal"] .rounded-3xl,
+html[data-template="signal"] .rounded-\[2rem\],
+html[data-template="signal"] .rounded-full {
+  border-radius: 0;
 }
 
 :focus-visible {
