@@ -3,6 +3,12 @@ export function getSiteUrl() {
   if (fromEnv) {
     return fromEnv.replace(/\/$/, "");
   }
+  if (process.env.URL) {
+    return process.env.URL.replace(/\/$/, "");
+  }
+  if (process.env.DEPLOY_PRIME_URL) {
+    return process.env.DEPLOY_PRIME_URL.replace(/\/$/, "");
+  }
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
   }

@@ -1,0 +1,10 @@
+# Next.js on Netlify uses the OpenNext adapter automatically.
+# Do not pin @netlify/plugin-nextjs; pinning opts out of automatic adapter updates.
+# Docs: https://docs.netlify.com/build/frameworks/framework-setup-guides/nextjs/overview/
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "22"
