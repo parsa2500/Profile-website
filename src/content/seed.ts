@@ -3,11 +3,14 @@ import fa from "../../messages/fa.json";
 import type {
   Copy,
   ExperienceItem,
+  ProductItem,
   ProjectGroup,
   ProjectItem,
   SiteContent,
   SkillItem,
   SkillSpan,
+  TeamDepartment,
+  TeamMember,
 } from "./types";
 
 function copy(faText: string, enText: string): Copy {
@@ -15,34 +18,79 @@ function copy(faText: string, enText: string): Copy {
 }
 
 const skillSpans: Record<string, SkillSpan> = {
-  python: "feature",
+  product: "feature",
   web: "wide",
-  english: "wide",
+  ai: "wide",
 };
 
 const skillOrder = [
-  "python",
+  "product",
   "web",
-  "wordpress",
-  "bootstrap",
-  "photoshop",
-  "icdl",
-  "english",
+  "ai",
+  "research",
+  "sales",
+  "care",
+  "ops",
 ] as const;
 
-const experienceOrder = ["webIntern", "seo"] as const;
+const experienceOrder = ["formed", "products", "delivery"] as const;
 
 const projectOrder: {
   id: keyof typeof fa.projects.items;
   group: ProjectGroup;
   image: string;
 }[] = [
-  { id: "pythonGame", group: "resume", image: "/templates/python-game.jpg" },
-  { id: "wordpress", group: "resume", image: "/templates/wordpress.jpg" },
-  { id: "htmlSite", group: "resume", image: "/templates/html-site.jpg" },
-  { id: "cafePos", group: "recent", image: "/templates/cafe-pos.jpg" },
-  { id: "rag", group: "recent", image: "/templates/rag-chat.jpg" },
-  { id: "movahed", group: "recent", image: "/templates/movahed.jpg" },
+  { id: "cafePos", group: "featured", image: "/templates/cafe-pos.jpg" },
+  { id: "rag", group: "featured", image: "/templates/rag-chat.jpg" },
+  { id: "movahed", group: "featured", image: "/templates/movahed.jpg" },
+  { id: "wordpress", group: "recent", image: "/templates/wordpress.jpg" },
+  { id: "htmlSite", group: "recent", image: "/templates/html-site.jpg" },
+  { id: "pythonGame", group: "recent", image: "/templates/python-game.jpg" },
+];
+
+const productOrder: {
+  id: keyof typeof fa.products.items;
+  image: string;
+}[] = [
+  { id: "pulse", image: "/templates/hero.jpg" },
+  { id: "relay", image: "/templates/cafe-pos.jpg" },
+  { id: "lens", image: "/templates/rag-chat.jpg" },
+  { id: "harbor", image: "/templates/about.jpg" },
+];
+
+const productHighlights: Record<string, Copy[]> = {
+  pulse: [
+    copy("وضعیت تحویل در یک نگاه.", "Delivery status at a glance."),
+    copy("سیگنال پشتیبانی کنار پیشرفت اسپرینت.", "Support signals beside sprint progress."),
+  ],
+  relay: [
+    copy("پیگیری مشترک فروش و مراقبت.", "Shared sales and care follow-up."),
+    copy("یادداشت‌های زنده روی هر سرنخ.", "Live notes on every lead."),
+  ],
+  lens: [
+    copy("بانک بینش قابل جستجو.", "Searchable insight bank."),
+    copy("آزمایش فرضیه با ریتم کوتاه.", "Short-cycle hypothesis tests."),
+  ],
+  harbor: [
+    copy("اولویت‌بندی شفاف تیکت‌ها.", "Clear ticket prioritization."),
+    copy("دانشنامه داخلی تیم.", "Internal team knowledge base."),
+  ],
+};
+
+const memberOrder: {
+  id: keyof typeof fa.team.members;
+  department: TeamDepartment;
+  image: string;
+}[] = [
+  { id: "sara", department: "sales", image: "/templates/hero-detail.jpg" },
+  { id: "nima", department: "sales", image: "/templates/hero-accent.jpg" },
+  { id: "arya", department: "engineering", image: "/templates/hero.jpg" },
+  { id: "leila", department: "engineering", image: "/templates/about.jpg" },
+  { id: "omid", department: "engineering", image: "/templates/html-site.jpg" },
+  { id: "mina", department: "research", image: "/templates/rag-chat.jpg" },
+  { id: "reza", department: "research", image: "/templates/movahed.jpg" },
+  { id: "hana", department: "support", image: "/templates/wordpress.jpg" },
+  { id: "pouya", department: "support", image: "/templates/python-game.jpg" },
 ];
 
 function skills(): SkillItem[] {
@@ -68,6 +116,42 @@ function experience(): ExperienceItem[] {
   }));
 }
 
+const projectStacks: Record<string, string[]> = {
+  pythonGame: ["Python"],
+  wordpress: ["WordPress", "PHP", "CSS"],
+  htmlSite: ["HTML", "CSS"],
+  cafePos: ["TypeScript", "React", "Node.js"],
+  rag: ["Python", "RAG", "LLMs"],
+  movahed: ["Mobile", "Web"],
+};
+
+const projectHighlights: Record<string, Copy[]> = {
+  pythonGame: [
+    copy("منطق بازی و حلقه رویداد با پایتون.", "Game logic and event loop in Python."),
+    copy("نمونه آموزشی از ایده تا اجرا.", "Teaching sample from idea to playable build."),
+  ],
+  wordpress: [
+    copy("راه‌اندازی سایت مؤسسه روی وردپرس.", "Launched an institute site on WordPress."),
+    copy("قالب و محتوای قابل ویرایش.", "Configured theme and editable content."),
+  ],
+  htmlSite: [
+    copy("فرانت استاتیک تمیز.", "Clean static front end."),
+    copy("تمرکز روی ساختار HTML/CSS.", "Focused on clean HTML/CSS structure."),
+  ],
+  cafePos: [
+    copy("جریان فروش، صندوق و سفارش کافه.", "Sales, register, and cafe order flow."),
+    copy("رابط برای کار روزمره پرسنل.", "UI shaped for day-to-day staff use."),
+  ],
+  rag: [
+    copy("پاسخ‌گویی با بازیابی از اسناد.", "Answers grounded in retrieved documents."),
+    copy("خط لوله ingest → retrieve → reply.", "Simple ingest → retrieve → reply pipeline."),
+  ],
+  movahed: [
+    copy("کار روی اپلیکیشن موحد.", "Work on the Movahed application."),
+    copy("هماهنگی وب و تجربه کاربری.", "Coordinated web pieces and UX."),
+  ],
+};
+
 function projects(): ProjectItem[] {
   return projectOrder.map(({ id, group, image }) => ({
     id,
@@ -76,7 +160,34 @@ function projects(): ProjectItem[] {
     title: copy(fa.projects.items[id].title, en.projects.items[id].title),
     meta: copy(fa.projects.items[id].meta, en.projects.items[id].meta),
     summary: copy(fa.projects.items[id].summary, en.projects.items[id].summary),
+    stack: projectStacks[id] ?? [],
+    highlights: projectHighlights[id] ?? [],
     url: "",
+    image,
+  }));
+}
+
+function products(): ProductItem[] {
+  return productOrder.map(({ id, image }) => ({
+    id,
+    visible: true,
+    name: copy(fa.products.items[id].name, en.products.items[id].name),
+    tagline: copy(fa.products.items[id].tagline, en.products.items[id].tagline),
+    summary: copy(fa.products.items[id].summary, en.products.items[id].summary),
+    highlights: productHighlights[id] ?? [],
+    image,
+    url: "",
+  }));
+}
+
+function members(): TeamMember[] {
+  return memberOrder.map(({ id, department, image }) => ({
+    id,
+    visible: true,
+    department,
+    name: copy(fa.team.members[id].name, en.team.members[id].name),
+    role: copy(fa.team.members[id].role, en.team.members[id].role),
+    bio: copy(fa.team.members[id].bio, en.team.members[id].bio),
     image,
   }));
 }
@@ -95,6 +206,8 @@ export function createSeed(): SiteContent {
       menu: copy(fa.nav.menu, en.nav.menu),
       skip: copy(fa.nav.skip, en.nav.skip),
       about: copy(fa.nav.about, en.nav.about),
+      products: copy(fa.nav.products, en.nav.products),
+      team: copy(fa.nav.team, en.nav.team),
       skills: copy(fa.nav.skills, en.nav.skills),
       experience: copy(fa.nav.experience, en.nav.experience),
       projects: copy(fa.nav.projects, en.nav.projects),
@@ -119,8 +232,8 @@ export function createSeed(): SiteContent {
       location: copy(fa.hero.location, en.hero.location),
       focusLabel: copy(fa.hero.focusLabel, en.hero.focusLabel),
       focus: copy(fa.hero.focus, en.hero.focus),
-      studyLabel: copy(fa.hero.studyLabel, en.hero.studyLabel),
-      study: copy(fa.hero.study, en.hero.study),
+      baseLabel: copy(fa.hero.baseLabel, en.hero.baseLabel),
+      base: copy(fa.hero.base, en.hero.base),
       image: "/templates/hero.jpg",
       detailImage: "/templates/hero-detail.jpg",
       accentImage: "/templates/hero-accent.jpg",
@@ -130,10 +243,28 @@ export function createSeed(): SiteContent {
       eyebrow: copy(fa.about.eyebrow, en.about.eyebrow),
       title: copy(fa.about.title, en.about.title),
       body: copy(fa.about.body, en.about.body),
-      educationTitle: copy(fa.about.educationTitle, en.about.educationTitle),
-      educationBody: copy(fa.about.educationBody, en.about.educationBody),
-      englishTitle: copy(fa.about.englishTitle, en.about.englishTitle),
-      englishBody: copy(fa.about.englishBody, en.about.englishBody),
+      valueOneTitle: copy(fa.about.valueOneTitle, en.about.valueOneTitle),
+      valueOneBody: copy(fa.about.valueOneBody, en.about.valueOneBody),
+      valueTwoTitle: copy(fa.about.valueTwoTitle, en.about.valueTwoTitle),
+      valueTwoBody: copy(fa.about.valueTwoBody, en.about.valueTwoBody),
+    },
+    products: {
+      eyebrow: copy(fa.products.eyebrow, en.products.eyebrow),
+      title: copy(fa.products.title, en.products.title),
+      intro: copy(fa.products.intro, en.products.intro),
+      items: products(),
+    },
+    team: {
+      eyebrow: copy(fa.team.eyebrow, en.team.eyebrow),
+      title: copy(fa.team.title, en.team.title),
+      intro: copy(fa.team.intro, en.team.intro),
+      departments: {
+        sales: copy(fa.team.departments.sales, en.team.departments.sales),
+        engineering: copy(fa.team.departments.engineering, en.team.departments.engineering),
+        research: copy(fa.team.departments.research, en.team.departments.research),
+        support: copy(fa.team.departments.support, en.team.departments.support),
+      },
+      members: members(),
     },
     skills: {
       eyebrow: copy(fa.skills.eyebrow, en.skills.eyebrow),
@@ -149,7 +280,7 @@ export function createSeed(): SiteContent {
       eyebrow: copy(fa.projects.eyebrow, en.projects.eyebrow),
       title: copy(fa.projects.title, en.projects.title),
       intro: copy(fa.projects.intro, en.projects.intro),
-      resumeGroup: copy(fa.projects.resumeGroup, en.projects.resumeGroup),
+      featuredGroup: copy(fa.projects.featuredGroup, en.projects.featuredGroup),
       recentGroup: copy(fa.projects.recentGroup, en.projects.recentGroup),
       items: projects(),
     },
@@ -158,21 +289,25 @@ export function createSeed(): SiteContent {
       title: copy(fa.contact.title, en.contact.title),
       body: copy(fa.contact.body, en.contact.body),
       action: copy(fa.contact.action, en.contact.action),
+      emailAction: copy("ارسال ایمیل", "Send email"),
+      email: "",
     },
     footer: {
       note: copy(fa.footer.note, en.footer.note),
     },
     stats: [
-      { id: "projects", visible: true, value: "۶", label: copy("پروژه", "Projects") },
-      { id: "skills", visible: true, value: "۷", label: copy("مهارت", "Skills") },
+      { id: "members", visible: true, value: "9", label: copy("اعضا", "Members") },
+      { id: "depts", visible: true, value: "4", label: copy("دپارتمان", "Departments") },
+      { id: "products", visible: true, value: "4", label: copy("محصول", "Products") },
+      { id: "city", visible: true, value: "تهران", label: copy("شهر", "City") },
     ],
     customSections: [],
     socials: [
-      { id: "linkedin", kind: "linkedin", visible: true, label: copy("لینکدین", "LinkedIn"), url: "" },
-      { id: "instagram", kind: "instagram", visible: true, label: copy("اینستاگرام", "Instagram"), url: "" },
-      { id: "telegram", kind: "telegram", visible: true, label: copy("تلگرام", "Telegram"), url: "" },
-      { id: "youtube", kind: "youtube", visible: true, label: copy("یوتیوب", "YouTube"), url: "" },
-      { id: "website", kind: "website", visible: true, label: copy("وب‌سایت", "Website"), url: "" },
+      { id: "linkedin", kind: "linkedin", visible: false, label: copy("لینکدین", "LinkedIn"), url: "" },
+      { id: "instagram", kind: "instagram", visible: false, label: copy("اینستاگرام", "Instagram"), url: "" },
+      { id: "telegram", kind: "telegram", visible: false, label: copy("تلگرام", "Telegram"), url: "" },
+      { id: "youtube", kind: "youtube", visible: false, label: copy("یوتیوب", "YouTube"), url: "" },
+      { id: "website", kind: "website", visible: false, label: copy("وب‌سایت", "Website"), url: "" },
     ],
   };
 }

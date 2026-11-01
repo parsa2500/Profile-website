@@ -224,3 +224,30 @@ export function Marquee({ text }: { text: string }) {
     </div>
   );
 }
+
+/** Apple-like scroll fade/scale for section headlines and focal blocks. */
+export function StickyReveal({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start 85%", "start 35%"],
+  });
+  const opacity = useTransform(scrollYProgress, [0, 1], [0.35, 1]);
+  const y = useTransform(scrollYProgress, [0, 1], [36, 0]);
+  const scale = useTransform(scrollYProgress, [0, 1], [0.985, 1]);
+
+  if (reduce) return <div className={className}>{children}</div>;
+
+  return (
+    <motion.div ref={ref} className={className} style={{ opacity, y, scale }}>
+      {children}
+    </motion.div>
+  );
+}

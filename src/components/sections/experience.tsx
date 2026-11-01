@@ -14,7 +14,7 @@ export async function Experience() {
       <div className="mx-auto w-full max-w-6xl px-5 py-20 md:px-8 md:py-28">
         <Reveal>
           <p className="text-sm text-accent">{pick(experience.eyebrow, locale)}</p>
-          <h2 className="mt-3 text-3xl font-medium tracking-tight md:text-4xl">
+          <h2 className="mt-3 text-4xl font-medium tracking-tight md:text-5xl">
             {pick(experience.title, locale)}
           </h2>
           <ExperienceTrack>

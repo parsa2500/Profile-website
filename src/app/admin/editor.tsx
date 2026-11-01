@@ -8,25 +8,38 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
+  Eye,
   FolderKanban,
   Info,
   LayoutDashboard,
   Link2,
   LogOut,
   Mail,
+  Package,
   Palette,
   Plus,
   Save,
   Sparkles,
   Trash2,
+  Upload,
   UserRound,
+  Users,
   Wrench,
   type LucideIcon,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import type { Copy, ExperienceItem, ProjectItem, SiteContent, SkillItem } from "@/content/types";
-import { logout, updateContent } from "./actions";
+import type {
+  Copy,
+  ExperienceItem,
+  ProductItem,
+  ProjectItem,
+  SiteContent,
+  SkillItem,
+  TeamDepartment,
+  TeamMember,
+} from "@/content/types";
+import { logout, updateContent, uploadImage } from "./actions";
 
 type PanelId =
   | "overview"
@@ -34,13 +47,16 @@ type PanelId =
   | "identity"
   | "hero"
   | "about"
+  | "products"
+  | "team"
   | "skills"
   | "experience"
   | "projects"
   | "stats"
   | "custom"
   | "links"
-  | "contact";
+  | "contact"
+  | "preview";
 
 const panels: { id: PanelId; label: string; icon: LucideIcon }[] = [
   { id: "overview", label: "نمای کلی", icon: LayoutDashboard },
@@ -48,6 +64,8 @@ const panels: { id: PanelId; label: string; icon: LucideIcon }[] = [
   { id: "identity", label: "هویت", icon: UserRound },
   { id: "hero", label: "معرفی", icon: Sparkles },
   { id: "about", label: "درباره", icon: Info },
+  { id: "products", label: "محصولات", icon: Package },
+  { id: "team", label: "تیم", icon: Users },
   { id: "skills", label: "مهارت‌ها", icon: Wrench },
   { id: "experience", label: "تجربه", icon: Briefcase },
   { id: "projects", label: "پروژه‌ها", icon: FolderKanban },
@@ -55,6 +73,7 @@ const panels: { id: PanelId; label: string; icon: LucideIcon }[] = [
   { id: "custom", label: "بخش سفارشی", icon: Blocks },
   { id: "links", label: "لینک‌ها", icon: Link2 },
   { id: "contact", label: "تماس", icon: Mail },
+  { id: "preview", label: "پیش‌نمایش", icon: Eye },
 ];
 
 function emptyCopy(): Copy {
@@ -212,16 +231,85 @@ function ItemCard({ children }: { children: ReactNode }) {
   return <article className="grid gap-3 rounded-2xl border border-line bg-paper/50 p-4">{children}</article>;
 }
 
+function ImageField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function onFile(file: File | undefined) {
+    if (!file) return;
+    setUploading(true);
+    setError("");
+    const formData = new FormData();
+    formData.set("file", file);
+    const result = await uploadImage(formData);
+    setUploading(false);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    onChange(result.path);
+  }
+
+  return (
+    <label className="grid gap-2 text-sm">
+      {label}
+      <input
+        className="admin-field"
+        dir="ltr"
+        value={value}
+        placeholder="/templates/... or /uploads/..."
+        onChange={(event) => onChange(event.target.value)}
+      />
+      <div className="flex flex-wrap items-center gap-2">
+        <label className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-muted px-3 text-sm">
+          <Upload className="size-4" />
+          {uploading ? "در حال آپلود…" : "آپلود تصویر"}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            className="sr-only"
+            disabled={uploading}
+            onChange={(event) => {
+              void onFile(event.target.files?.[0]);
+              event.target.value = "";
+            }}
+          />
+        </label>
+        {value ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={value} alt="" className="h-10 w-16 rounded-lg border border-line object-cover" />
+        ) : null}
+      </div>
+      {error ? <p className="text-sm text-[color:var(--admin-danger)]">{error}</p> : null}
+    </label>
+  );
+}
+
 export function Editor({ initial }: { initial: SiteContent }) {
   const [draft, setDraft] = useState<SiteContent>({
     ...initial,
     stats: initial.stats ?? [],
     customSections: initial.customSections ?? [],
     socials: initial.socials ?? [],
+    contact: {
+      ...initial.contact,
+      email: initial.contact.email ?? "",
+      emailAction: initial.contact.emailAction ?? emptyCopy(),
+    },
   });
   const [status, setStatus] = useState("");
   const [pending, setPending] = useState(false);
   const [panel, setPanel] = useState<PanelId>("overview");
+  const [previewLocale, setPreviewLocale] = useState<"fa" | "en">("fa");
+  const [previewKey, setPreviewKey] = useState(0);
 
   function patch(partial: Partial<SiteContent>) {
     setDraft((current) => ({ ...current, ...partial }));
@@ -245,12 +333,27 @@ export function Editor({ initial }: { initial: SiteContent }) {
     patch({ projects: { ...draft.projects, items } });
   }
 
+  function updateProduct(index: number, partial: Partial<ProductItem>) {
+    const items = draft.products.items.slice();
+    items[index] = { ...items[index], ...partial };
+    patch({ products: { ...draft.products, items } });
+  }
+
+  function updateMember(index: number, partial: Partial<TeamMember>) {
+    const members = draft.team.members.slice();
+    members[index] = { ...members[index], ...partial };
+    patch({ team: { ...draft.team, members } });
+  }
+
   async function onSave() {
     setPending(true);
     setStatus("");
     const result = await updateContent(draft);
     setPending(false);
     setStatus(result.ok ? "ذخیره شد." : result.error);
+    if (result.ok) {
+      setPreviewKey((current) => current + 1);
+    }
   }
 
   const active = panels.find((item) => item.id === panel) ?? panels[0];
@@ -380,12 +483,13 @@ export function Editor({ initial }: { initial: SiteContent }) {
 
         {panel === "template" ? (
           <PanelCard title="قالب" hint="ظاهر کلی سایت عمومی را انتخاب کنید.">
-            <div className="grid gap-3 sm:grid-cols-3">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
               {(
                 [
                   ["editorial", "تحریریه", "عکس کنار نام و کارت‌های نرم"],
                   ["studio", "استودیو", "هیرو تمام‌عرض و ردیف عکس"],
                   ["signal", "سیگنال", "گوشه تیز و فهرست خطی"],
+                  ["cinematic", "سینمایی", "اسکرول پین‌شده و باز شدن صحنه"],
                 ] as const
               ).map(([id, title, detail]) => (
                 <button
@@ -463,8 +567,8 @@ export function Editor({ initial }: { initial: SiteContent }) {
                 ["location", "شهر"],
                 ["focusLabel", "برچسب تمرکز"],
                 ["focus", "تمرکز"],
-                ["studyLabel", "برچسب تحصیلات"],
-                ["study", "تحصیلات"],
+                ["baseLabel", "برچسب پایگاه"],
+                ["base", "پایگاه"],
               ] as const
             ).map(([key, label]) => (
               <BilingualField
@@ -480,37 +584,21 @@ export function Editor({ initial }: { initial: SiteContent }) {
               value={draft.hero.summary}
               onChange={(summary) => patch({ hero: { ...draft.hero, summary } })}
             />
-            <label className="grid gap-2 text-sm">
-              عکس اصلی
-              <input
-                className="admin-field"
-                dir="ltr"
-                value={draft.hero.image}
-                onChange={(event) => patch({ hero: { ...draft.hero, image: event.target.value } })}
-              />
-            </label>
-            <label className="grid gap-2 text-sm">
-              عکس کوچک بالا
-              <input
-                className="admin-field"
-                dir="ltr"
-                value={draft.hero.detailImage}
-                onChange={(event) =>
-                  patch({ hero: { ...draft.hero, detailImage: event.target.value } })
-                }
-              />
-            </label>
-            <label className="grid gap-2 text-sm">
-              عکس کوچک پایین
-              <input
-                className="admin-field"
-                dir="ltr"
-                value={draft.hero.accentImage}
-                onChange={(event) =>
-                  patch({ hero: { ...draft.hero, accentImage: event.target.value } })
-                }
-              />
-            </label>
+            <ImageField
+              label="عکس اصلی"
+              value={draft.hero.image}
+              onChange={(image) => patch({ hero: { ...draft.hero, image } })}
+            />
+            <ImageField
+              label="عکس کوچک بالا"
+              value={draft.hero.detailImage}
+              onChange={(detailImage) => patch({ hero: { ...draft.hero, detailImage } })}
+            />
+            <ImageField
+              label="عکس کوچک پایین"
+              value={draft.hero.accentImage}
+              onChange={(accentImage) => patch({ hero: { ...draft.hero, accentImage } })}
+            />
           </PanelCard>
         ) : null}
 
@@ -519,6 +607,8 @@ export function Editor({ initial }: { initial: SiteContent }) {
             {(
               [
                 ["about", "درباره"],
+                ["products", "محصولات"],
+                ["team", "تیم"],
                 ["skills", "مهارت‌ها"],
                 ["experience", "تجربه"],
                 ["projects", "پروژه‌ها"],
@@ -532,15 +622,11 @@ export function Editor({ initial }: { initial: SiteContent }) {
                 onChange={(value) => patch({ nav: { ...draft.nav, [key]: value } })}
               />
             ))}
-            <label className="grid gap-2 text-sm">
-              عکس درباره
-              <input
-                className="admin-field"
-                dir="ltr"
-                value={draft.about.image}
-                onChange={(event) => patch({ about: { ...draft.about, image: event.target.value } })}
-              />
-            </label>
+            <ImageField
+              label="عکس درباره"
+              value={draft.about.image}
+              onChange={(image) => patch({ about: { ...draft.about, image } })}
+            />
             <BilingualField
               label="عنوان درباره"
               value={draft.about.title}
@@ -553,27 +639,303 @@ export function Editor({ initial }: { initial: SiteContent }) {
               onChange={(body) => patch({ about: { ...draft.about, body } })}
             />
             <BilingualField
-              label="عنوان تحصیلات"
-              value={draft.about.educationTitle}
-              onChange={(educationTitle) => patch({ about: { ...draft.about, educationTitle } })}
+              label="عنوان ارزش ۱"
+              value={draft.about.valueOneTitle}
+              onChange={(valueOneTitle) => patch({ about: { ...draft.about, valueOneTitle } })}
             />
             <BilingualField
-              label="متن تحصیلات"
+              label="متن ارزش ۱"
               multiline
-              value={draft.about.educationBody}
-              onChange={(educationBody) => patch({ about: { ...draft.about, educationBody } })}
+              value={draft.about.valueOneBody}
+              onChange={(valueOneBody) => patch({ about: { ...draft.about, valueOneBody } })}
             />
             <BilingualField
-              label="عنوان انگلیسی"
-              value={draft.about.englishTitle}
-              onChange={(englishTitle) => patch({ about: { ...draft.about, englishTitle } })}
+              label="عنوان ارزش ۲"
+              value={draft.about.valueTwoTitle}
+              onChange={(valueTwoTitle) => patch({ about: { ...draft.about, valueTwoTitle } })}
             />
             <BilingualField
-              label="متن انگلیسی"
+              label="متن ارزش ۲"
               multiline
-              value={draft.about.englishBody}
-              onChange={(englishBody) => patch({ about: { ...draft.about, englishBody } })}
+              value={draft.about.valueTwoBody}
+              onChange={(valueTwoBody) => patch({ about: { ...draft.about, valueTwoBody } })}
             />
+          </PanelCard>
+        ) : null}
+
+        {panel === "products" ? (
+          <PanelCard
+            title="محصولات"
+            action={
+              <AddButton
+                label="افزودن محصول"
+                onClick={() =>
+                  patch({
+                    products: {
+                      ...draft.products,
+                      items: [
+                        ...draft.products.items,
+                        {
+                          id: `product-${crypto.randomUUID()}`,
+                          visible: true,
+                          name: emptyCopy(),
+                          tagline: emptyCopy(),
+                          summary: emptyCopy(),
+                          highlights: [emptyCopy()],
+                          image: "",
+                          url: "",
+                        },
+                      ],
+                    },
+                  })
+                }
+              />
+            }
+          >
+            <BilingualField
+              label="عنوان بخش"
+              value={draft.products.title}
+              onChange={(title) => patch({ products: { ...draft.products, title } })}
+            />
+            <BilingualField
+              label="مقدمه"
+              multiline
+              value={draft.products.intro}
+              onChange={(intro) => patch({ products: { ...draft.products, intro } })}
+            />
+            {draft.products.items.map((item, index) => (
+              <ItemCard key={item.id}>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={item.visible}
+                      onChange={(event) => updateProduct(index, { visible: event.target.checked })}
+                    />
+                    نمایش
+                  </label>
+                  <RowActions
+                    index={index}
+                    length={draft.products.items.length}
+                    onMove={(direction) =>
+                      patch({
+                        products: {
+                          ...draft.products,
+                          items: moveItem(draft.products.items, index, direction),
+                        },
+                      })
+                    }
+                    onRemove={() =>
+                      patch({
+                        products: {
+                          ...draft.products,
+                          items: draft.products.items.filter((_, itemIndex) => itemIndex !== index),
+                        },
+                      })
+                    }
+                  />
+                </div>
+                <label className="grid gap-2 text-sm">
+                  لینک
+                  <input
+                    className="admin-field"
+                    dir="ltr"
+                    value={item.url}
+                    onChange={(event) => updateProduct(index, { url: event.target.value })}
+                  />
+                </label>
+                <ImageField
+                  label="تصویر"
+                  value={item.image}
+                  onChange={(image) => updateProduct(index, { image })}
+                />
+                <BilingualField
+                  label="نام"
+                  value={item.name}
+                  onChange={(name) => updateProduct(index, { name })}
+                />
+                <BilingualField
+                  label="شعار"
+                  value={item.tagline}
+                  onChange={(tagline) => updateProduct(index, { tagline })}
+                />
+                <BilingualField
+                  label="خلاصه"
+                  multiline
+                  value={item.summary}
+                  onChange={(summary) => updateProduct(index, { summary })}
+                />
+                {item.highlights.map((highlight, highlightIndex) => (
+                  <div key={`${item.id}-highlight-${highlightIndex}`} className="grid gap-2">
+                    <BilingualField
+                      label={`نکته برجسته ${highlightIndex + 1}`}
+                      value={highlight}
+                      onChange={(nextHighlight) => {
+                        const highlights = item.highlights.slice();
+                        highlights[highlightIndex] = nextHighlight;
+                        updateProduct(index, { highlights });
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="cursor-pointer justify-self-start text-sm text-[color:var(--admin-danger)]"
+                      onClick={() =>
+                        updateProduct(index, {
+                          highlights: item.highlights.filter((_, current) => current !== highlightIndex),
+                        })
+                      }
+                    >
+                      حذف نکته
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="cursor-pointer justify-self-start text-sm text-accent"
+                  onClick={() =>
+                    updateProduct(index, { highlights: [...item.highlights, emptyCopy()] })
+                  }
+                >
+                  افزودن نکته برجسته
+                </button>
+              </ItemCard>
+            ))}
+          </PanelCard>
+        ) : null}
+
+        {panel === "team" ? (
+          <PanelCard
+            title="تیم"
+            action={
+              <AddButton
+                label="افزودن عضو"
+                onClick={() =>
+                  patch({
+                    team: {
+                      ...draft.team,
+                      members: [
+                        ...draft.team.members,
+                        {
+                          id: `member-${crypto.randomUUID()}`,
+                          visible: true,
+                          department: "engineering",
+                          name: emptyCopy(),
+                          role: emptyCopy(),
+                          bio: emptyCopy(),
+                          image: "",
+                        },
+                      ],
+                    },
+                  })
+                }
+              />
+            }
+          >
+            <BilingualField
+              label="عنوان بخش"
+              value={draft.team.title}
+              onChange={(title) => patch({ team: { ...draft.team, title } })}
+            />
+            <BilingualField
+              label="مقدمه"
+              multiline
+              value={draft.team.intro}
+              onChange={(intro) => patch({ team: { ...draft.team, intro } })}
+            />
+            {(
+              [
+                ["sales", "فروش"],
+                ["engineering", "مهندسی"],
+                ["research", "تحقیق و توسعه"],
+                ["support", "پشتیبانی"],
+              ] as const
+            ).map(([key, label]) => (
+              <BilingualField
+                key={key}
+                label={`برچسب بخش: ${label}`}
+                value={draft.team.departments[key]}
+                onChange={(value) =>
+                  patch({
+                    team: {
+                      ...draft.team,
+                      departments: { ...draft.team.departments, [key]: value },
+                    },
+                  })
+                }
+              />
+            ))}
+            {draft.team.members.map((item, index) => (
+              <ItemCard key={item.id}>
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <label className="flex items-center gap-2 text-sm">
+                    <input
+                      type="checkbox"
+                      checked={item.visible}
+                      onChange={(event) => updateMember(index, { visible: event.target.checked })}
+                    />
+                    نمایش
+                  </label>
+                  <RowActions
+                    index={index}
+                    length={draft.team.members.length}
+                    onMove={(direction) =>
+                      patch({
+                        team: {
+                          ...draft.team,
+                          members: moveItem(draft.team.members, index, direction),
+                        },
+                      })
+                    }
+                    onRemove={() =>
+                      patch({
+                        team: {
+                          ...draft.team,
+                          members: draft.team.members.filter((_, itemIndex) => itemIndex !== index),
+                        },
+                      })
+                    }
+                  />
+                </div>
+                <label className="grid gap-2 text-sm">
+                  بخش
+                  <select
+                    className="admin-field"
+                    value={item.department}
+                    onChange={(event) =>
+                      updateMember(index, {
+                        department: event.target.value as TeamDepartment,
+                      })
+                    }
+                  >
+                    <option value="sales">فروش</option>
+                    <option value="engineering">مهندسی</option>
+                    <option value="research">تحقیق و توسعه</option>
+                    <option value="support">پشتیبانی</option>
+                  </select>
+                </label>
+                <ImageField
+                  label="تصویر"
+                  value={item.image}
+                  onChange={(image) => updateMember(index, { image })}
+                />
+                <BilingualField
+                  label="نام"
+                  value={item.name}
+                  onChange={(name) => updateMember(index, { name })}
+                />
+                <BilingualField
+                  label="نقش"
+                  value={item.role}
+                  onChange={(role) => updateMember(index, { role })}
+                />
+                <BilingualField
+                  label="بیو"
+                  multiline
+                  value={item.bio}
+                  onChange={(bio) => updateMember(index, { bio })}
+                />
+              </ItemCard>
+            ))}
           </PanelCard>
         ) : null}
 
@@ -807,6 +1169,8 @@ export function Editor({ initial }: { initial: SiteContent }) {
                           title: emptyCopy(),
                           meta: emptyCopy(),
                           summary: emptyCopy(),
+                          stack: [],
+                          highlights: [emptyCopy()],
                           url: "",
                           image: "/templates/html-site.jpg",
                         },
@@ -829,9 +1193,9 @@ export function Editor({ initial }: { initial: SiteContent }) {
               onChange={(intro) => patch({ projects: { ...draft.projects, intro } })}
             />
             <BilingualField
-              label="عنوان گروه رزومه"
-              value={draft.projects.resumeGroup}
-              onChange={(resumeGroup) => patch({ projects: { ...draft.projects, resumeGroup } })}
+              label="عنوان گروه ویژه"
+              value={draft.projects.featuredGroup}
+              onChange={(featuredGroup) => patch({ projects: { ...draft.projects, featuredGroup } })}
             />
             <BilingualField
               label="عنوان کارهای اخیر"
@@ -879,8 +1243,8 @@ export function Editor({ initial }: { initial: SiteContent }) {
                       updateProject(index, { group: event.target.value as ProjectItem["group"] })
                     }
                   >
-                    <option value="resume">از رزومه</option>
-                    <option value="recent">کارهای اخیر</option>
+                    <option value="featured">ویژه</option>
+                    <option value="recent">اخیر</option>
                   </select>
                 </label>
                 <label className="grid gap-2 text-sm">
@@ -892,15 +1256,11 @@ export function Editor({ initial }: { initial: SiteContent }) {
                     onChange={(event) => updateProject(index, { url: event.target.value })}
                   />
                 </label>
-                <label className="grid gap-2 text-sm">
-                  تصویر
-                  <input
-                    className="admin-field"
-                    dir="ltr"
-                    value={item.image}
-                    onChange={(event) => updateProject(index, { image: event.target.value })}
-                  />
-                </label>
+                <ImageField
+                  label="تصویر"
+                  value={item.image}
+                  onChange={(image) => updateProject(index, { image })}
+                />
                 <BilingualField
                   label="عنوان"
                   value={item.title}
@@ -917,6 +1277,60 @@ export function Editor({ initial }: { initial: SiteContent }) {
                   value={item.summary}
                   onChange={(summary) => updateProject(index, { summary })}
                 />
+                <label className="grid gap-2 text-sm">
+                  تکنولوژی‌ها (با ویرگول)
+                  <input
+                    className="admin-field"
+                    dir="ltr"
+                    value={(item.stack ?? []).join(", ")}
+                    placeholder="Python, React"
+                    onChange={(event) =>
+                      updateProject(index, {
+                        stack: event.target.value
+                          .split(",")
+                          .map((entry) => entry.trim())
+                          .filter(Boolean),
+                      })
+                    }
+                  />
+                </label>
+                {(item.highlights ?? []).map((highlight, highlightIndex) => (
+                  <div key={`${item.id}-highlight-${highlightIndex}`} className="grid gap-2">
+                    <BilingualField
+                      label={`نکته برجسته ${highlightIndex + 1}`}
+                      value={highlight}
+                      onChange={(nextHighlight) => {
+                        const highlights = (item.highlights ?? []).slice();
+                        highlights[highlightIndex] = nextHighlight;
+                        updateProject(index, { highlights });
+                      }}
+                    />
+                    <button
+                      type="button"
+                      className="cursor-pointer justify-self-start text-sm text-[color:var(--admin-danger)]"
+                      onClick={() =>
+                        updateProject(index, {
+                          highlights: (item.highlights ?? []).filter(
+                            (_, current) => current !== highlightIndex,
+                          ),
+                        })
+                      }
+                    >
+                      حذف نکته
+                    </button>
+                  </div>
+                ))}
+                <button
+                  type="button"
+                  className="cursor-pointer justify-self-start text-sm text-accent"
+                  onClick={() =>
+                    updateProject(index, {
+                      highlights: [...(item.highlights ?? []), emptyCopy()],
+                    })
+                  }
+                >
+                  افزودن نکته برجسته
+                </button>
               </ItemCard>
             ))}
           </PanelCard>
@@ -1075,19 +1489,15 @@ export function Editor({ initial }: { initial: SiteContent }) {
                     patch({ customSections });
                   }}
                 />
-                <label className="grid gap-2 text-sm">
-                  تصویر
-                  <input
-                    className="admin-field"
-                    dir="ltr"
-                    value={item.image}
-                    onChange={(event) => {
-                      const customSections = draft.customSections.slice();
-                      customSections[index] = { ...item, image: event.target.value };
-                      patch({ customSections });
-                    }}
-                  />
-                </label>
+                <ImageField
+                  label="تصویر"
+                  value={item.image}
+                  onChange={(image) => {
+                    const customSections = draft.customSections.slice();
+                    customSections[index] = { ...item, image };
+                    patch({ customSections });
+                  }}
+                />
               </ItemCard>
             ))}
           </PanelCard>
@@ -1196,7 +1606,10 @@ export function Editor({ initial }: { initial: SiteContent }) {
         ) : null}
 
         {panel === "contact" ? (
-          <PanelCard title="تماس">
+          <PanelCard
+            title="تماس"
+            hint="ایمیل را پر کنید تا دکمه ارسال ایمیل روی سایت نمایش داده شود. لینک‌های خالی سوشال مخفی می‌مانند."
+          >
             <BilingualField
               label="عنوان"
               value={draft.contact.title}
@@ -1208,10 +1621,64 @@ export function Editor({ initial }: { initial: SiteContent }) {
               value={draft.contact.body}
               onChange={(body) => patch({ contact: { ...draft.contact, body } })}
             />
+            <label className="grid gap-2 text-sm">
+              ایمیل
+              <input
+                className="admin-field"
+                dir="ltr"
+                type="email"
+                value={draft.contact.email ?? ""}
+                placeholder="you@example.com"
+                onChange={(event) =>
+                  patch({ contact: { ...draft.contact, email: event.target.value } })
+                }
+              />
+            </label>
             <BilingualField
-              label="دکمه"
+              label="دکمه ایمیل"
+              value={draft.contact.emailAction}
+              onChange={(emailAction) => patch({ contact: { ...draft.contact, emailAction } })}
+            />
+            <BilingualField
+              label="دکمه گیت‌هاب"
               value={draft.contact.action}
               onChange={(action) => patch({ contact: { ...draft.contact, action } })}
+            />
+          </PanelCard>
+        ) : null}
+
+        {panel === "preview" ? (
+          <PanelCard
+            title="پیش‌نمایش سایت"
+            hint="بعد از ذخیره، پیش‌نمایش به‌روز می‌شود. تغییرات ذخیره‌نشده اینجا دیده نمی‌شوند."
+            action={
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  className={`inline-flex h-10 cursor-pointer items-center rounded-full border px-3 text-sm ${
+                    previewLocale === "fa" ? "border-accent bg-accent text-on-accent" : "border-line"
+                  }`}
+                  onClick={() => setPreviewLocale("fa")}
+                >
+                  فارسی
+                </button>
+                <button
+                  type="button"
+                  className={`inline-flex h-10 cursor-pointer items-center rounded-full border px-3 text-sm ${
+                    previewLocale === "en" ? "border-accent bg-accent text-on-accent" : "border-line"
+                  }`}
+                  onClick={() => setPreviewLocale("en")}
+                >
+                  English
+                </button>
+              </div>
+            }
+          >
+            <iframe
+              key={`${previewLocale}-${previewKey}`}
+              title="Site preview"
+              src={previewLocale === "fa" ? "/" : "/en"}
+              className="h-[70vh] w-full rounded-2xl border border-line bg-paper"
             />
           </PanelCard>
         ) : null}

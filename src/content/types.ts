@@ -8,7 +8,8 @@ export function pick(copy: Copy, locale: string) {
 }
 
 export type SkillSpan = "feature" | "wide" | "normal";
-export type ProjectGroup = "resume" | "recent";
+export type ProjectGroup = "featured" | "recent";
+export type TeamDepartment = "sales" | "engineering" | "research" | "support";
 
 export type SkillItem = {
   id: string;
@@ -34,7 +35,30 @@ export type ProjectItem = {
   title: Copy;
   meta: Copy;
   summary: Copy;
+  stack: string[];
+  highlights: Copy[];
   url: string;
+  image: string;
+};
+
+export type ProductItem = {
+  id: string;
+  visible: boolean;
+  name: Copy;
+  tagline: Copy;
+  summary: Copy;
+  highlights: Copy[];
+  image: string;
+  url: string;
+};
+
+export type TeamMember = {
+  id: string;
+  visible: boolean;
+  department: TeamDepartment;
+  name: Copy;
+  role: Copy;
+  bio: Copy;
   image: string;
 };
 
@@ -69,7 +93,7 @@ export type SocialLink = {
   url: string;
 };
 
-export type SiteTemplate = "editorial" | "studio" | "signal";
+export type SiteTemplate = "editorial" | "studio" | "signal" | "cinematic";
 
 export type SiteContent = {
   template: SiteTemplate;
@@ -81,6 +105,8 @@ export type SiteContent = {
     menu: Copy;
     skip: Copy;
     about: Copy;
+    products: Copy;
+    team: Copy;
     skills: Copy;
     experience: Copy;
     projects: Copy;
@@ -99,8 +125,8 @@ export type SiteContent = {
     location: Copy;
     focusLabel: Copy;
     focus: Copy;
-    studyLabel: Copy;
-    study: Copy;
+    baseLabel: Copy;
+    base: Copy;
     image: string;
     detailImage: string;
     accentImage: string;
@@ -110,10 +136,28 @@ export type SiteContent = {
     eyebrow: Copy;
     title: Copy;
     body: Copy;
-    educationTitle: Copy;
-    educationBody: Copy;
-    englishTitle: Copy;
-    englishBody: Copy;
+    valueOneTitle: Copy;
+    valueOneBody: Copy;
+    valueTwoTitle: Copy;
+    valueTwoBody: Copy;
+  };
+  products: {
+    eyebrow: Copy;
+    title: Copy;
+    intro: Copy;
+    items: ProductItem[];
+  };
+  team: {
+    eyebrow: Copy;
+    title: Copy;
+    intro: Copy;
+    departments: {
+      sales: Copy;
+      engineering: Copy;
+      research: Copy;
+      support: Copy;
+    };
+    members: TeamMember[];
   };
   skills: { eyebrow: Copy; title: Copy; items: SkillItem[] };
   experience: { eyebrow: Copy; title: Copy; items: ExperienceItem[] };
@@ -121,11 +165,18 @@ export type SiteContent = {
     eyebrow: Copy;
     title: Copy;
     intro: Copy;
-    resumeGroup: Copy;
+    featuredGroup: Copy;
     recentGroup: Copy;
     items: ProjectItem[];
   };
-  contact: { eyebrow: Copy; title: Copy; body: Copy; action: Copy };
+  contact: {
+    eyebrow: Copy;
+    title: Copy;
+    body: Copy;
+    action: Copy;
+    emailAction: Copy;
+    email: string;
+  };
   footer: { note: Copy };
   stats: StatItem[];
   customSections: CustomSection[];

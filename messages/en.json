@@ -1,17 +1,19 @@
 {
   "meta": {
-    "title": "Parsa Saffarpour — Developer",
-    "description": "Profile of Parsa Saffarpour, a Python developer moving into web development, aiming at full-stack work."
+    "title": "Auto team — product & delivery team",
+    "description": "Team profile for Auto team: products, projects, departments, and ways to get in touch."
   },
   "nav": {
-    "about": "About",
-    "skills": "Skills",
-    "experience": "Experience",
+    "about": "Mission",
+    "products": "Products",
+    "team": "Team",
+    "skills": "Capabilities",
+    "experience": "Path",
     "projects": "Projects",
     "contact": "Contact",
     "skip": "Skip to content",
     "menu": "Page sections",
-    "home": "Parsa Saffarpour"
+    "home": "Auto team"
   },
   "theme": {
     "toDark": "Dark mode",
@@ -22,133 +24,226 @@
     "switchToFa": "فارسی"
   },
   "hero": {
-    "eyebrow": "Personal profile",
-    "name": "Parsa Saffarpour",
-    "role": "Python developer moving into web development",
-    "summary": "I am working toward full-stack development. I have built dynamic websites, responsive pages, and improvements to load speed and code structure.",
-    "projects": "View projects",
+    "eyebrow": "Team profile",
+    "name": "Auto team",
+    "role": "Product, research, and care in one rhythm",
+    "summary": "From idea to delivery: sales, engineering, research, and support work together so what we ship feels clear and fast — especially on mobile.",
+    "projects": "See products",
     "contact": "Get in touch",
     "locationLabel": "City",
     "location": "Tehran",
     "focusLabel": "Focus",
-    "focus": "Python, web, full-stack",
-    "studyLabel": "Education",
-    "study": "B.Sc. Computer Engineering"
+    "focus": "Product, web, applied AI",
+    "baseLabel": "Base",
+    "base": "Multi-department team"
   },
   "about": {
-    "eyebrow": "About",
-    "title": "The path so far",
-    "body": "I studied computer engineering at Islamic Azad University, West Tehran. I started programming with Python, then built sites with HTML, CSS, JavaScript, Bootstrap, and WordPress.",
-    "englishTitle": "English",
-    "englishBody": "I can read, write, speak, and listen in English, and I am taking a language course at the same time.",
-    "educationTitle": "Education",
-    "educationBody": "B.Sc. Computer Engineering, Islamic Azad University, West Tehran."
+    "eyebrow": "Mission",
+    "title": "Why Auto team",
+    "body": "We are a product team that refuses to split research, build, and support into silos. We aim for experiences that read clearly in the first mobile viewport and stay reliable after delivery.",
+    "valueOneTitle": "Clarity",
+    "valueOneBody": "Each section has one job: show what we build, who stands behind it, and how to continue the conversation.",
+    "valueTwoTitle": "Coordination",
+    "valueTwoBody": "Sales, engineering, research, and support share one narrative so the gap from idea to care stays short."
+  },
+  "products": {
+    "eyebrow": "Products",
+    "title": "What we build",
+    "intro": "Synthetic samples to demonstrate structure; replace them with real products in the admin studio.",
+    "items": {
+      "pulse": {
+        "name": "Pulse Board",
+        "tagline": "Live team view",
+        "summary": "A light dashboard for project status, delivery, and support signals."
+      },
+      "relay": {
+        "name": "Relay Desk",
+        "tagline": "Sales follow-through",
+        "summary": "Lead-to-contract flow with shared notes between sales and support."
+      },
+      "lens": {
+        "name": "Lens Lab",
+        "tagline": "Research space",
+        "summary": "A place to gather user insight and test product hypotheses."
+      },
+      "harbor": {
+        "name": "Harbor Care",
+        "tagline": "Calm support",
+        "summary": "A response queue with prioritization and an internal knowledge base."
+      }
+    }
+  },
+  "team": {
+    "eyebrow": "Team",
+    "title": "Four departments, one story",
+    "intro": "Member names below are synthetic placeholders for the team profile structure.",
+    "departments": {
+      "sales": "Sales",
+      "engineering": "Engineering",
+      "research": "Research",
+      "support": "Support"
+    },
+    "members": {
+      "sara": {
+        "name": "Sara Nouri",
+        "role": "Head of sales",
+        "bio": "Owns the path from first contact to signed work."
+      },
+      "nima": {
+        "name": "Nima Kazemi",
+        "role": "Sales specialist",
+        "bio": "Coordinates demos and proposal follow-ups."
+      },
+      "arya": {
+        "name": "Arya Moradi",
+        "role": "Engineering lead",
+        "bio": "Keeps web architecture and delivery quality steady."
+      },
+      "leila": {
+        "name": "Leila Hosseini",
+        "role": "Front-end engineer",
+        "bio": "Shapes mobile experience and interface motion."
+      },
+      "omid": {
+        "name": "Omid Rostami",
+        "role": "Back-end engineer",
+        "bio": "Keeps APIs and data integrations reliable."
+      },
+      "mina": {
+        "name": "Mina Sharifi",
+        "role": "Product researcher",
+        "bio": "Drives user interviews and insight maps."
+      },
+      "reza": {
+        "name": "Reza Akbari",
+        "role": "Data analyst",
+        "bio": "Turns usage signals into product decisions."
+      },
+      "hana": {
+        "name": "Hana Jafari",
+        "role": "Support lead",
+        "bio": "Sets ticket priority and response quality."
+      },
+      "pouya": {
+        "name": "Pouya Amini",
+        "role": "Support specialist",
+        "bio": "First-line answers and user guidance."
+      }
+    }
   },
   "skills": {
-    "eyebrow": "Skills",
-    "title": "What I have worked with",
+    "eyebrow": "Capabilities",
+    "title": "What the team works with",
     "items": {
-      "python": {
-        "name": "Python",
-        "detail": "Programming, including a small game."
+      "product": {
+        "name": "Product design",
+        "detail": "From hypothesis to sketch and backlog priority."
       },
       "web": {
-        "name": "HTML, CSS, JavaScript",
-        "detail": "Building and designing web pages."
+        "name": "Web & mobile",
+        "detail": "Responsive front ends, light motion, fast delivery."
       },
-      "wordpress": {
-        "name": "WordPress",
-        "detail": "Building a site with WordPress."
+      "ai": {
+        "name": "Applied AI",
+        "detail": "Retrieval, chat, and automation on real team data."
       },
-      "bootstrap": {
-        "name": "Bootstrap",
-        "detail": "Responsive pages."
+      "research": {
+        "name": "User research",
+        "detail": "Interviews, usability tests, and insight maps."
       },
-      "photoshop": {
-        "name": "Photoshop",
-        "detail": "Image editing for the web."
+      "sales": {
+        "name": "Consultative sales",
+        "detail": "Demos, proposals, and alignment with support."
       },
-      "icdl": {
-        "name": "ICDL",
-        "detail": "Core computer skills."
+      "care": {
+        "name": "Customer care",
+        "detail": "Clear SLAs and a living knowledge base."
       },
-      "english": {
-        "name": "English",
-        "detail": "Currently taking a language course."
+      "ops": {
+        "name": "Delivery ops",
+        "detail": "Sprint rhythm, quality review, and release."
       }
     }
   },
   "experience": {
-    "eyebrow": "Experience",
-    "title": "Work I have done",
+    "eyebrow": "Path",
+    "title": "Team milestones",
     "items": {
-      "webIntern": {
-        "role": "Web development intern",
+      "formed": {
+        "role": "Auto team formed",
         "place": "Tehran",
-        "period": "From Farvardin 1402",
+        "period": "1402",
         "points": [
-          "Built dynamic websites with programming languages, including HTML, CSS, and JavaScript.",
-          "Designed and implemented responsive pages with Bootstrap.",
-          "Improved load speed, images, and code structure."
+          "Sales, engineering, research, and support became four clear departments.",
+          "A shared product-and-care rhythm was defined."
         ]
       },
-      "seo": {
-        "role": "SEO specialist and article writer",
+      "products": {
+        "role": "Internal product line",
         "place": "Tehran",
-        "period": "From Esfand 1402",
+        "period": "1403",
         "points": [
-          "Optimized sites for search engines.",
-          "Wrote articles."
+          "Pulse, Relay, Lens, and Harbor were introduced as the product skeleton.",
+          "Focus shifted to mobile experience and a unified team narrative."
+        ]
+      },
+      "delivery": {
+        "role": "Shared delivery",
+        "place": "Tehran",
+        "period": "Ongoing",
+        "points": [
+          "Web, sales, and AI cases were gathered into one portfolio.",
+          "Support entered the delivery plan from day one."
         ]
       }
     }
   },
   "projects": {
     "eyebrow": "Projects",
-    "title": "Selected work",
-    "intro": "The first three come from the resume. The next three are projects on this machine, described without private details.",
-    "resumeGroup": "From the resume",
-    "recentGroup": "Recent work",
+    "title": "Delivery work",
+    "intro": "Selected team work; private details are omitted, and links can be added in admin.",
+    "featuredGroup": "Featured",
+    "recentGroup": "Recent",
     "items": {
       "pythonGame": {
-        "title": "Python game",
-        "meta": "Tir 1402 · Student project",
-        "summary": "A game built with Python."
+        "title": "Learning game",
+        "meta": "Engineering · Internal sample",
+        "summary": "An interactive sample for teaching logic and events in Python."
       },
       "wordpress": {
-        "title": "WordPress site",
-        "meta": "Shahrivar 1402 · Institute project",
-        "summary": "A WordPress site built for an institute."
+        "title": "Institute site",
+        "meta": "Web delivery · Institute",
+        "summary": "A content site launched on WordPress with editable pages."
       },
       "htmlSite": {
-        "title": "HTML and CSS site",
-        "meta": "Shahrivar 1402 · Client",
-        "summary": "A site designed and built with HTML and CSS."
+        "title": "Static front-end site",
+        "meta": "Design · Client",
+        "summary": "A clean HTML/CSS front end for an early brand presence."
       },
       "cafePos": {
         "title": "Cafe POS",
-        "meta": "Local project",
-        "summary": "A point-of-sale system for a cafe."
+        "meta": "Operational product",
+        "summary": "Sales, register, and order flow for a cafe."
       },
       "rag": {
         "title": "RAG Chat",
-        "meta": "Local project",
-        "summary": "A chat service that builds answers by retrieving from data."
+        "meta": "Research · AI",
+        "summary": "Chat grounded in retrieved internal documents."
       },
       "movahed": {
         "title": "Movahed",
-        "meta": "Local project",
-        "summary": "The Movahed application."
+        "meta": "App · Shared delivery",
+        "summary": "Coordinated web pieces and UX for the Movahed app."
       }
     }
   },
   "contact": {
     "eyebrow": "Contact",
-    "title": "Reach me on GitHub",
-    "body": "The email and phone number in the resume were not readable, so only the public GitHub account is listed here.",
+    "title": "Talk with Auto team",
+    "body": "For collaboration, product demos, or support, use email and socials once set; until then GitHub is the fallback path.",
     "action": "Open GitHub"
   },
   "footer": {
-    "note": "Parsa Saffarpour"
+    "note": "Auto team — product, research, and care"
   }
 }

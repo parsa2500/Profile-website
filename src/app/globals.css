@@ -222,26 +222,30 @@ html[data-template="studio"] #top::after {
 }
 
 html[data-template="signal"] {
-  --color-bg: #f6f1e7;
-  --color-fg: #111111;
-  --color-card: #fffdf8;
-  --color-muted: #efe7d8;
-  --color-border: #111111;
-  --color-accent: #e85d04;
-  --color-on-accent: #fffdf8;
+  --color-bg: #f3f0ea;
+  --color-fg: #14212b;
+  --color-card: #faf8f4;
+  --color-muted: #e6e1d8;
+  --color-muted-fg: #5c6670;
+  --color-border: #24313c;
+  --color-accent: #0f6e6a;
+  --color-on-accent: #f7f5f0;
+  --color-ring: #0f6e6a;
   --glow-a: color-mix(in srgb, #e85d04 16%, transparent);
   --glow-b: transparent;
 }
 
 html[data-template="signal"].dark,
 html.dark[data-template="signal"] {
-  --color-bg: #090909;
-  --color-fg: #f6f1e7;
-  --color-card: #121212;
-  --color-muted: #1c1c1c;
-  --color-muted-fg: #d6d0c4;
-  --color-border: #f6f1e7;
-  --color-accent: #ff7a1a;
+  --color-bg: #0c1216;
+  --color-fg: #e8ebe8;
+  --color-card: #141c22;
+  --color-muted: #1c262e;
+  --color-muted-fg: #9aa7b0;
+  --color-border: #3a4a55;
+  --color-accent: #2bb5ae;
+  --color-on-accent: #061012;
+  --color-ring: #2bb5ae;
   --glow-a: color-mix(in srgb, #ff7a1a 22%, transparent);
   --glow-b: transparent;
 }
@@ -249,6 +253,47 @@ html.dark[data-template="signal"] {
 html[data-template="signal"] .rounded-3xl,
 html[data-template="signal"] .rounded-\[2rem\],
 html[data-template="signal"] .rounded-full {
+  border-radius: 0;
+}
+
+html[data-template="cinematic"] {
+  --color-bg: #f4efe6;
+  --color-fg: #14110f;
+  --color-card: #fffaf2;
+  --color-muted: #ebe3d6;
+  --color-muted-fg: #6b6258;
+  --color-border: #d7ccbc;
+  --color-accent: #b8892d;
+  --color-on-accent: #1a1408;
+  --color-ring: #b8892d;
+  --glow-a: color-mix(in srgb, #e8c47c 55%, transparent);
+  --glow-b: color-mix(in srgb, #1c1917 10%, transparent);
+  --header-bg: color-mix(in srgb, var(--color-bg) 78%, transparent);
+}
+
+html[data-template="cinematic"].dark,
+html.dark[data-template="cinematic"] {
+  --color-bg: #050505;
+  --color-fg: #f5f2eb;
+  --color-card: #121212;
+  --color-muted: #1a1a1a;
+  --color-muted-fg: #a8a29a;
+  --color-border: #2a2a2a;
+  --color-accent: #e8c47c;
+  --color-on-accent: #1a1408;
+  --color-ring: #e8c47c;
+  --glow-a: color-mix(in srgb, #e8c47c 22%, transparent);
+  --glow-b: color-mix(in srgb, #ffffff 4%, transparent);
+  --header-bg: color-mix(in srgb, var(--color-bg) 72%, transparent);
+}
+
+html[data-template="cinematic"] .atmosphere-grid {
+  opacity: 0.16;
+}
+
+html[data-template="cinematic"] .rounded-3xl,
+html[data-template="cinematic"] .rounded-\[2rem\],
+html[data-template="cinematic"] .rounded-full {
   border-radius: 0;
 }
 

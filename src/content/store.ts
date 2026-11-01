@@ -5,11 +5,14 @@ import { createSeed } from "./seed";
 import type {
   Copy,
   ExperienceItem,
+  ProductItem,
   ProjectGroup,
   ProjectItem,
   SiteContent,
   SkillItem,
   SkillSpan,
+  TeamDepartment,
+  TeamMember,
 } from "./types";
 
 const contentPath = path.join(process.cwd(), "data", "content.json");
@@ -31,7 +34,16 @@ function asSpan(value: unknown): SkillSpan {
 }
 
 function asGroup(value: unknown): ProjectGroup {
-  return value === "recent" ? "recent" : "resume";
+  if (value === "recent") return "recent";
+  if (value === "featured" || value === "resume") return "featured";
+  return "featured";
+}
+
+function asDepartment(value: unknown): TeamDepartment {
+  if (value === "sales" || value === "engineering" || value === "research" || value === "support") {
+    return value;
+  }
+  return "engineering";
 }
 
 function asId(value: unknown, fallback: string) {
@@ -40,7 +52,7 @@ function asId(value: unknown, fallback: string) {
 }
 
 function asTemplate(value: unknown): SiteContent["template"] {
-  return value === "studio" || value === "signal" ? value : "editorial";
+  return value === "studio" || value === "signal" || value === "cinematic" ? value : "editorial";
 }
 
 function normalize(value: unknown): SiteContent {
@@ -50,12 +62,16 @@ function normalize(value: unknown): SiteContent {
   const skills = isRecord(value.skills) ? value.skills : {};
   const experience = isRecord(value.experience) ? value.experience : {};
   const projects = isRecord(value.projects) ? value.projects : {};
+  const products = isRecord(value.products) ? value.products : {};
+  const team = isRecord(value.team) ? value.team : {};
 
   const skillItems = Array.isArray(skills.items) ? skills.items : seed.skills.items;
   const experienceItems = Array.isArray(experience.items)
     ? experience.items
     : seed.experience.items;
   const projectItems = Array.isArray(projects.items) ? projects.items : seed.projects.items;
+  const productItems = Array.isArray(products.items) ? products.items : seed.products.items;
+  const teamMembers = Array.isArray(team.members) ? team.members : seed.team.members;
 
   return {
     template: asTemplate(value.template),
@@ -71,6 +87,8 @@ function normalize(value: unknown): SiteContent {
       menu: asCopy(isRecord(value.nav) ? value.nav.menu : seed.nav.menu),
       skip: asCopy(isRecord(value.nav) ? value.nav.skip : seed.nav.skip),
       about: asCopy(isRecord(value.nav) ? value.nav.about : seed.nav.about),
+      products: asCopy(isRecord(value.nav) ? value.nav.products : seed.nav.products),
+      team: asCopy(isRecord(value.nav) ? value.nav.team : seed.nav.team),
       skills: asCopy(isRecord(value.nav) ? value.nav.skills : seed.nav.skills),
       experience: asCopy(isRecord(value.nav) ? value.nav.experience : seed.nav.experience),
       projects: asCopy(isRecord(value.nav) ? value.nav.projects : seed.nav.projects),
@@ -86,22 +104,52 @@ function normalize(value: unknown): SiteContent {
     },
     hero: normalizeHero(value.hero, seed),
     about: normalizeAbout(value.about, seed),
+    products: {
+      eyebrow: asCopy(products.eyebrow ?? seed.products.eyebrow),
+      title: asCopy(products.title ?? seed.products.title),
+      intro: asCopy(products.intro ?? seed.products.intro),
+      items: productItems.map((item, index) => normalizeProduct(item, index)),
+    },
+    team: {
+      eyebrow: asCopy(team.eyebrow ?? seed.team.eyebrow),
+      title: asCopy(team.title ?? seed.team.title),
+      intro: asCopy(team.intro ?? seed.team.intro),
+      departments: {
+        sales: asCopy(
+          isRecord(team.departments) ? team.departments.sales : seed.team.departments.sales,
+        ),
+        engineering: asCopy(
+          isRecord(team.departments)
+            ? team.departments.engineering
+            : seed.team.departments.engineering,
+        ),
+        research: asCopy(
+          isRecord(team.departments) ? team.departments.research : seed.team.departments.research,
+        ),
+        support: asCopy(
+          isRecord(team.departments) ? team.departments.support : seed.team.departments.support,
+        ),
+      },
+      members: teamMembers.map((item, index) => normalizeMember(item, index)),
+    },
     skills: {
-      eyebrow: asCopy(skills.eyebrow),
-      title: asCopy(skills.title),
+      eyebrow: asCopy(skills.eyebrow ?? seed.skills.eyebrow),
+      title: asCopy(skills.title ?? seed.skills.title),
       items: skillItems.map((item, index) => normalizeSkill(item, index)),
     },
     experience: {
-      eyebrow: asCopy(experience.eyebrow),
-      title: asCopy(experience.title),
+      eyebrow: asCopy(experience.eyebrow ?? seed.experience.eyebrow),
+      title: asCopy(experience.title ?? seed.experience.title),
       items: experienceItems.map((item, index) => normalizeExperience(item, index)),
     },
     projects: {
-      eyebrow: asCopy(projects.eyebrow),
-      title: asCopy(projects.title),
-      intro: asCopy(projects.intro),
-      resumeGroup: asCopy(projects.resumeGroup),
-      recentGroup: asCopy(projects.recentGroup),
+      eyebrow: asCopy(projects.eyebrow ?? seed.projects.eyebrow),
+      title: asCopy(projects.title ?? seed.projects.title),
+      intro: asCopy(projects.intro ?? seed.projects.intro),
+      featuredGroup: asCopy(
+        projects.featuredGroup ?? projects.resumeGroup ?? seed.projects.featuredGroup,
+      ),
+      recentGroup: asCopy(projects.recentGroup ?? seed.projects.recentGroup),
       items: projectItems.map((item, index) => normalizeProject(item, index)),
     },
     contact: {
@@ -109,6 +157,13 @@ function normalize(value: unknown): SiteContent {
       title: asCopy(isRecord(value.contact) ? value.contact.title : seed.contact.title),
       body: asCopy(isRecord(value.contact) ? value.contact.body : seed.contact.body),
       action: asCopy(isRecord(value.contact) ? value.contact.action : seed.contact.action),
+      emailAction: asCopy(
+        isRecord(value.contact) ? value.contact.emailAction : seed.contact.emailAction,
+      ),
+      email: (() => {
+        const contact = isRecord(value.contact) ? value.contact : {};
+        return typeof contact.email === "string" ? contact.email.trim() : seed.contact.email;
+      })(),
     },
     footer: {
       note: asCopy(isRecord(value.footer) ? value.footer.note : seed.footer.note),
@@ -134,8 +189,8 @@ function normalizeHero(value: unknown, seed: SiteContent): SiteContent["hero"] {
     location: asCopy(hero.location ?? seed.hero.location),
     focusLabel: asCopy(hero.focusLabel ?? seed.hero.focusLabel),
     focus: asCopy(hero.focus ?? seed.hero.focus),
-    studyLabel: asCopy(hero.studyLabel ?? seed.hero.studyLabel),
-    study: asCopy(hero.study ?? seed.hero.study),
+    baseLabel: asCopy(hero.baseLabel ?? hero.studyLabel ?? seed.hero.baseLabel),
+    base: asCopy(hero.base ?? hero.study ?? seed.hero.base),
     image: asImage(hero.image, seed.hero.image),
     detailImage: asImage(hero.detailImage, seed.hero.detailImage),
     accentImage: asImage(hero.accentImage, seed.hero.accentImage),
@@ -149,10 +204,12 @@ function normalizeAbout(value: unknown, seed: SiteContent): SiteContent["about"]
     eyebrow: asCopy(about.eyebrow ?? seed.about.eyebrow),
     title: asCopy(about.title ?? seed.about.title),
     body: asCopy(about.body ?? seed.about.body),
-    educationTitle: asCopy(about.educationTitle ?? seed.about.educationTitle),
-    educationBody: asCopy(about.educationBody ?? seed.about.educationBody),
-    englishTitle: asCopy(about.englishTitle ?? seed.about.englishTitle),
-    englishBody: asCopy(about.englishBody ?? seed.about.englishBody),
+    valueOneTitle: asCopy(
+      about.valueOneTitle ?? about.educationTitle ?? seed.about.valueOneTitle,
+    ),
+    valueOneBody: asCopy(about.valueOneBody ?? about.educationBody ?? seed.about.valueOneBody),
+    valueTwoTitle: asCopy(about.valueTwoTitle ?? about.englishTitle ?? seed.about.valueTwoTitle),
+    valueTwoBody: asCopy(about.valueTwoBody ?? about.englishBody ?? seed.about.valueTwoBody),
   };
 }
 
@@ -221,6 +278,47 @@ function asImage(value: unknown, fallback: string) {
   return typeof value === "string" && value.trim() ? value.trim() : fallback;
 }
 
+function asStringList(value: unknown): string[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((entry): entry is string => typeof entry === "string")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+}
+
+function normalizeProduct(value: unknown, index: number): ProductItem {
+  const item = isRecord(value) ? value : {};
+  const id = asId(item.id, `product-${index + 1}`);
+  const seeded = createSeed().products.items.find((product) => product.id === id);
+  return {
+    id,
+    visible: item.visible !== false,
+    name: asCopy(item.name),
+    tagline: asCopy(item.tagline),
+    summary: asCopy(item.summary),
+    highlights: Array.isArray(item.highlights)
+      ? item.highlights.map(asCopy).filter((entry) => entry.fa || entry.en)
+      : (seeded?.highlights ?? []),
+    image: asImage(item.image, seeded?.image ?? "/templates/hero.jpg"),
+    url: typeof item.url === "string" ? item.url : "",
+  };
+}
+
+function normalizeMember(value: unknown, index: number): TeamMember {
+  const item = isRecord(value) ? value : {};
+  const id = asId(item.id, `member-${index + 1}`);
+  const seeded = createSeed().team.members.find((member) => member.id === id);
+  return {
+    id,
+    visible: item.visible !== false,
+    department: asDepartment(item.department ?? seeded?.department),
+    name: asCopy(item.name),
+    role: asCopy(item.role),
+    bio: asCopy(item.bio),
+    image: asImage(item.image, seeded?.image ?? "/templates/hero-detail.jpg"),
+  };
+}
+
 function normalizeProject(value: unknown, index: number): ProjectItem {
   const item = isRecord(value) ? value : {};
   const id = asId(item.id, `project-${index + 1}`);
@@ -232,6 +330,10 @@ function normalizeProject(value: unknown, index: number): ProjectItem {
     title: asCopy(item.title),
     meta: asCopy(item.meta),
     summary: asCopy(item.summary),
+    stack: Array.isArray(item.stack) ? asStringList(item.stack) : (seeded?.stack ?? []),
+    highlights: Array.isArray(item.highlights)
+      ? item.highlights.map(asCopy).filter((entry) => entry.fa || entry.en)
+      : (seeded?.highlights ?? []),
     url: typeof item.url === "string" ? item.url : "",
     image: asImage(item.image, seeded?.image ?? "/templates/html-site.jpg"),
   };

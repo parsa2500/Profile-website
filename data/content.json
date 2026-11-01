@@ -1,21 +1,21 @@
 {
-  "template": "editorial",
+  "template": "cinematic",
   "githubUrl": "https://github.com/parsa2500",
   "githubHandle": "parsa2500",
   "meta": {
     "title": {
-      "fa": "پارسا صفارپور — برنامه‌نویس",
-      "en": "Parsa Saffarpour — Developer"
+      "fa": "Auto team — تیم محصول و تحویل",
+      "en": "Auto team — product & delivery team"
     },
     "description": {
-      "fa": "پروفایل پارسا صفارپور، برنامه‌نویس پایتون در مسیر توسعه وب، با هدف فول‌استک.",
-      "en": "Profile of Parsa Saffarpour, a Python developer moving into web development, aiming at full-stack work."
+      "fa": "پروفایل تیم Auto team: محصولات، پروژه‌ها، دپارتمان‌ها و راه‌های ارتباطی.",
+      "en": "Team profile for Auto team: products, projects, departments, and ways to get in touch."
     }
   },
   "nav": {
     "home": {
-      "fa": "پارسا صفارپور",
-      "en": "Parsa Saffarpour"
+      "fa": "Auto team",
+      "en": "Auto team"
     },
     "menu": {
       "fa": "بخش‌های صفحه",
@@ -26,16 +26,24 @@
       "en": "Skip to content"
     },
     "about": {
-      "fa": "درباره",
-      "en": "About"
+      "fa": "مأموریت",
+      "en": "Mission"
+    },
+    "products": {
+      "fa": "محصولات",
+      "en": "Products"
+    },
+    "team": {
+      "fa": "تیم",
+      "en": "Team"
     },
     "skills": {
-      "fa": "مهارت‌ها",
-      "en": "Skills"
+      "fa": "توانمندی‌ها",
+      "en": "Capabilities"
     },
     "experience": {
-      "fa": "تجربه",
-      "en": "Experience"
+      "fa": "مسیر",
+      "en": "Path"
     },
     "projects": {
       "fa": "پروژه‌ها",
@@ -68,24 +76,24 @@
   },
   "hero": {
     "eyebrow": {
-      "fa": "پروفایل شخصی",
-      "en": "Personal profile"
+      "fa": "پروفایل تیم",
+      "en": "Team profile"
     },
     "name": {
-      "fa": "پارسا صفارپور",
-      "en": "Parsa Saffarpour"
+      "fa": "Auto team",
+      "en": "Auto team"
     },
     "role": {
-      "fa": "برنامه‌نویس پایتون در مسیر توسعه وب",
-      "en": "Python developer moving into web development"
+      "fa": "ساخت محصول، تحقیق و پشتیبانی در یک ریتم",
+      "en": "Product, research, and care in one rhythm"
     },
     "summary": {
-      "fa": "هدفم حرکت به سمت فول‌استک است. روی وب‌سایت‌های داینامیک، صفحه‌های ریسپانسیو، و بهتر شدن سرعت و ساختار کد کار کرده‌ام.",
-      "en": "I am working toward full-stack development. I have built dynamic websites, responsive pages, and improvements to load speed and code structure."
+      "fa": "از ایده تا تحویل: فروش، توسعه، تحقیقات و پشتیبانی کنار هم کار می‌کنند تا محصولاتی بسازند که روی موبایل هم تمیز و سریع حس شوند.",
+      "en": "From idea to delivery: sales, engineering, research, and support work together so what we ship feels clear and fast — especially on mobile."
     },
     "projects": {
-      "fa": "دیدن پروژه‌ها",
-      "en": "View projects"
+      "fa": "دیدن محصولات",
+      "en": "See products"
     },
     "contact": {
       "fa": "راه ارتباطی",
@@ -104,16 +112,16 @@
       "en": "Focus"
     },
     "focus": {
-      "fa": "پایتون، وب، فول‌استک",
-      "en": "Python, web, full-stack"
+      "fa": "محصول، وب، هوش مصنوعی",
+      "en": "Product, web, applied AI"
     },
-    "studyLabel": {
-      "fa": "تحصیلات",
-      "en": "Education"
+    "baseLabel": {
+      "fa": "پایگاه",
+      "en": "Base"
     },
-    "study": {
-      "fa": "کارشناسی مهندسی کامپیوتر",
-      "en": "B.Sc. Computer Engineering"
+    "base": {
+      "fa": "تیم چنددپارتمانه",
+      "en": "Multi-department team"
     },
     "image": "/templates/hero.jpg",
     "detailImage": "/templates/hero-detail.jpg",
@@ -122,55 +130,379 @@
   "about": {
     "image": "/templates/about.jpg",
     "eyebrow": {
-      "fa": "درباره",
-      "en": "About"
+      "fa": "مأموریت",
+      "en": "Mission"
     },
     "title": {
-      "fa": "مسیر تا اینجا",
-      "en": "The path so far"
+      "fa": "چرا Auto team",
+      "en": "Why Auto team"
     },
     "body": {
-      "fa": "کارشناسی مهندسی کامپیوتر را در دانشگاه آزاد اسلامی، غرب تهران خوانده‌ام. برنامه‌نویسی را با پایتون شروع کردم و بعد سراغ ساخت سایت با HTML، CSS، JavaScript، Bootstrap و وردپرس رفتم.",
-      "en": "I studied computer engineering at Islamic Azad University, West Tehran. I started programming with Python, then built sites with HTML, CSS, JavaScript, Bootstrap, and WordPress."
+      "fa": "ما یک تیم محصول هستیم که تحقیق، ساخت و پشتیبانی را جدا از هم نمی‌بینیم. هدفمان تجربه‌ای است که در اسکرول اول موبایل واضح باشد و در تحویل واقعی قابل اتکا بماند.",
+      "en": "We are a product team that refuses to split research, build, and support into silos. We aim for experiences that read clearly in the first mobile viewport and stay reliable after delivery."
     },
-    "educationTitle": {
-      "fa": "تحصیلات",
-      "en": "Education"
+    "valueOneTitle": {
+      "fa": "وضوح",
+      "en": "Clarity"
     },
-    "educationBody": {
-      "fa": "کارشناسی مهندسی کامپیوتر، دانشگاه آزاد اسلامی، غرب تهران.",
-      "en": "B.Sc. Computer Engineering, Islamic Azad University, West Tehran."
+    "valueOneBody": {
+      "fa": "هر سکشن یک کار دارد: نشان بدهیم چه می‌سازیم، چه کسانی پشت آن هستند، و چطور می‌شود ادامه داد.",
+      "en": "Each section has one job: show what we build, who stands behind it, and how to continue the conversation."
     },
-    "englishTitle": {
-      "fa": "انگلیسی",
-      "en": "English"
+    "valueTwoTitle": {
+      "fa": "هماهنگی",
+      "en": "Coordination"
     },
-    "englishBody": {
-      "fa": "خواندن، نوشتن، گفتار و شنیدار را بلد هستم و هم‌زمان دوره زبان را می‌گذرانم.",
-      "en": "I can read, write, speak, and listen in English, and I am taking a language course at the same time."
+    "valueTwoBody": {
+      "fa": "فروش، مهندسی، تحقیقات و پشتیبانی در یک خط روایت کار می‌کنند تا فاصله ایده تا پشتیبانی کوتاه بماند.",
+      "en": "Sales, engineering, research, and support share one narrative so the gap from idea to care stays short."
     }
   },
-  "skills": {
+  "products": {
     "eyebrow": {
-      "fa": "مهارت‌ها",
-      "en": "Skills"
+      "fa": "محصولات",
+      "en": "Products"
     },
     "title": {
-      "fa": "آنچه با آن کار کرده‌ام",
-      "en": "What I have worked with"
+      "fa": "آنچه می‌سازیم",
+      "en": "What we build"
+    },
+    "intro": {
+      "fa": "نمونه‌های ساختگی برای نمایش ساختار سایت؛ بعداً از پنل ادمین با محصولات واقعی جایگزین کنید.",
+      "en": "Synthetic samples to demonstrate structure; replace them with real products in the admin studio."
     },
     "items": [
       {
-        "id": "python",
+        "id": "pulse",
+        "visible": true,
+        "name": {
+          "fa": "Pulse Board",
+          "en": "Pulse Board"
+        },
+        "tagline": {
+          "fa": "نمای زنده تیم",
+          "en": "Live team view"
+        },
+        "summary": {
+          "fa": "داشبورد سبک برای وضعیت پروژه، تحویل و سیگنال‌های پشتیبانی.",
+          "en": "A light dashboard for project status, delivery, and support signals."
+        },
+        "highlights": [
+          {
+            "fa": "وضعیت تحویل در یک نگاه.",
+            "en": "Delivery status at a glance."
+          },
+          {
+            "fa": "سیگنال پشتیبانی کنار پیشرفت اسپرینت.",
+            "en": "Support signals beside sprint progress."
+          }
+        ],
+        "image": "/templates/hero.jpg",
+        "url": ""
+      },
+      {
+        "id": "relay",
+        "visible": true,
+        "name": {
+          "fa": "Relay Desk",
+          "en": "Relay Desk"
+        },
+        "tagline": {
+          "fa": "میز فروش و پیگیری",
+          "en": "Sales follow-through"
+        },
+        "summary": {
+          "fa": "جریان سرنخ تا قرارداد با یادداشت‌های مشترک بین فروش و پشتیبانی.",
+          "en": "Lead-to-contract flow with shared notes between sales and support."
+        },
+        "highlights": [
+          {
+            "fa": "پیگیری مشترک فروش و مراقبت.",
+            "en": "Shared sales and care follow-up."
+          },
+          {
+            "fa": "یادداشت‌های زنده روی هر سرنخ.",
+            "en": "Live notes on every lead."
+          }
+        ],
+        "image": "/templates/cafe-pos.jpg",
+        "url": ""
+      },
+      {
+        "id": "lens",
+        "visible": true,
+        "name": {
+          "fa": "Lens Lab",
+          "en": "Lens Lab"
+        },
+        "tagline": {
+          "fa": "آزمایش تحقیق",
+          "en": "Research space"
+        },
+        "summary": {
+          "fa": "فضای جمع‌آوری بینش کاربر و آزمایش فرضیه‌های محصول.",
+          "en": "A place to gather user insight and test product hypotheses."
+        },
+        "highlights": [
+          {
+            "fa": "بانک بینش قابل جستجو.",
+            "en": "Searchable insight bank."
+          },
+          {
+            "fa": "آزمایش فرضیه با ریتم کوتاه.",
+            "en": "Short-cycle hypothesis tests."
+          }
+        ],
+        "image": "/templates/rag-chat.jpg",
+        "url": ""
+      },
+      {
+        "id": "harbor",
+        "visible": true,
+        "name": {
+          "fa": "Harbor Care",
+          "en": "Harbor Care"
+        },
+        "tagline": {
+          "fa": "پشتیبانی آرام",
+          "en": "Calm support"
+        },
+        "summary": {
+          "fa": "صف پاسخ‌گویی با اولویت‌بندی و دانشنامهٔ داخلی تیم.",
+          "en": "A response queue with prioritization and an internal knowledge base."
+        },
+        "highlights": [
+          {
+            "fa": "اولویت‌بندی شفاف تیکت‌ها.",
+            "en": "Clear ticket prioritization."
+          },
+          {
+            "fa": "دانشنامه داخلی تیم.",
+            "en": "Internal team knowledge base."
+          }
+        ],
+        "image": "/templates/about.jpg",
+        "url": ""
+      }
+    ]
+  },
+  "team": {
+    "eyebrow": {
+      "fa": "تیم",
+      "en": "Team"
+    },
+    "title": {
+      "fa": "چهار دپارتمان، یک روایت",
+      "en": "Four departments, one story"
+    },
+    "intro": {
+      "fa": "اعضای زیر ساختگی‌اند و فقط برای پر کردن ساختار پروفایل تیم آمده‌اند.",
+      "en": "Member names below are synthetic placeholders for the team profile structure."
+    },
+    "departments": {
+      "sales": {
+        "fa": "فروش",
+        "en": "Sales"
+      },
+      "engineering": {
+        "fa": "توسعه",
+        "en": "Engineering"
+      },
+      "research": {
+        "fa": "تحقیقات",
+        "en": "Research"
+      },
+      "support": {
+        "fa": "پشتیبانی",
+        "en": "Support"
+      }
+    },
+    "members": [
+      {
+        "id": "sara",
+        "visible": true,
+        "department": "sales",
+        "name": {
+          "fa": "سارا نوری",
+          "en": "Sara Nouri"
+        },
+        "role": {
+          "fa": "سرپرست فروش",
+          "en": "Head of sales"
+        },
+        "bio": {
+          "fa": "مسیر مشتری را از اولین تماس تا قرارداد نگه می‌دارد.",
+          "en": "Owns the path from first contact to signed work."
+        },
+        "image": "/templates/hero-detail.jpg"
+      },
+      {
+        "id": "nima",
+        "visible": true,
+        "department": "sales",
+        "name": {
+          "fa": "نیما کاظمی",
+          "en": "Nima Kazemi"
+        },
+        "role": {
+          "fa": "کارشناس فروش",
+          "en": "Sales specialist"
+        },
+        "bio": {
+          "fa": "دموها و پیگیری پیشنهادها را هماهنگ می‌کند.",
+          "en": "Coordinates demos and proposal follow-ups."
+        },
+        "image": "/templates/hero-accent.jpg"
+      },
+      {
+        "id": "arya",
+        "visible": true,
+        "department": "engineering",
+        "name": {
+          "fa": "آریا مرادی",
+          "en": "Arya Moradi"
+        },
+        "role": {
+          "fa": "لید مهندسی",
+          "en": "Engineering lead"
+        },
+        "bio": {
+          "fa": "معماری وب و کیفیت تحویل را نگه می‌دارد.",
+          "en": "Keeps web architecture and delivery quality steady."
+        },
+        "image": "/templates/hero.jpg"
+      },
+      {
+        "id": "leila",
+        "visible": true,
+        "department": "engineering",
+        "name": {
+          "fa": "لیلا حسینی",
+          "en": "Leila Hosseini"
+        },
+        "role": {
+          "fa": "مهندس فرانت",
+          "en": "Front-end engineer"
+        },
+        "bio": {
+          "fa": "تجربه موبایل و موشن رابط را می‌سازد.",
+          "en": "Shapes mobile experience and interface motion."
+        },
+        "image": "/templates/about.jpg"
+      },
+      {
+        "id": "omid",
+        "visible": true,
+        "department": "engineering",
+        "name": {
+          "fa": "امید رستمی",
+          "en": "Omid Rostami"
+        },
+        "role": {
+          "fa": "مهندس بک‌اند",
+          "en": "Back-end engineer"
+        },
+        "bio": {
+          "fa": "APIها و یکپارچه‌سازی داده‌ها را پایدار نگه می‌دارد.",
+          "en": "Keeps APIs and data integrations reliable."
+        },
+        "image": "/templates/html-site.jpg"
+      },
+      {
+        "id": "mina",
+        "visible": true,
+        "department": "research",
+        "name": {
+          "fa": "مینا شریفی",
+          "en": "Mina Sharifi"
+        },
+        "role": {
+          "fa": "پژوهشگر محصول",
+          "en": "Product researcher"
+        },
+        "bio": {
+          "fa": "مصاحبه کاربر و نقشه بینش را جلو می‌برد.",
+          "en": "Drives user interviews and insight maps."
+        },
+        "image": "/templates/rag-chat.jpg"
+      },
+      {
+        "id": "reza",
+        "visible": true,
+        "department": "research",
+        "name": {
+          "fa": "رضا اکبری",
+          "en": "Reza Akbari"
+        },
+        "role": {
+          "fa": "تحلیل‌گر داده",
+          "en": "Data analyst"
+        },
+        "bio": {
+          "fa": "سیگنال‌های استفاده را به تصمیم محصول تبدیل می‌کند.",
+          "en": "Turns usage signals into product decisions."
+        },
+        "image": "/templates/movahed.jpg"
+      },
+      {
+        "id": "hana",
+        "visible": true,
+        "department": "support",
+        "name": {
+          "fa": "هانا جعفری",
+          "en": "Hana Jafari"
+        },
+        "role": {
+          "fa": "سرپرست پشتیبانی",
+          "en": "Support lead"
+        },
+        "bio": {
+          "fa": "اولویت تیکت‌ها و کیفیت پاسخ را تنظیم می‌کند.",
+          "en": "Sets ticket priority and response quality."
+        },
+        "image": "/templates/wordpress.jpg"
+      },
+      {
+        "id": "pouya",
+        "visible": true,
+        "department": "support",
+        "name": {
+          "fa": "پویا امینی",
+          "en": "Pouya Amini"
+        },
+        "role": {
+          "fa": "کارشناس پشتیبانی",
+          "en": "Support specialist"
+        },
+        "bio": {
+          "fa": "اولین خط پاسخ و راهنمای کاربران است.",
+          "en": "First-line answers and user guidance."
+        },
+        "image": "/templates/python-game.jpg"
+      }
+    ]
+  },
+  "skills": {
+    "eyebrow": {
+      "fa": "توانمندی‌ها",
+      "en": "Capabilities"
+    },
+    "title": {
+      "fa": "آنچه تیم با آن کار می‌کند",
+      "en": "What the team works with"
+    },
+    "items": [
+      {
+        "id": "product",
         "visible": true,
         "span": "feature",
         "name": {
-          "fa": "Python",
-          "en": "Python"
+          "fa": "طراحی محصول",
+          "en": "Product design"
         },
         "detail": {
-          "fa": "برنامه‌نویسی و ساخت یک بازی.",
-          "en": "Programming, including a small game."
+          "fa": "از فرضیه تا اسکچ و اولویت‌بندی بک‌لاگ.",
+          "en": "From hypothesis to sketch and backlog priority."
         }
       },
       {
@@ -178,144 +510,166 @@
         "visible": true,
         "span": "wide",
         "name": {
-          "fa": "HTML، CSS، JavaScript",
-          "en": "HTML, CSS, JavaScript"
+          "fa": "وب و موبایل",
+          "en": "Web & mobile"
         },
         "detail": {
-          "fa": "ساخت و دیزاین صفحه وب.",
-          "en": "Building and designing web pages."
+          "fa": "فرانت ریسپانسیو، موشن سبک، تحویل سریع.",
+          "en": "Responsive front ends, light motion, fast delivery."
         }
       },
       {
-        "id": "wordpress",
-        "visible": true,
-        "span": "normal",
-        "name": {
-          "fa": "WordPress",
-          "en": "WordPress"
-        },
-        "detail": {
-          "fa": "ساخت سایت با وردپرس.",
-          "en": "Building a site with WordPress."
-        }
-      },
-      {
-        "id": "bootstrap",
-        "visible": true,
-        "span": "normal",
-        "name": {
-          "fa": "Bootstrap",
-          "en": "Bootstrap"
-        },
-        "detail": {
-          "fa": "صفحه‌های ریسپانسیو.",
-          "en": "Responsive pages."
-        }
-      },
-      {
-        "id": "photoshop",
-        "visible": true,
-        "span": "normal",
-        "name": {
-          "fa": "Photoshop",
-          "en": "Photoshop"
-        },
-        "detail": {
-          "fa": "ویرایش تصویر برای وب.",
-          "en": "Image editing for the web."
-        }
-      },
-      {
-        "id": "icdl",
-        "visible": true,
-        "span": "normal",
-        "name": {
-          "fa": "ICDL",
-          "en": "ICDL"
-        },
-        "detail": {
-          "fa": "مهارت‌های پایه رایانه.",
-          "en": "Core computer skills."
-        }
-      },
-      {
-        "id": "english",
+        "id": "ai",
         "visible": true,
         "span": "wide",
         "name": {
-          "fa": "English",
-          "en": "English"
+          "fa": "هوش مصنوعی کاربردی",
+          "en": "Applied AI"
         },
         "detail": {
-          "fa": "در حال گذراندن دوره زبان.",
-          "en": "Currently taking a language course."
+          "fa": "بازیابی، چت و اتوماسیون روی داده واقعی تیم.",
+          "en": "Retrieval, chat, and automation on real team data."
+        }
+      },
+      {
+        "id": "research",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "تحقیق کاربر",
+          "en": "User research"
+        },
+        "detail": {
+          "fa": "مصاحبه، تست کاربردپذیری، و نقشه بینش.",
+          "en": "Interviews, usability tests, and insight maps."
+        }
+      },
+      {
+        "id": "sales",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "فروش مشاوره‌ای",
+          "en": "Consultative sales"
+        },
+        "detail": {
+          "fa": "دمو، پیشنهاد، و هم‌راستایی با پشتیبانی.",
+          "en": "Demos, proposals, and alignment with support."
+        }
+      },
+      {
+        "id": "care",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "مراقبت مشتری",
+          "en": "Customer care"
+        },
+        "detail": {
+          "fa": "SLA شفاف و دانشنامه زنده.",
+          "en": "Clear SLAs and a living knowledge base."
+        }
+      },
+      {
+        "id": "ops",
+        "visible": true,
+        "span": "normal",
+        "name": {
+          "fa": "عملیات تحویل",
+          "en": "Delivery ops"
+        },
+        "detail": {
+          "fa": "ریتم اسپرینت، بازبینی کیفیت، و انتشار.",
+          "en": "Sprint rhythm, quality review, and release."
         }
       }
     ]
   },
   "experience": {
     "eyebrow": {
-      "fa": "تجربه",
-      "en": "Experience"
+      "fa": "مسیر",
+      "en": "Path"
     },
     "title": {
-      "fa": "کارهایی که انجام داده‌ام",
-      "en": "Work I have done"
+      "fa": "نقاط عطف تیم",
+      "en": "Team milestones"
     },
     "items": [
       {
-        "id": "webIntern",
+        "id": "formed",
         "visible": true,
         "role": {
-          "fa": "کارآموز توسعه وب",
-          "en": "Web development intern"
+          "fa": "تشکیل Auto team",
+          "en": "Auto team formed"
         },
         "place": {
           "fa": "تهران",
           "en": "Tehran"
         },
         "period": {
-          "fa": "از فروردین ۱۴۰۲",
-          "en": "From Farvardin 1402"
+          "fa": "۱۴۰۲",
+          "en": "1402"
         },
         "points": [
           {
-            "fa": "توسعه وب‌سایت‌های داینامیک با زبان‌های برنامه‌نویسی، از جمله HTML، CSS و JavaScript.",
-            "en": "Built dynamic websites with programming languages, including HTML, CSS, and JavaScript."
+            "fa": "چهار دپارتمان فروش، توسعه، تحقیقات و پشتیبانی شکل گرفت.",
+            "en": "Sales, engineering, research, and support became four clear departments."
           },
           {
-            "fa": "طراحی و پیاده‌سازی صفحه‌های ریسپانسیو با Bootstrap.",
-            "en": "Designed and implemented responsive pages with Bootstrap."
-          },
-          {
-            "fa": "بهتر کردن سرعت بارگذاری، تصاویر و ساختار کد.",
-            "en": "Improved load speed, images, and code structure."
+            "fa": "اولین ریتم مشترک محصول و پشتیبانی تعریف شد.",
+            "en": "A shared product-and-care rhythm was defined."
           }
         ]
       },
       {
-        "id": "seo",
+        "id": "products",
         "visible": true,
         "role": {
-          "fa": "کارشناس سئو و مقاله‌نویس",
-          "en": "SEO specialist and article writer"
+          "fa": "خط محصولات داخلی",
+          "en": "Internal product line"
         },
         "place": {
           "fa": "تهران",
           "en": "Tehran"
         },
         "period": {
-          "fa": "از اسفند ۱۴۰۲",
-          "en": "From Esfand 1402"
+          "fa": "۱۴۰۳",
+          "en": "1403"
         },
         "points": [
           {
-            "fa": "بهینه‌سازی سایت برای موتورهای جستجو.",
-            "en": "Optimized sites for search engines."
+            "fa": "Pulse، Relay، Lens و Harbor به‌عنوان اسکلت محصول معرفی شدند.",
+            "en": "Pulse, Relay, Lens, and Harbor were introduced as the product skeleton."
           },
           {
-            "fa": "نوشتن مقاله.",
-            "en": "Wrote articles."
+            "fa": "تمرکز روی تجربه موبایل و روایت یکپارچه پروفایل تیم.",
+            "en": "Focus shifted to mobile experience and a unified team narrative."
+          }
+        ]
+      },
+      {
+        "id": "delivery",
+        "visible": true,
+        "role": {
+          "fa": "تحویل پروژه‌های مشترک",
+          "en": "Shared delivery"
+        },
+        "place": {
+          "fa": "تهران",
+          "en": "Tehran"
+        },
+        "period": {
+          "fa": "ادامه دارد",
+          "en": "Ongoing"
+        },
+        "points": [
+          {
+            "fa": "کیس‌های وب، فروش و هوش مصنوعی در یک پورتفolio جمع شد.",
+            "en": "Web, sales, and AI cases were gathered into one portfolio."
+          },
+          {
+            "fa": "پشتیبانی از روز اول در برنامه تحویل جا گرفت.",
+            "en": "Support entered the delivery plan from day one."
           }
         ]
       }
@@ -327,135 +681,221 @@
       "en": "Projects"
     },
     "title": {
-      "fa": "نمونه‌کار",
-      "en": "Selected work"
+      "fa": "کارهای تحویلی",
+      "en": "Delivery work"
     },
     "intro": {
-      "fa": "سه مورد اول از رزومه است. سه مورد بعد پروژه‌های همین رایانه است و جزئیات خصوصی در آن‌ها نیست.",
-      "en": "The first three come from the resume. The next three are projects on this machine, described without private details."
+      "fa": "نمونه‌کارهای تیم؛ جزئیات خصوصی حذف شده‌اند و لینک‌ها از ادمین قابل افزودن‌اند.",
+      "en": "Selected team work; private details are omitted, and links can be added in admin."
     },
-    "resumeGroup": {
-      "fa": "از رزومه",
-      "en": "From the resume"
+    "featuredGroup": {
+      "fa": "ویژه",
+      "en": "Featured"
     },
     "recentGroup": {
-      "fa": "کارهای اخیر",
-      "en": "Recent work"
+      "fa": "اخیر",
+      "en": "Recent"
     },
     "items": [
       {
-        "id": "pythonGame",
-        "visible": true,
-        "group": "resume",
-        "title": {
-          "fa": "بازی با پایتون",
-          "en": "Python game"
-        },
-        "meta": {
-          "fa": "تیر ۱۴۰۲ · پروژه دانشجویی",
-          "en": "Tir 1402 · Student project"
-        },
-        "summary": {
-          "fa": "یک بازی ساخته‌شده با پایتون.",
-          "en": "A game built with Python."
-        },
-        "url": "",
-        "image": "/templates/python-game.jpg"
-      },
-      {
-        "id": "wordpress",
-        "visible": true,
-        "group": "resume",
-        "title": {
-          "fa": "سایت وردپرس",
-          "en": "WordPress site"
-        },
-        "meta": {
-          "fa": "شهریور ۱۴۰۲ · پروژه مؤسسه",
-          "en": "Shahrivar 1402 · Institute project"
-        },
-        "summary": {
-          "fa": "ساخت سایت با وردپرس برای یک مؤسسه.",
-          "en": "A WordPress site built for an institute."
-        },
-        "url": "",
-        "image": "/templates/wordpress.jpg"
-      },
-      {
-        "id": "htmlSite",
-        "visible": true,
-        "group": "resume",
-        "title": {
-          "fa": "سایت HTML و CSS",
-          "en": "HTML and CSS site"
-        },
-        "meta": {
-          "fa": "شهریور ۱۴۰۲ · کارفرما",
-          "en": "Shahrivar 1402 · Client"
-        },
-        "summary": {
-          "fa": "دیزاین و ساخت سایت با HTML و CSS.",
-          "en": "A site designed and built with HTML and CSS."
-        },
-        "url": "",
-        "image": "/templates/html-site.jpg"
-      },
-      {
         "id": "cafePos",
         "visible": true,
-        "group": "recent",
+        "group": "featured",
         "title": {
           "fa": "Cafe POS",
           "en": "Cafe POS"
         },
         "meta": {
-          "fa": "پروژه محلی",
-          "en": "Local project"
+          "fa": "محصول عملیاتی",
+          "en": "Operational product"
         },
         "summary": {
-          "fa": "سیستم فروش و صندوق برای کافه.",
-          "en": "A point-of-sale system for a cafe."
+          "fa": "جریان فروش، صندوق و سفارش برای کافه.",
+          "en": "Sales, register, and order flow for a cafe."
         },
+        "stack": [
+          "TypeScript",
+          "React",
+          "Node.js"
+        ],
+        "highlights": [
+          {
+            "fa": "جریان فروش، صندوق و سفارش کافه.",
+            "en": "Sales, register, and cafe order flow."
+          },
+          {
+            "fa": "رابط برای کار روزمره پرسنل.",
+            "en": "UI shaped for day-to-day staff use."
+          }
+        ],
         "url": "",
         "image": "/templates/cafe-pos.jpg"
       },
       {
         "id": "rag",
         "visible": true,
-        "group": "recent",
+        "group": "featured",
         "title": {
           "fa": "RAG Chat",
           "en": "RAG Chat"
         },
         "meta": {
-          "fa": "پروژه محلی",
-          "en": "Local project"
+          "fa": "تحقیقات · هوش مصنوعی",
+          "en": "Research · AI"
         },
         "summary": {
-          "fa": "سرویس چت که پاسخ را با بازیابی از داده می‌سازد.",
-          "en": "A chat service that builds answers by retrieving from data."
+          "fa": "چت با بازیابی از اسناد داخلی تیم.",
+          "en": "Chat grounded in retrieved internal documents."
         },
+        "stack": [
+          "Python",
+          "RAG",
+          "LLMs"
+        ],
+        "highlights": [
+          {
+            "fa": "پاسخ‌گویی با بازیابی از اسناد.",
+            "en": "Answers grounded in retrieved documents."
+          },
+          {
+            "fa": "خط لوله ingest → retrieve → reply.",
+            "en": "Simple ingest → retrieve → reply pipeline."
+          }
+        ],
         "url": "",
         "image": "/templates/rag-chat.jpg"
       },
       {
         "id": "movahed",
         "visible": true,
-        "group": "recent",
+        "group": "featured",
         "title": {
           "fa": "موحد",
           "en": "Movahed"
         },
         "meta": {
-          "fa": "پروژه محلی",
-          "en": "Local project"
+          "fa": "اپلیکیشن · تحویل مشترک",
+          "en": "App · Shared delivery"
         },
         "summary": {
-          "fa": "اپلیکیشن موحد.",
-          "en": "The Movahed application."
+          "fa": "هماهنگی وب و تجربه کاربری برای اپ موحد.",
+          "en": "Coordinated web pieces and UX for the Movahed app."
         },
+        "stack": [
+          "Mobile",
+          "Web"
+        ],
+        "highlights": [
+          {
+            "fa": "کار روی اپلیکیشن موحد.",
+            "en": "Work on the Movahed application."
+          },
+          {
+            "fa": "هماهنگی وب و تجربه کاربری.",
+            "en": "Coordinated web pieces and UX."
+          }
+        ],
         "url": "",
         "image": "/templates/movahed.jpg"
+      },
+      {
+        "id": "wordpress",
+        "visible": true,
+        "group": "recent",
+        "title": {
+          "fa": "سایت مؤسسه",
+          "en": "Institute site"
+        },
+        "meta": {
+          "fa": "تحویل وب · مؤسسه",
+          "en": "Web delivery · Institute"
+        },
+        "summary": {
+          "fa": "راه‌اندازی سایت محتوایی قابل ویرایش روی وردپرس.",
+          "en": "A content site launched on WordPress with editable pages."
+        },
+        "stack": [
+          "WordPress",
+          "PHP",
+          "CSS"
+        ],
+        "highlights": [
+          {
+            "fa": "راه‌اندازی سایت مؤسسه روی وردپرس.",
+            "en": "Launched an institute site on WordPress."
+          },
+          {
+            "fa": "قالب و محتوای قابل ویرایش.",
+            "en": "Configured theme and editable content."
+          }
+        ],
+        "url": "",
+        "image": "/templates/wordpress.jpg"
+      },
+      {
+        "id": "htmlSite",
+        "visible": true,
+        "group": "recent",
+        "title": {
+          "fa": "سایت فرانت استاتیک",
+          "en": "Static front-end site"
+        },
+        "meta": {
+          "fa": "طراحی · کارفرما",
+          "en": "Design · Client"
+        },
+        "summary": {
+          "fa": "ساخت فرانت تمیز با HTML و CSS برای حضور اولیه برند.",
+          "en": "A clean HTML/CSS front end for an early brand presence."
+        },
+        "stack": [
+          "HTML",
+          "CSS"
+        ],
+        "highlights": [
+          {
+            "fa": "فرانت استاتیک تمیز.",
+            "en": "Clean static front end."
+          },
+          {
+            "fa": "تمرکز روی ساختار HTML/CSS.",
+            "en": "Focused on clean HTML/CSS structure."
+          }
+        ],
+        "url": "",
+        "image": "/templates/html-site.jpg"
+      },
+      {
+        "id": "pythonGame",
+        "visible": true,
+        "group": "recent",
+        "title": {
+          "fa": "بازی آموزشی",
+          "en": "Learning game"
+        },
+        "meta": {
+          "fa": "توسعه · نمونه داخلی",
+          "en": "Engineering · Internal sample"
+        },
+        "summary": {
+          "fa": "نمونه تعاملی برای آموزش منطق و رویداد در پایتون.",
+          "en": "An interactive sample for teaching logic and events in Python."
+        },
+        "stack": [
+          "Python"
+        ],
+        "highlights": [
+          {
+            "fa": "منطق بازی و حلقه رویداد با پایتون.",
+            "en": "Game logic and event loop in Python."
+          },
+          {
+            "fa": "نمونه آموزشی از ایده تا اجرا.",
+            "en": "Teaching sample from idea to playable build."
+          }
+        ],
+        "url": "",
+        "image": "/templates/python-game.jpg"
       }
     ]
   },
@@ -465,41 +905,64 @@
       "en": "Contact"
     },
     "title": {
-      "fa": "از گیت‌هاب در ارتباط باشید",
-      "en": "Reach me on GitHub"
+      "fa": "با Auto team حرف بزنید",
+      "en": "Talk with Auto team"
     },
     "body": {
-      "fa": "ایمیل و تلفن در رزومه خوانا نبود، برای همین اینجا فقط حساب عمومی گیت‌هاب آمده است.",
-      "en": "The email and phone number in the resume were not readable, so only the public GitHub account is listed here."
+      "fa": "برای همکاری، دمو محصول یا پشتیبانی از ایمیل و شبکه‌ها استفاده کنید؛ تا وقتی تنظیم شوند گیت‌هاب مسیر پشتیبان است.",
+      "en": "For collaboration, product demos, or support, use email and socials once set; until then GitHub is the fallback path."
     },
     "action": {
       "fa": "باز کردن گیت‌هاب",
       "en": "Open GitHub"
-    }
+    },
+    "emailAction": {
+      "fa": "ارسال ایمیل",
+      "en": "Send email"
+    },
+    "email": ""
   },
   "footer": {
     "note": {
-      "fa": "پارسا صفارپور",
-      "en": "Parsa Saffarpour"
+      "fa": "Auto team — محصول، تحقیق و پشتیبانی",
+      "en": "Auto team — product, research, and care"
     }
   },
   "stats": [
     {
-      "id": "projects",
+      "id": "members",
       "visible": true,
-      "value": "۶",
+      "value": "9",
       "label": {
-        "fa": "پروژه",
-        "en": "Projects"
+        "fa": "اعضا",
+        "en": "Members"
       }
     },
     {
-      "id": "skills",
+      "id": "depts",
       "visible": true,
-      "value": "۷",
+      "value": "4",
       "label": {
-        "fa": "مهارت",
-        "en": "Skills"
+        "fa": "دپارتمان",
+        "en": "Departments"
+      }
+    },
+    {
+      "id": "products",
+      "visible": true,
+      "value": "4",
+      "label": {
+        "fa": "محصول",
+        "en": "Products"
+      }
+    },
+    {
+      "id": "city",
+      "visible": true,
+      "value": "تهران",
+      "label": {
+        "fa": "شهر",
+        "en": "City"
       }
     }
   ],
@@ -508,7 +971,7 @@
     {
       "id": "linkedin",
       "kind": "linkedin",
-      "visible": true,
+      "visible": false,
       "label": {
         "fa": "لینکدین",
         "en": "LinkedIn"
@@ -518,7 +981,7 @@
     {
       "id": "instagram",
       "kind": "instagram",
-      "visible": true,
+      "visible": false,
       "label": {
         "fa": "اینستاگرام",
         "en": "Instagram"
@@ -528,7 +991,7 @@
     {
       "id": "telegram",
       "kind": "telegram",
-      "visible": true,
+      "visible": false,
       "label": {
         "fa": "تلگرام",
         "en": "Telegram"
@@ -538,7 +1001,7 @@
     {
       "id": "youtube",
       "kind": "youtube",
-      "visible": true,
+      "visible": false,
       "label": {
         "fa": "یوتیوب",
         "en": "YouTube"
@@ -548,7 +1011,7 @@
     {
       "id": "website",
       "kind": "website",
-      "visible": true,
+      "visible": false,
       "label": {
         "fa": "وب‌سایت",
         "en": "Website"
