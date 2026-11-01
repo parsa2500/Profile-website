@@ -26,7 +26,7 @@ export function PuffBurst({
 
   useMotionValueEvent(progress, "change", (value) => {
     // Peak puff around mid-open of the doors.
-    const peak = 1 - Math.abs(value - 0.42) / 0.28;
+    const peak = 1 - Math.abs(value - 0.21) / 0.22;
     intensity.current = Math.max(0, Math.min(1, peak));
   });
 

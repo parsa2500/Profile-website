@@ -68,14 +68,17 @@ function HeroOpen({
     offset: ["start start", "end end"],
   });
 
-  const doorL = useTransform(scrollYProgress, [0, 0.55], ["0%", "-105%"]);
-  const doorR = useTransform(scrollYProgress, [0, 0.55], ["0%", "105%"]);
-  const scale = useTransform(scrollYProgress, [0, 0.7], [1.45, 1]);
-  const blur = useTransform(scrollYProgress, [0, 0.35, 0.7], [8, 2, 0]);
+  // Start closed. Scroll opens both panels fully past the edges, then the pin releases softly.
+  const doorAmount = useTransform(scrollYProgress, [0, 0.4], [0, 1]);
+  const doorL = useTransform(doorAmount, (v) => `${-v * 55}vw`);
+  const doorR = useTransform(doorAmount, (v) => `${v * 55}vw`);
+  const doorFade = useTransform(scrollYProgress, [0.34, 0.42], [1, 0]);
+  const scale = useTransform(scrollYProgress, [0, 0.55], [1.45, 1]);
+  const blur = useTransform(scrollYProgress, [0, 0.25, 0.55], [8, 2, 0]);
   const filter = useTransform(blur, (v) => `blur(${v}px)`);
-  const textOpacity = useTransform(scrollYProgress, [0.35, 0.62], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.35, 0.62], [40, 0]);
-  const veil = useTransform(scrollYProgress, [0, 0.5], [0.72, 0.28]);
+  const textOpacity = useTransform(scrollYProgress, [0.2, 0.45], [0, 1]);
+  const textY = useTransform(scrollYProgress, [0.2, 0.45], [36, 0]);
+  const veil = useTransform(scrollYProgress, [0, 0.4], [0.72, 0.28]);
 
   const name = t(hero.name, locale);
 
@@ -121,7 +124,7 @@ function HeroOpen({
   }
 
   return (
-    <section id="top" ref={ref} className="relative h-[240vh]">
+    <section id="top" ref={ref} className="relative h-[165vh]">
       <div className="sticky top-0 h-[100svh] overflow-hidden bg-black">
         <motion.div className="absolute inset-0" style={{ scale, filter }}>
           <Cover
@@ -135,16 +138,18 @@ function HeroOpen({
         <motion.div className="absolute inset-0 bg-black" style={{ opacity: veil }} />
         <PuffBurst progress={scrollYProgress} />
         <motion.div
-          className="absolute inset-y-0 start-0 z-20 w-1/2 border-e border-white/10 bg-[#0a0a0a]"
-          style={{ x: doorL }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 z-20 w-[52%] border-r border-white/10 bg-[#0a0a0a] will-change-transform"
+          style={{ x: doorL, opacity: doorFade }}
         >
-          <div className="absolute inset-y-0 end-0 w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
+          <div className="absolute inset-y-0 right-0 w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
         </motion.div>
         <motion.div
-          className="absolute inset-y-0 end-0 z-20 w-1/2 border-s border-white/10 bg-[#0a0a0a]"
-          style={{ x: doorR }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 z-20 w-[52%] border-l border-white/10 bg-[#0a0a0a] will-change-transform"
+          style={{ x: doorR, opacity: doorFade }}
         >
-          <div className="absolute inset-y-0 start-0 w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
+          <div className="absolute inset-y-0 left-0 w-px bg-gradient-to-b from-transparent via-accent/70 to-transparent" />
         </motion.div>
         <motion.div
           className="relative z-30 mx-auto flex h-full w-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 md:px-8"
