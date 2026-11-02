@@ -14,6 +14,7 @@ import { Projects } from "@/components/sections/projects";
 import { Skills } from "@/components/sections/skills";
 import { Stats } from "@/components/sections/stats";
 import { CinematicHome } from "@/components/cinematic/home";
+import { SoftCursor } from "@/components/soft-cursor";
 import { Team } from "@/components/sections/team";
 import { getContent } from "@/content/store";
 import { pick } from "@/content/types";
@@ -82,6 +83,7 @@ export default async function HomePage({
 
   return (
     <>
+      {content.template === "cinematic" ? <SoftCursor /> : null}
       <Atmosphere />
       <ScrollProgress />
       <a

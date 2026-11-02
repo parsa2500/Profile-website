@@ -297,6 +297,38 @@ html[data-template="cinematic"] .rounded-full {
   border-radius: 0;
 }
 
+html.soft-cursor,
+html.soft-cursor * {
+  cursor: none !important;
+}
+
+/* Bypass cinematic .rounded-full { border-radius: 0 } */
+#soft-cursor-dot {
+  border-radius: 9999px !important;
+  border: 1px solid color-mix(in srgb, #737373 40%, transparent);
+  background: color-mix(in srgb, #a3a3a3 42%, transparent);
+  mix-blend-mode: multiply;
+}
+
+html.dark #soft-cursor-dot {
+  border-color: color-mix(in srgb, #e5e5e5 28%, transparent);
+  background: color-mix(in srgb, #d4d4d4 32%, transparent);
+  mix-blend-mode: screen;
+}
+
+html[data-template="cinematic"] {
+  scroll-behavior: smooth;
+}
+
+@keyframes brand-gyro {
+  from {
+    transform: rotateX(8deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(8deg) rotateY(360deg);
+  }
+}
+
 :focus-visible {
   outline: 2px solid var(--color-ring);
   outline-offset: 3px;
