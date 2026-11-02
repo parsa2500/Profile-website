@@ -1,3 +1,5 @@
+import { assetPath } from "@/lib/asset";
+
 export function BrandMark({
   className = "size-8",
 }: {
@@ -7,7 +9,7 @@ export function BrandMark({
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src="/brand/mark.svg"
+      src={assetPath("/brand/mark.svg")}
       alt=""
       width={64}
       height={64}

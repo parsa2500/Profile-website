@@ -58,3 +58,6 @@ build-meta.json
 remote-deploy-meta.json
 tailwindcss-*.log
 .cursor/
+
+# Temporary admin backup during static Pages build
+.admin-static-backup/

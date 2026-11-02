@@ -12,7 +12,8 @@ export function getSiteUrl() {
   if (process.env.VERCEL_URL) {
     return `https://${process.env.VERCEL_URL.replace(/\/$/, "")}`;
   }
-  return "http://localhost:3000";
+  const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+  return `http://localhost:3000${basePath}`;
 }
 
 export function localePath(locale: string) {

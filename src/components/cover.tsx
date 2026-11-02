@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { assetPath } from "@/lib/asset";
 
 export function Cover({
   src,
@@ -16,6 +17,7 @@ export function Cover({
   className?: string;
 }) {
   const frame = `relative overflow-hidden bg-muted ${className}`;
+  const resolved = assetPath(src || "/templates/html-site.jpg");
 
   if (src.startsWith("http://") || src.startsWith("https://")) {
     return (
@@ -34,7 +36,7 @@ export function Cover({
   return (
     <div className={frame}>
       <Image
-        src={src || "/templates/html-site.jpg"}
+        src={resolved}
         alt={alt}
         fill
         priority={priority}
