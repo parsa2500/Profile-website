@@ -46,3 +46,15 @@ next-env.d.ts
 
 # Local Netlify folder
 .netlify
+
+# Liara local secrets and deploy logs
+.liara-admin-password.txt
+liara-*.log
+liara-*.json
+!liara.json
+deploy-prod*.log
+remote-deploy*.log
+build-meta.json
+remote-deploy-meta.json
+tailwindcss-*.log
+.cursor/

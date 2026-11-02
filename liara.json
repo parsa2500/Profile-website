@@ -1,0 +1,19 @@
+﻿{
+  "app": "parsa-profile",
+  "platform": "next",
+  "port": 3000,
+  "next": {
+    "nodeVersion": "22",
+    "mirror": true
+  },
+  "disks": [
+    {
+      "name": "data",
+      "mountTo": "data"
+    },
+    {
+      "name": "uploads",
+      "mountTo": "public/uploads"
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { cache } from "react";
+﻿import { cache } from "react";
 import { mkdir, readFile, writeFile } from "fs/promises";
 import path from "path";
 import { createSeed } from "./seed";
@@ -350,7 +350,15 @@ export const getContent = cache(async (): Promise<SiteContent> => {
     }
   }
 
-  return createSeed();
+  // Empty Liara disk mounts hide the repo file; seed once so admin edits persist.
+  const seeded = createSeed();
+  try {
+    await mkdir(path.dirname(contentPath), { recursive: true });
+    await writeFile(contentPath, JSON.stringify(seeded, null, 2), "utf8");
+  } catch {
+    // Read-only filesystem or race: still serve seed in-memory.
+  }
+  return seeded;
 });
 
 export async function saveContent(content: unknown) {
