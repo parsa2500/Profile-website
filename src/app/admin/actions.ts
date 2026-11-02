@@ -47,6 +47,7 @@ export async function updateContent(content: SiteContent) {
 
   await saveContent(content);
   revalidatePath("/", "layout");
+  revalidatePath("/fa", "layout");
   revalidatePath("/en", "layout");
   return { ok: true as const };
 }

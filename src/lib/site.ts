@@ -16,7 +16,7 @@ export function getSiteUrl() {
 }
 
 export function localePath(locale: string) {
-  return locale === "fa" ? "/" : `/${locale}`;
+  return `/${locale}`;
 }
 
 export function absoluteUrl(path: string) {
