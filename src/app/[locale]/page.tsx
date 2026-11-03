@@ -47,7 +47,7 @@ export default async function HomePage({
       label: pick(section.title, activeLocale) || section.id,
     }));
 
-  const navItems: NavItem[] = [
+  const fullNav: NavItem[] = [
     { id: "about", href: "#about", label: pick(content.nav.about, activeLocale) },
     ...(showStats
       ? [
@@ -80,6 +80,24 @@ export default async function HomePage({
     ...customNav,
     { id: "contact", href: "#contact", label: pick(content.nav.contact, activeLocale) },
   ];
+  const cinematicNav: NavItem[] = [
+    { id: "about", href: "#about", label: pick(content.nav.about, activeLocale) },
+    ...(showProducts
+      ? [
+          {
+            id: "products",
+            href: "#products",
+            label: pick(content.nav.products, activeLocale),
+          },
+        ]
+      : []),
+    { id: "projects", href: "#projects", label: pick(content.nav.projects, activeLocale) },
+    ...(showTeam
+      ? [{ id: "team", href: "#team", label: pick(content.nav.team, activeLocale) }]
+      : []),
+    { id: "contact", href: "#contact", label: pick(content.nav.contact, activeLocale) },
+  ];
+  const navItems = content.template === "cinematic" ? cinematicNav : fullNav;
 
   return (
     <>

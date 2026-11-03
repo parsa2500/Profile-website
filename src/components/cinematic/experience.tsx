@@ -124,18 +124,18 @@ function HeroOpen({
   const narrowRef = useRef(narrow);
   narrowRef.current = narrow;
   const textOpacity = useTransform(scrollYProgress, (v) => {
-    const start = narrowRef.current ? 0.34 : 0.48;
-    const end = narrowRef.current ? 0.58 : 0.72;
-    if (v <= start) return 0;
+    const start = narrowRef.current ? 0.2 : 0.28;
+    const end = narrowRef.current ? 0.45 : 0.55;
+    if (v <= start) return 0.9;
     if (v >= end) return 1;
-    return (v - start) / (end - start);
+    return 0.9 + 0.1 * ((v - start) / (end - start));
   });
   const textY = useTransform(scrollYProgress, (v) => {
-    const start = narrowRef.current ? 0.34 : 0.48;
-    const end = narrowRef.current ? 0.58 : 0.72;
-    if (v <= start) return 28;
+    const start = narrowRef.current ? 0.2 : 0.28;
+    const end = narrowRef.current ? 0.45 : 0.55;
+    if (v <= start) return 10;
     if (v >= end) return 0;
-    return 28 * (1 - (v - start) / (end - start));
+    return 10 * (1 - (v - start) / (end - start));
   });
   const veil = useTransform(scrollYProgress, [0.18, 0.65], [0.72, 0.28]);
 
@@ -188,7 +188,7 @@ function HeroOpen({
   }
 
   return (
-    <section id="top" ref={ref} className="relative h-[230vh]">
+    <section id="top" ref={ref} className="relative h-[160vh] md:h-[230vh]">
       <div className="sticky top-[var(--header-h)] z-10 h-[var(--cinematic-remaining)] overflow-hidden bg-black touch-pan-y">
         <motion.div className="absolute inset-0" style={{ scale, filter }}>
           <Cover
@@ -268,7 +268,7 @@ function StatsReel({ locale, stats }: { locale: string; stats: StatItem[] }) {
   if (items.length === 0) return null;
   return (
     <section id="stats" className="scroll-mt-[var(--header-h)] border-t border-line">
-      <div className="cinematic-flow mx-auto grid w-full max-w-6xl grid-cols-2 content-center gap-4 px-5 md:grid-cols-4 md:px-8">
+      <div className="cinematic-pad mx-auto grid w-full max-w-6xl grid-cols-2 gap-4 px-5 md:grid-cols-4 md:px-8">
         {items.map((item) => {
           const isCity = item.id === "city" || !/^-?\d+(\.\d+)?$/.test(item.value.trim());
           return (
@@ -365,7 +365,7 @@ function AboutWipe({
   }
 
   return (
-    <section id="about" ref={ref} className="relative z-10 h-[240vh] scroll-mt-[var(--header-h)]">
+    <section id="about" ref={ref} className="relative z-10 h-[170vh] scroll-mt-[var(--header-h)] md:h-[240vh]">
       <div className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] items-center overflow-hidden bg-black touch-pan-y">
         <motion.div className="absolute inset-0" style={{ opacity: stageFade }}>
           <div className="absolute inset-0">
@@ -393,9 +393,7 @@ function AboutWipe({
             className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
             style={{ opacity: markOpacity, scale: markScale }}
           >
-            <span className="text-[clamp(4.5rem,22vw,14rem)] font-medium leading-none text-accent">
-              ?
-            </span>
+            <BrandMark className="size-[clamp(4.5rem,18vw,9rem)]" />
           </motion.div>
 
           <div className="cinematic-band relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-5 md:px-8">
@@ -529,7 +527,7 @@ function ProductRail({
     <section
       id="products"
       ref={ref}
-      className="relative z-20 h-[280vh] scroll-mt-[var(--header-h)] border-t border-line"
+      className="relative z-20 h-[200vh] scroll-mt-[var(--header-h)] border-t border-line md:h-[280vh]"
     >
       <div className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] flex-col overflow-hidden bg-[var(--color-bg)] touch-pan-y">
         <div className="cinematic-band flex min-h-0 flex-col justify-center">
@@ -538,6 +536,14 @@ function ProductRail({
             title={t(products.title, locale)}
             intro={t(products.intro, locale)}
           />
+          <div className="mx-auto mt-5 w-full max-w-6xl px-5 md:px-8">
+            <div className="h-px w-full overflow-hidden bg-white/15" aria-hidden="true">
+              <motion.div
+                className={`h-px w-full bg-accent ${rtl ? "origin-right" : "origin-left"}`}
+                style={{ scaleX: scrollYProgress }}
+              />
+            </div>
+          </div>
           <motion.div
             ref={trackRef}
             className="mt-6 flex min-h-0 w-max flex-1 gap-5 px-5 md:mt-10 md:px-8"
@@ -599,7 +605,7 @@ function ProjectStack({
 
   return (
     <section id="projects" className="scroll-mt-[var(--header-h)] border-t border-line">
-      <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
+      <div className="cinematic-pad mx-auto max-w-6xl px-5 md:px-8">
         <FadeRise>
           <p className="text-sm tracking-[0.22em] text-accent uppercase">
             {t(projects.eyebrow, locale)}
@@ -726,7 +732,7 @@ export function CinematicExperience(props: CinematicPayload) {
 
       {showTeam ? (
         <section id="team" className="scroll-mt-[var(--header-h)] border-t border-line">
-          <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
+          <div className="cinematic-pad mx-auto max-w-6xl px-5 md:px-8">
             <FadeRise>
               <p className="text-sm tracking-[0.22em] text-accent uppercase">
                 {t(props.team.eyebrow, locale)}
@@ -750,7 +756,7 @@ export function CinematicExperience(props: CinematicPayload) {
       ) : null}
 
       <section id="skills" className="scroll-mt-[var(--header-h)] border-t border-line">
-        <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
+        <div className="cinematic-pad mx-auto max-w-6xl px-5 md:px-8">
           <FadeRise>
             <p className="text-sm tracking-[0.22em] text-accent uppercase">
               {t(props.skills.eyebrow, locale)}
@@ -776,7 +782,7 @@ export function CinematicExperience(props: CinematicPayload) {
       </section>
 
       <section id="experience" className="scroll-mt-[var(--header-h)] border-t border-line">
-        <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
+        <div className="cinematic-pad mx-auto max-w-6xl px-5 md:px-8">
           <FadeRise>
             <p className="text-sm tracking-[0.22em] text-accent uppercase">
               {t(props.experience.eyebrow, locale)}
@@ -835,7 +841,7 @@ export function CinematicExperience(props: CinematicPayload) {
       ))}
 
       <section id="contact" className="scroll-mt-[var(--header-h)] border-t border-line">
-        <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
+        <div className="cinematic-pad mx-auto max-w-6xl px-5 md:px-8">
           <div className="liquid-glass relative overflow-hidden px-6 py-12 md:px-12 md:py-16">
             <Marquee text={t(props.contact.title, locale)} />
             <div className="relative">

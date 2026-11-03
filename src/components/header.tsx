@@ -69,7 +69,7 @@ export function Header({
           <LocaleSwitcher label={localeLabel} nextLocale={nextLocale} />
           <button
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent lg:hidden"
+            className="inline-flex size-11 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent lg:hidden"
             aria-expanded={open}
             aria-controls={panelId}
             aria-label={menu}

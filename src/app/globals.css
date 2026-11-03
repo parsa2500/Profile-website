@@ -214,6 +214,12 @@ html[data-template="cinematic"] .cinematic-flow {
   padding-block: var(--cinematic-gap);
 }
 
+/* Same vertical gap, without stretching short sections to a full frame */
+html[data-template="cinematic"] .cinematic-pad {
+  box-sizing: border-box;
+  padding-block: var(--cinematic-gap);
+}
+
 html[data-template="cinematic"] .atmosphere-grid {
   opacity: 0.16;
 }

@@ -16,7 +16,7 @@ export function LocaleSwitcher({
   return (
     <button
       type="button"
-      className="inline-flex h-10 cursor-pointer items-center rounded-full border border-line bg-card px-3 text-sm text-ink transition-colors duration-200 hover:border-accent"
+      className="inline-flex h-11 min-h-11 cursor-pointer items-center rounded-full border border-line bg-card px-4 text-sm text-ink transition-colors duration-200 hover:border-accent"
       onClick={() => router.replace(pathname, { locale: nextLocale })}
     >
       {label}
