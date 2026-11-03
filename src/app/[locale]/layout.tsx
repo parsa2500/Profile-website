@@ -3,8 +3,8 @@ import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages, setRequestLocale } from "next-intl/server";
+import { BrandProvider } from "@/components/brand-context";
 import { JsonLd } from "@/components/json-ld";
-import { ThemeProvider } from "@/components/theme-provider";
 import { getContent } from "@/content/store";
 import { pick } from "@/content/types";
 import { isLocale, routing } from "@/i18n/routing";
@@ -59,8 +59,15 @@ export async function generateMetadata({
     title,
     description,
     icons: {
-      icon: [{ url: "/brand/mark.svg", type: "image/svg+xml" }],
-      apple: [{ url: "/brand/logo.png" }],
+      icon: [
+        {
+          url: content.brand.logo || "/brand/mark.svg",
+          type: content.brand.logo?.endsWith(".svg")
+            ? "image/svg+xml"
+            : undefined,
+        },
+      ],
+      apple: [{ url: content.brand.logo || "/brand/logo.png" }],
     },
     alternates: {
       canonical,
@@ -111,7 +118,7 @@ export default async function LocaleLayout({
       dir={dir}
       data-template={content.template}
       suppressHydrationWarning
-      className={`${spaceGrotesk.variable} ${vazirmatn.variable} h-full antialiased`}
+      className={`dark ${spaceGrotesk.variable} ${vazirmatn.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full">
@@ -125,7 +132,7 @@ export default async function LocaleLayout({
         */}
         <JsonLd locale={locale} />
         <NextIntlClientProvider locale={locale} messages={messages}>
-          <ThemeProvider>{children}</ThemeProvider>
+          <BrandProvider brand={content.brand}>{children}</BrandProvider>
         </NextIntlClientProvider>
       </body>
     </html>

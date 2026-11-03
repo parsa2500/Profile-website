@@ -5,7 +5,6 @@ import { Menu, X } from "lucide-react";
 import type { Locale } from "@/i18n/routing";
 import { BrandMark } from "./brand-mark";
 import { LocaleSwitcher } from "./locale-switcher";
-import { ThemeToggle } from "./theme-toggle";
 
 export type NavItem = {
   id: string;
@@ -19,16 +18,12 @@ export function Header({
   items,
   localeLabel,
   nextLocale,
-  toDark,
-  toLight,
 }: {
   home: string;
   menu: string;
   items: NavItem[];
   localeLabel: string;
   nextLocale: Locale;
-  toDark: string;
-  toLight: string;
 }) {
   const [open, setOpen] = useState(false);
   const panelId = useId();
@@ -72,7 +67,6 @@ export function Header({
 
         <div className="ms-auto flex items-center gap-1.5 sm:gap-2">
           <LocaleSwitcher label={localeLabel} nextLocale={nextLocale} />
-          <ThemeToggle toDark={toDark} toLight={toLight} />
           <button
             type="button"
             className="inline-flex size-10 items-center justify-center rounded-full border border-line text-ink transition-colors hover:border-accent lg:hidden"

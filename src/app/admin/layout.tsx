@@ -1,5 +1,4 @@
 import localFont from "next/font/local";
-import { ThemeProvider } from "@/components/theme-provider";
 import "../globals.css";
 import "./admin.css";
 
@@ -39,15 +38,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       suppressHydrationWarning
       data-shell="admin"
       data-scroll-behavior="smooth"
-      className={`${spaceGrotesk.variable} ${vazirmatn.variable} h-full antialiased`}
+      className={`dark ${spaceGrotesk.variable} ${vazirmatn.variable} h-full antialiased`}
     >
       <body className="min-h-full bg-paper text-ink">
-        <ThemeProvider>
-          <div className="admin-shell">
-            <div className="admin-mesh" aria-hidden="true" />
-            <div className="relative z-10">{children}</div>
-          </div>
-        </ThemeProvider>
+        <div className="admin-shell">
+          <div className="admin-mesh" aria-hidden="true" />
+          <div className="relative z-10">{children}</div>
+        </div>
       </body>
     </html>
   );

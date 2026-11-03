@@ -102,8 +102,6 @@ export default async function HomePage({
             : pick(content.locale.switchToFa, activeLocale)
         }
         nextLocale={nextLocale}
-        toDark={pick(content.theme.toDark, activeLocale)}
-        toLight={pick(content.theme.toLight, activeLocale)}
       />
       <main id="main" className="relative z-10">
         {content.template === "cinematic" ? (

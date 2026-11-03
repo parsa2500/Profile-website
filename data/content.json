@@ -2,6 +2,11 @@
   "template": "cinematic",
   "githubUrl": "https://github.com/parsa2500",
   "githubHandle": "parsa2500",
+  "brand": {
+    "logo": "/brand/mark.svg",
+    "logo3d": "",
+    "enable3d": true
+  },
   "meta": {
     "title": {
       "fa": "Auto team — تیم محصول و تحویل",
@@ -52,16 +57,6 @@
     "contact": {
       "fa": "تماس",
       "en": "Contact"
-    }
-  },
-  "theme": {
-    "toDark": {
-      "fa": "حالت تیره",
-      "en": "Dark mode"
-    },
-    "toLight": {
-      "fa": "حالت روشن",
-      "en": "Light mode"
     }
   },
   "locale": {

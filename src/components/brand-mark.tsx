@@ -3,6 +3,7 @@
 import { useReducedMotion } from "motion/react";
 import { useEffect, useState } from "react";
 import { assetPath } from "@/lib/asset";
+import { useBrand } from "./brand-context";
 import { BrandMark3D } from "./brand-mark-3d";
 
 export function BrandMark({
@@ -13,6 +14,7 @@ export function BrandMark({
   priority?: boolean;
   spin?: boolean;
 }) {
+  const brand = useBrand();
   const reduce = useReducedMotion();
   const [hover, setHover] = useState(false);
   const [coarse, setCoarse] = useState(false);
@@ -25,17 +27,18 @@ export function BrandMark({
     return () => media.removeEventListener("change", sync);
   }, []);
 
-  const gyro = spin && !reduce && !coarse;
+  const logoSrc = assetPath(brand.logo || "/brand/mark.svg");
+  const gyro = spin && brand.enable3d && !reduce && !coarse;
 
   if (!gyro) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
-        src={assetPath("/brand/mark.svg")}
+        src={logoSrc}
         alt=""
         width={64}
         height={64}
-        className={`shrink-0 rounded-[0.65rem] ${className}`}
+        className={`shrink-0 rounded-[0.65rem] object-contain ${className}`}
         decoding="async"
       />
     );
@@ -49,7 +52,12 @@ export function BrandMark({
       onFocus={() => setHover(true)}
       onBlur={() => setHover(false)}
     >
-      <BrandMark3D className="size-full" faceForward={hover} />
+      <BrandMark3D
+        className="size-full"
+        faceForward={hover}
+        logo={brand.logo}
+        modelUrl={brand.logo3d}
+      />
     </span>
   );
 }

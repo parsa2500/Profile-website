@@ -1,44 +1,5 @@
-/* Admin shell — scoped so the public site keeps its own templates. */
+/* Admin shell — scoped so the public site keeps its own templates. Dark only. */
 html[data-shell="admin"] {
-  --color-bg: #eef3f5;
-  --color-fg: #102027;
-  --color-card: #ffffff;
-  --color-muted: #e2eaee;
-  --color-muted-fg: #5b6b74;
-  --color-border: #cfdce3;
-  --color-accent: #0f766e;
-  --color-on-accent: #f4fffd;
-  --color-ring: #0f766e;
-  --admin-sidebar: #f7fbfc;
-  --admin-rail: #0f766e;
-  --admin-glow-a: color-mix(in srgb, #14b8a6 28%, transparent);
-  --admin-glow-b: color-mix(in srgb, #0ea5e9 18%, transparent);
-  --admin-success: #047857;
-  --admin-danger: #b91c1c;
-  --header-bg: color-mix(in srgb, var(--color-bg) 82%, transparent);
-}
-
-@media (prefers-color-scheme: dark) {
-  html[data-shell="admin"]:not(.light) {
-    --color-bg: #081018;
-    --color-fg: #e8f1f4;
-    --color-card: #101a24;
-    --color-muted: #182433;
-    --color-muted-fg: #9db0bb;
-    --color-border: #243443;
-    --color-accent: #2dd4bf;
-    --color-on-accent: #042f2e;
-    --color-ring: #2dd4bf;
-    --admin-sidebar: #0b1520;
-    --admin-rail: #2dd4bf;
-    --admin-glow-a: color-mix(in srgb, #2dd4bf 22%, transparent);
-    --admin-glow-b: color-mix(in srgb, #38bdf8 14%, transparent);
-    --admin-success: #34d399;
-    --admin-danger: #f87171;
-  }
-}
-
-html[data-shell="admin"].dark {
   --color-bg: #081018;
   --color-fg: #e8f1f4;
   --color-card: #101a24;
@@ -54,24 +15,7 @@ html[data-shell="admin"].dark {
   --admin-glow-b: color-mix(in srgb, #38bdf8 14%, transparent);
   --admin-success: #34d399;
   --admin-danger: #f87171;
-}
-
-html[data-shell="admin"].light {
-  --color-bg: #eef3f5;
-  --color-fg: #102027;
-  --color-card: #ffffff;
-  --color-muted: #e2eaee;
-  --color-muted-fg: #5b6b74;
-  --color-border: #cfdce3;
-  --color-accent: #0f766e;
-  --color-on-accent: #f4fffd;
-  --color-ring: #0f766e;
-  --admin-sidebar: #f7fbfc;
-  --admin-rail: #0f766e;
-  --admin-glow-a: color-mix(in srgb, #14b8a6 28%, transparent);
-  --admin-glow-b: color-mix(in srgb, #0ea5e9 18%, transparent);
-  --admin-success: #047857;
-  --admin-danger: #b91c1c;
+  --header-bg: color-mix(in srgb, var(--color-bg) 82%, transparent);
 }
 
 .admin-shell {
@@ -124,23 +68,9 @@ html[data-shell="admin"].light {
   border: 1px solid var(--color-border);
   background: color-mix(in srgb, var(--color-card) 92%, transparent);
   box-shadow:
-    0 1px 0 color-mix(in srgb, white 40%, transparent) inset,
-    0 18px 40px color-mix(in srgb, #102027 6%, transparent);
-  backdrop-filter: blur(10px);
-}
-
-html[data-shell="admin"].dark .admin-panel {
-  box-shadow:
     0 1px 0 color-mix(in srgb, white 8%, transparent) inset,
     0 18px 40px color-mix(in srgb, black 35%, transparent);
-}
-
-@media (prefers-color-scheme: dark) {
-  html[data-shell="admin"]:not(.light) .admin-panel {
-    box-shadow:
-      0 1px 0 color-mix(in srgb, white 8%, transparent) inset,
-      0 18px 40px color-mix(in srgb, black 35%, transparent);
-  }
+  backdrop-filter: blur(10px);
 }
 
 .admin-nav-item {

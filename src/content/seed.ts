@@ -197,6 +197,11 @@ export function createSeed(): SiteContent {
     template: "editorial",
     githubUrl: "https://github.com/parsa2500",
     githubHandle: "parsa2500",
+    brand: {
+      logo: "/brand/mark.svg",
+      logo3d: "",
+      enable3d: true,
+    },
     meta: {
       title: copy(fa.meta.title, en.meta.title),
       description: copy(fa.meta.description, en.meta.description),
@@ -212,10 +217,6 @@ export function createSeed(): SiteContent {
       experience: copy(fa.nav.experience, en.nav.experience),
       projects: copy(fa.nav.projects, en.nav.projects),
       contact: copy(fa.nav.contact, en.nav.contact),
-    },
-    theme: {
-      toDark: copy(fa.theme.toDark, en.theme.toDark),
-      toLight: copy(fa.theme.toLight, en.theme.toLight),
     },
     locale: {
       switchToEn: copy(fa.locale.switchToEn, en.locale.switchToEn),

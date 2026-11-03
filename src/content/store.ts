@@ -73,11 +73,21 @@ function normalize(value: unknown): SiteContent {
   const productItems = Array.isArray(products.items) ? products.items : seed.products.items;
   const teamMembers = Array.isArray(team.members) ? team.members : seed.team.members;
 
+  const brand = isRecord(value.brand) ? value.brand : {};
+
   return {
     template: asTemplate(value.template),
     githubUrl: typeof value.githubUrl === "string" ? value.githubUrl : seed.githubUrl,
     githubHandle:
       typeof value.githubHandle === "string" ? value.githubHandle : seed.githubHandle,
+    brand: {
+      logo:
+        typeof brand.logo === "string" && brand.logo.trim()
+          ? brand.logo.trim()
+          : seed.brand.logo,
+      logo3d: typeof brand.logo3d === "string" ? brand.logo3d.trim() : seed.brand.logo3d,
+      enable3d: typeof brand.enable3d === "boolean" ? brand.enable3d : seed.brand.enable3d,
+    },
     meta: {
       title: asCopy(isRecord(value.meta) ? value.meta.title : seed.meta.title),
       description: asCopy(isRecord(value.meta) ? value.meta.description : seed.meta.description),
@@ -93,10 +103,6 @@ function normalize(value: unknown): SiteContent {
       experience: asCopy(isRecord(value.nav) ? value.nav.experience : seed.nav.experience),
       projects: asCopy(isRecord(value.nav) ? value.nav.projects : seed.nav.projects),
       contact: asCopy(isRecord(value.nav) ? value.nav.contact : seed.nav.contact),
-    },
-    theme: {
-      toDark: asCopy(isRecord(value.theme) ? value.theme.toDark : seed.theme.toDark),
-      toLight: asCopy(isRecord(value.theme) ? value.theme.toLight : seed.theme.toLight),
     },
     locale: {
       switchToEn: asCopy(isRecord(value.locale) ? value.locale.switchToEn : seed.locale.switchToEn),

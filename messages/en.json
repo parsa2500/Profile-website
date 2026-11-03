@@ -15,10 +15,6 @@
     "menu": "Page sections",
     "home": "Auto team"
   },
-  "theme": {
-    "toDark": "Dark mode",
-    "toLight": "Light mode"
-  },
   "locale": {
     "switchToEn": "English",
     "switchToFa": "فارسی"

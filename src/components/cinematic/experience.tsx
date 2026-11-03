@@ -113,7 +113,10 @@ function HeroOpen({
 
   if (reduce) {
     return (
-      <section id="top" className="relative min-h-[100svh] overflow-hidden">
+      <section
+        id="top"
+        className="relative min-h-[var(--cinematic-remaining)] overflow-hidden"
+      >
         <Cover
           src={hero.image}
           alt={name}
@@ -122,7 +125,7 @@ function HeroOpen({
           className="absolute inset-0 min-h-full rounded-none"
         />
         <div className="absolute inset-0 bg-black/55" />
-        <div className="relative z-10 mx-auto flex min-h-[100svh] w-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 md:px-8">
+        <div className="cinematic-band relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-end px-5 md:px-8">
           <p className="text-sm tracking-[0.22em] text-accent uppercase">
             {t(hero.eyebrow, locale)}
           </p>
@@ -154,7 +157,7 @@ function HeroOpen({
 
   return (
     <section id="top" ref={ref} className="relative h-[230vh]">
-      <div className="sticky top-0 z-10 h-[100svh] overflow-hidden bg-black">
+      <div className="sticky top-[var(--header-h)] z-10 h-[var(--cinematic-remaining)] overflow-hidden bg-black">
         <motion.div className="absolute inset-0" style={{ scale, filter }}>
           <Cover
             src={hero.image}
@@ -193,7 +196,7 @@ function HeroOpen({
           />
         </motion.div>
         <motion.div
-          className="relative z-30 mx-auto flex h-full w-full max-w-6xl flex-col justify-end px-5 pb-16 pt-28 md:px-8"
+          className="cinematic-band relative z-30 mx-auto flex w-full max-w-6xl flex-col justify-end px-5 md:px-8"
           style={{ opacity: textOpacity, y: textY }}
         >
           <p className="text-sm tracking-[0.22em] text-accent uppercase">
@@ -232,8 +235,8 @@ function StatsReel({ locale, stats }: { locale: string; stats: StatItem[] }) {
   const items = stats.filter((item) => item.visible && item.value.trim());
   if (items.length === 0) return null;
   return (
-    <section id="stats" className="scroll-mt-24 border-t border-line">
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-2 gap-4 px-5 py-16 md:grid-cols-4 md:px-8 md:py-24">
+    <section id="stats" className="scroll-mt-[var(--header-h)] border-t border-line">
+      <div className="cinematic-flow mx-auto grid w-full max-w-6xl grid-cols-2 content-center gap-4 px-5 md:grid-cols-4 md:px-8">
         {items.map((item) => {
           const isCity = item.id === "city" || !/^-?\d+(\.\d+)?$/.test(item.value.trim());
           return (
@@ -305,8 +308,8 @@ function AboutWipe({
 
   if (reduce) {
     return (
-      <section id="about" className="scroll-mt-24 border-t border-line">
-        <div className="mx-auto grid max-w-6xl gap-8 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-2">
+      <section id="about" className="scroll-mt-[var(--header-h)] border-t border-line">
+        <div className="cinematic-flow mx-auto grid max-w-6xl gap-8 px-5 md:px-8 lg:grid-cols-2">
           <Cover
             src={about.image}
             alt={title}
@@ -324,9 +327,9 @@ function AboutWipe({
   }
 
   return (
-    <section id="about" ref={ref} className="relative z-10 h-[240vh] scroll-mt-24">
+    <section id="about" ref={ref} className="relative z-10 h-[240vh] scroll-mt-[var(--header-h)]">
       <motion.div
-        className="sticky top-0 flex h-[100svh] items-center overflow-hidden bg-black"
+        className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] items-center overflow-hidden bg-black"
         style={{ opacity: stageFade }}
       >
         <div className="absolute inset-0">
@@ -359,7 +362,7 @@ function AboutWipe({
           </span>
         </motion.div>
 
-        <div className="relative z-10 mx-auto w-full max-w-6xl px-5 md:px-8">
+        <div className="cinematic-band relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-5 md:px-8">
           <p
             className="text-sm tracking-[0.22em] text-accent uppercase"
             style={{ opacity: typing ? 1 : 0 }}
@@ -454,7 +457,7 @@ function ProductRail({
 
   if (reduce) {
     return (
-      <section id="products" className="scroll-mt-24 border-t border-line py-20">
+      <section id="products" className="cinematic-flow scroll-mt-[var(--header-h)] border-t border-line">
         <ScrollHeadline
           eyebrow={t(products.eyebrow, locale)}
           title={t(products.title, locale)}
@@ -464,7 +467,12 @@ function ProductRail({
           {visible.map((item) => (
             <article key={item.id} className="overflow-hidden border border-line bg-card">
               <div className="relative">
-                <Cover src={item.image} alt={t(item.name, locale)} sizes="50vw" className="aspect-[3/4] max-h-[22rem]" />
+                <Cover
+                  src={item.image}
+                  alt={t(item.name, locale)}
+                  sizes="50vw"
+                  className="aspect-[3/4] max-h-[min(calc(var(--cinematic-band)*0.55),22rem)]"
+                />
                 <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/95 via-black/55 to-transparent px-5 pb-5 pt-16">
                   <p className="text-xs tracking-wide text-accent">{t(item.tagline, locale)}</p>
                   <h3 className="mt-2 text-2xl font-medium text-white">{t(item.name, locale)}</h3>
@@ -481,55 +489,61 @@ function ProductRail({
   }
 
   return (
-    <section id="products" ref={ref} className="relative z-20 h-[280vh] scroll-mt-24 border-t border-line">
-      <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden bg-[var(--color-bg)]">
-        <ScrollHeadline
-          eyebrow={t(products.eyebrow, locale)}
-          title={t(products.title, locale)}
-          intro={t(products.intro, locale)}
-        />
-        <motion.div
-          ref={trackRef}
-          className="mt-8 flex w-max gap-5 px-5 md:mt-10 md:px-8"
-          style={{ x: xShift }}
-        >
-          {visible.map((item) => {
-            const name = t(item.name, locale);
-            const href = item.url.trim();
-            return (
-              <article
-                key={item.id}
-                className="w-[min(78vw,24rem)] shrink-0 overflow-hidden border border-line bg-card"
-              >
-                <div className="relative max-h-[min(52vh,22rem)]">
-                  <Cover
-                    src={item.image}
-                    alt={name}
-                    sizes="24rem"
-                    className="aspect-[3/4] max-h-[min(52vh,22rem)]"
-                  />
-                  <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/95 via-black/55 to-transparent px-5 pb-5 pt-16">
-                    <p className="text-xs tracking-wide text-accent">{t(item.tagline, locale)}</p>
-                    <h3 className="mt-2 text-2xl font-medium text-white md:text-3xl">{name}</h3>
+    <section
+      id="products"
+      ref={ref}
+      className="relative z-20 h-[280vh] scroll-mt-[var(--header-h)] border-t border-line"
+    >
+      <div className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] flex-col overflow-hidden bg-[var(--color-bg)]">
+        <div className="cinematic-band flex min-h-0 flex-col justify-center">
+          <ScrollHeadline
+            eyebrow={t(products.eyebrow, locale)}
+            title={t(products.title, locale)}
+            intro={t(products.intro, locale)}
+          />
+          <motion.div
+            ref={trackRef}
+            className="mt-8 flex min-h-0 w-max flex-1 gap-5 px-5 md:mt-10 md:px-8"
+            style={{ x: xShift }}
+          >
+            {visible.map((item) => {
+              const name = t(item.name, locale);
+              const href = item.url.trim();
+              return (
+                <article
+                  key={item.id}
+                  className="w-[min(78vw,24rem)] shrink-0 overflow-hidden border border-line bg-card"
+                >
+                  <div className="relative max-h-[min(calc(var(--cinematic-band)*0.55),22rem)]">
+                    <Cover
+                      src={item.image}
+                      alt={name}
+                      sizes="24rem"
+                      className="aspect-[3/4] max-h-[min(calc(var(--cinematic-band)*0.55),22rem)]"
+                    />
+                    <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/95 via-black/55 to-transparent px-5 pb-5 pt-16">
+                      <p className="text-xs tracking-wide text-accent">{t(item.tagline, locale)}</p>
+                      <h3 className="mt-2 text-2xl font-medium text-white md:text-3xl">{name}</h3>
+                    </div>
                   </div>
-                </div>
-                <div className="p-5 md:p-6">
-                  <p className="text-sm leading-7 text-muted-fg">{t(item.summary, locale)}</p>
-                  {href ? (
-                    <a
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-4 inline-flex text-sm text-accent hover:opacity-80"
-                    >
-                      {linkLabel}
-                    </a>
-                  ) : null}
-                </div>
-              </article>
-            );
-          })}
-        </motion.div>
+                  <div className="p-5 md:p-6">
+                    <p className="text-sm leading-7 text-muted-fg">{t(item.summary, locale)}</p>
+                    {href ? (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="mt-4 inline-flex text-sm text-accent hover:opacity-80"
+                      >
+                        {linkLabel}
+                      </a>
+                    ) : null}
+                  </div>
+                </article>
+              );
+            })}
+          </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -547,8 +561,8 @@ function ProjectStack({
   if (visible.length === 0) return null;
 
   return (
-    <section id="projects" className="scroll-mt-24 border-t border-line">
-      <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+    <section id="projects" className="scroll-mt-[var(--header-h)] border-t border-line">
+      <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
         <FadeRise>
           <p className="text-sm tracking-[0.22em] text-accent uppercase">
             {t(projects.eyebrow, locale)}
@@ -669,8 +683,8 @@ export function CinematicExperience(props: CinematicPayload) {
       <ProjectStack locale={locale} projects={props.projects} />
 
       {showTeam ? (
-        <section id="team" className="scroll-mt-24 border-t border-line">
-          <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+        <section id="team" className="scroll-mt-[var(--header-h)] border-t border-line">
+          <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
             <FadeRise>
               <p className="text-sm tracking-[0.22em] text-accent uppercase">
                 {t(props.team.eyebrow, locale)}
@@ -693,8 +707,8 @@ export function CinematicExperience(props: CinematicPayload) {
         </section>
       ) : null}
 
-      <section id="skills" className="scroll-mt-24 border-t border-line">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+      <section id="skills" className="scroll-mt-[var(--header-h)] border-t border-line">
+        <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
           <FadeRise>
             <p className="text-sm tracking-[0.22em] text-accent uppercase">
               {t(props.skills.eyebrow, locale)}
@@ -719,8 +733,8 @@ export function CinematicExperience(props: CinematicPayload) {
         </div>
       </section>
 
-      <section id="experience" className="scroll-mt-24 border-t border-line">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+      <section id="experience" className="scroll-mt-[var(--header-h)] border-t border-line">
+        <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
           <FadeRise>
             <p className="text-sm tracking-[0.22em] text-accent uppercase">
               {t(props.experience.eyebrow, locale)}
@@ -752,8 +766,12 @@ export function CinematicExperience(props: CinematicPayload) {
       </section>
 
       {customs.map((section) => (
-        <section key={section.id} id={section.id} className="scroll-mt-24 border-t border-line">
-          <div className="mx-auto grid max-w-6xl gap-8 px-5 py-20 md:px-8 md:py-28 lg:grid-cols-2">
+        <section
+          key={section.id}
+          id={section.id}
+          className="scroll-mt-[var(--header-h)] border-t border-line"
+        >
+          <div className="cinematic-flow mx-auto grid max-w-6xl gap-8 px-5 md:px-8 lg:grid-cols-2">
             {section.image ? (
               <FadeRise>
                 <Cover
@@ -774,8 +792,8 @@ export function CinematicExperience(props: CinematicPayload) {
         </section>
       ))}
 
-      <section id="contact" className="scroll-mt-24 border-t border-line">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-28">
+      <section id="contact" className="scroll-mt-[var(--header-h)] border-t border-line">
+        <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
           <div className="relative overflow-hidden border border-line bg-card px-6 py-12 md:px-12 md:py-16">
             <Marquee text={t(props.contact.title, locale)} />
             <div className="relative">

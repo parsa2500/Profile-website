@@ -95,10 +95,20 @@ export type SocialLink = {
 
 export type SiteTemplate = "editorial" | "studio" | "signal" | "cinematic";
 
+export type BrandSettings = {
+  /** Flat logo path (SVG/PNG/WebP/JPG). Default: /brand/mark.svg */
+  logo: string;
+  /** Optional GLB/GLTF model for 3D header mark. Empty = derive 3D from flat logo. */
+  logo3d: string;
+  /** When true, header uses the 3D mark (GLB or spinning plate). */
+  enable3d: boolean;
+};
+
 export type SiteContent = {
   template: SiteTemplate;
   githubUrl: string;
   githubHandle: string;
+  brand: BrandSettings;
   meta: { title: Copy; description: Copy };
   nav: {
     home: Copy;
@@ -112,7 +122,6 @@ export type SiteContent = {
     projects: Copy;
     contact: Copy;
   };
-  theme: { toDark: Copy; toLight: Copy };
   locale: { switchToEn: Copy; switchToFa: Copy };
   hero: {
     eyebrow: Copy;

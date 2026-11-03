@@ -28,7 +28,6 @@ import {
   type LucideIcon,
 } from "lucide-react";
 import { useState, type ReactNode } from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
 import type {
   Copy,
   ExperienceItem,
@@ -39,7 +38,7 @@ import type {
   TeamDepartment,
   TeamMember,
 } from "@/content/types";
-import { logout, updateContent, uploadImage } from "./actions";
+import { logout, updateContent, uploadImage, uploadModel } from "./actions";
 
 type PanelId =
   | "overview"
@@ -235,10 +234,14 @@ function ImageField({
   label,
   value,
   onChange,
+  accept = "image/jpeg,image/png,image/webp,image/gif",
+  uploadLabel = "آپلود تصویر",
 }: {
   label: string;
   value: string;
   onChange: (value: string) => void;
+  accept?: string;
+  uploadLabel?: string;
 }) {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState("");
@@ -271,10 +274,10 @@ function ImageField({
       <div className="flex flex-wrap items-center gap-2">
         <label className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-muted px-3 text-sm">
           <Upload className="size-4" />
-          {uploading ? "در حال آپلود…" : "آپلود تصویر"}
+          {uploading ? "در حال آپلود…" : uploadLabel}
           <input
             type="file"
-            accept="image/jpeg,image/png,image/webp,image/gif"
+            accept={accept}
             className="sr-only"
             disabled={uploading}
             onChange={(event) => {
@@ -285,9 +288,79 @@ function ImageField({
         </label>
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={value} alt="" className="h-10 w-16 rounded-lg border border-line object-cover" />
+          <img src={value} alt="" className="h-10 w-16 rounded-lg border border-line object-contain" />
         ) : null}
       </div>
+      {error ? <p className="text-sm text-[color:var(--admin-danger)]">{error}</p> : null}
+    </label>
+  );
+}
+
+function ModelField({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState("");
+
+  async function onFile(file: File | undefined) {
+    if (!file) return;
+    setUploading(true);
+    setError("");
+    const formData = new FormData();
+    formData.set("file", file);
+    const result = await uploadModel(formData);
+    setUploading(false);
+    if (!result.ok) {
+      setError(result.error);
+      return;
+    }
+    onChange(result.path);
+  }
+
+  return (
+    <label className="grid gap-2 text-sm">
+      {label}
+      <input
+        className="admin-field"
+        dir="ltr"
+        value={value}
+        placeholder="/uploads/logo.glb"
+        onChange={(event) => onChange(event.target.value)}
+      />
+      <div className="flex flex-wrap items-center gap-2">
+        <label className="inline-flex h-10 cursor-pointer items-center gap-1.5 rounded-full border border-line bg-muted px-3 text-sm">
+          <Upload className="size-4" />
+          {uploading ? "در حال آپلود…" : "آپلود مدل ۳بعدی"}
+          <input
+            type="file"
+            accept=".glb,.gltf,model/gltf-binary,model/gltf+json"
+            className="sr-only"
+            disabled={uploading}
+            onChange={(event) => {
+              void onFile(event.target.files?.[0]);
+              event.target.value = "";
+            }}
+          />
+        </label>
+        {value ? (
+          <button
+            type="button"
+            className="inline-flex h-10 items-center rounded-full border border-line px-3 text-sm text-muted-fg"
+            onClick={() => onChange("")}
+          >
+            حذف مدل
+          </button>
+        ) : null}
+      </div>
+      <p className="text-xs leading-5 text-muted-fg">
+        اختیاری. اگر خالی باشد، از لوگوی تخت یک پلاک سه‌بعدی ساخته می‌شود (برای لوگوی پیش‌فرض، مدل حکاکی‌شدهٔ A).
+      </p>
       {error ? <p className="text-sm text-[color:var(--admin-danger)]">{error}</p> : null}
     </label>
   );
@@ -296,6 +369,11 @@ function ImageField({
 export function Editor({ initial }: { initial: SiteContent }) {
   const [draft, setDraft] = useState<SiteContent>({
     ...initial,
+    brand: {
+      logo: initial.brand?.logo || "/brand/mark.svg",
+      logo3d: initial.brand?.logo3d || "",
+      enable3d: initial.brand?.enable3d ?? true,
+    },
     stats: initial.stats ?? [],
     customSections: initial.customSections ?? [],
     socials: initial.socials ?? [],
@@ -380,7 +458,6 @@ export function Editor({ initial }: { initial: SiteContent }) {
           ))}
         </nav>
         <div className="mt-auto grid gap-2 border-t border-line pt-4">
-          <ThemeToggle toDark="حالت تیره" toLight="حالت روشن" />
           <Link
             href="/"
             className="inline-flex h-10 items-center justify-center gap-2 rounded-full border border-line text-sm"
@@ -414,9 +491,6 @@ export function Editor({ initial }: { initial: SiteContent }) {
             <p className="mt-1 text-sm text-muted-fg">ستون راست فارسی است و ستون چپ انگلیسی.</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <div className="md:hidden">
-              <ThemeToggle toDark="حالت تیره" toLight="حالت روشن" />
-            </div>
             <Link
               href="/"
               className="inline-flex h-10 items-center gap-1.5 rounded-full border border-line px-3 text-sm md:hidden"
@@ -512,6 +586,29 @@ export function Editor({ initial }: { initial: SiteContent }) {
 
         {panel === "identity" ? (
           <PanelCard title="هویت و گیت‌هاب">
+            <ImageField
+              label="لوگوی تخت"
+              value={draft.brand.logo}
+              accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml,.svg"
+              uploadLabel="آپلود لوگو"
+              onChange={(logo) => patch({ brand: { ...draft.brand, logo } })}
+            />
+            <ModelField
+              label="لوگوی سه‌بعدی (GLB/GLTF)"
+              value={draft.brand.logo3d}
+              onChange={(logo3d) => patch({ brand: { ...draft.brand, logo3d } })}
+            />
+            <label className="flex items-center gap-3 text-sm">
+              <input
+                type="checkbox"
+                className="size-4 accent-[var(--color-accent)]"
+                checked={draft.brand.enable3d}
+                onChange={(event) =>
+                  patch({ brand: { ...draft.brand, enable3d: event.target.checked } })
+                }
+              />
+              نمایش سه‌بعدی لوگو در هدر (چرخش؛ با هاور رو به جلو)
+            </label>
             <label className="grid gap-2 text-sm">
               نام کاربری
               <input

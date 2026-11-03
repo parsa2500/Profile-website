@@ -18,7 +18,9 @@ export function PinStage({
   }
   return (
     <div className={`relative ${heightClass}`}>
-      <div className={`sticky top-0 flex h-[100svh] items-center overflow-hidden ${className}`}>
+      <div
+        className={`sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] items-center overflow-hidden ${className}`}
+      >
         {children}
       </div>
     </div>

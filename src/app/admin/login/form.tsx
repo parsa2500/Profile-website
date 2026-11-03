@@ -1,7 +1,6 @@
 "use client";
 
 import { useActionState } from "react";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { login } from "../actions";
 
 export function LoginForm() {
@@ -9,15 +8,12 @@ export function LoginForm() {
 
   return (
     <div className="grid w-full max-w-md gap-4">
-      <div className="flex justify-end">
-        <ThemeToggle toDark="حالت تیره" toLight="حالت روشن" />
-      </div>
       <form action={action} className="admin-panel grid gap-5 rounded-[1.75rem] p-7">
         <div>
           <p className="admin-chip mb-3">پنل مدیریت</p>
           <h1 className="text-3xl font-medium tracking-tight">ورود به پنل</h1>
           <p className="mt-2 text-sm leading-7 text-muted-fg">
-            نام کاربری و رمز را از فایل env وارد کنید. تم روشن و تیره از همین‌جا عوض می‌شود.
+            نام کاربری و رمز را از فایل env وارد کنید.
           </p>
         </div>
         <label className="grid gap-2 text-sm">
