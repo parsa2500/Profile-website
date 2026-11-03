@@ -43,7 +43,7 @@ export function Header({
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-line bg-[var(--header-bg)] backdrop-blur-md">
+    <header className="liquid-header sticky top-0 z-40 border-b border-line">
       <div className="mx-auto flex h-14 w-full max-w-6xl items-center gap-4 px-5 md:h-16 md:px-8">
         <a href="#top" className="flex min-w-0 items-center gap-2.5" onClick={() => setOpen(false)}>
           <BrandMark className="size-8" priority spin />

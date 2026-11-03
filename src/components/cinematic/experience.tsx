@@ -8,7 +8,7 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useSyncExternalStore } from "react";
 import { BrandMark } from "@/components/brand-mark";
 import { Cover } from "@/components/cover";
 import { ExperienceTrack, Marquee } from "@/components/motion";
@@ -30,6 +30,20 @@ import { PuffBurst } from "./puff-burst";
 import { FadeRise, ScrollHeadline } from "./scroll-kit";
 import { CitySlot, CountUpValue } from "./stat-motion";
 import { TypeLine } from "./type-line";
+
+function subscribeNarrow(onChange: () => void) {
+  const media = window.matchMedia("(max-width: 767px)");
+  media.addEventListener("change", onChange);
+  return () => media.removeEventListener("change", onChange);
+}
+
+function useNarrowViewport() {
+  return useSyncExternalStore(
+    subscribeNarrow,
+    () => window.matchMedia("(max-width: 767px)").matches,
+    () => false,
+  );
+}
 
 export type CinematicPayload = {
   locale: string;
@@ -89,6 +103,7 @@ function HeroOpen({
   contactLabel: string;
 }) {
   const reduce = useReducedMotion();
+  const narrow = useNarrowViewport();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -96,6 +111,7 @@ function HeroOpen({
   });
 
   // Logo visible → center seam drops → doors + logo halves open slower → copy reveals.
+  // On narrow viewports, reveal copy earlier so short scrolls still feel alive.
   const logoOpacity = useTransform(scrollYProgress, [0, 0.06, 0.14], [0, 1, 1]);
   const seamScale = useTransform(scrollYProgress, [0.08, 0.2], [0, 1]);
   const doorAmount = useTransform(scrollYProgress, [0.18, 0.65], [0, 1]);
@@ -105,8 +121,22 @@ function HeroOpen({
   const scale = useTransform(scrollYProgress, [0.18, 0.75], [1.45, 1]);
   const blur = useTransform(scrollYProgress, [0.18, 0.42, 0.75], [8, 2, 0]);
   const filter = useTransform(blur, (v) => `blur(${v}px)`);
-  const textOpacity = useTransform(scrollYProgress, [0.48, 0.72], [0, 1]);
-  const textY = useTransform(scrollYProgress, [0.48, 0.72], [36, 0]);
+  const narrowRef = useRef(narrow);
+  narrowRef.current = narrow;
+  const textOpacity = useTransform(scrollYProgress, (v) => {
+    const start = narrowRef.current ? 0.34 : 0.48;
+    const end = narrowRef.current ? 0.58 : 0.72;
+    if (v <= start) return 0;
+    if (v >= end) return 1;
+    return (v - start) / (end - start);
+  });
+  const textY = useTransform(scrollYProgress, (v) => {
+    const start = narrowRef.current ? 0.34 : 0.48;
+    const end = narrowRef.current ? 0.58 : 0.72;
+    if (v <= start) return 28;
+    if (v >= end) return 0;
+    return 28 * (1 - (v - start) / (end - start));
+  });
   const veil = useTransform(scrollYProgress, [0.18, 0.65], [0.72, 0.28]);
 
   const name = t(hero.name, locale);
@@ -129,14 +159,16 @@ function HeroOpen({
           <p className="text-sm tracking-[0.22em] text-accent uppercase">
             {t(hero.eyebrow, locale)}
           </p>
-          <h1 className="mt-4 max-w-4xl text-6xl font-medium leading-[0.95] tracking-tight text-white md:text-8xl">
+          <h1 className="mt-3 max-w-4xl text-4xl font-medium leading-[0.95] tracking-tight text-white md:mt-4 md:text-8xl">
             {name}
           </h1>
-          <p className="mt-6 max-w-xl text-xl text-white/90">{t(hero.role, locale)}</p>
-          <p className="mt-4 max-w-2xl text-base leading-8 text-white/75">
+          <p className="mt-4 max-w-xl text-base text-white/90 md:mt-6 md:text-xl">
+            {t(hero.role, locale)}
+          </p>
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75 md:mt-4 md:text-base md:leading-8">
             {t(hero.summary, locale)}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3 md:mt-8">
             <a
               href="#products"
               className="inline-flex h-12 items-center rounded-full bg-accent px-6 text-sm text-on-accent"
@@ -157,7 +189,7 @@ function HeroOpen({
 
   return (
     <section id="top" ref={ref} className="relative h-[230vh]">
-      <div className="sticky top-[var(--header-h)] z-10 h-[var(--cinematic-remaining)] overflow-hidden bg-black">
+      <div className="sticky top-[var(--header-h)] z-10 h-[var(--cinematic-remaining)] overflow-hidden bg-black touch-pan-y">
         <motion.div className="absolute inset-0" style={{ scale, filter }}>
           <Cover
             src={hero.image}
@@ -202,16 +234,16 @@ function HeroOpen({
           <p className="text-sm tracking-[0.22em] text-accent uppercase">
             {t(hero.eyebrow, locale)}
           </p>
-          <h1 className="mt-4 max-w-4xl text-6xl font-medium leading-[0.95] tracking-tight text-white md:text-8xl">
+          <h1 className="mt-3 max-w-4xl text-4xl font-medium leading-[0.95] tracking-tight text-white md:mt-4 md:text-8xl">
             {name}
           </h1>
-          <p className="mt-6 max-w-xl text-xl text-white/90 md:text-2xl">
+          <p className="mt-4 max-w-xl text-base text-white/90 md:mt-6 md:text-2xl">
             {t(hero.role, locale)}
           </p>
-          <p className="mt-4 max-w-2xl text-base leading-8 text-white/75 md:text-lg">
+          <p className="mt-3 max-w-2xl text-sm leading-7 text-white/75 md:mt-4 md:text-lg md:leading-8">
             {t(hero.summary, locale)}
           </p>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="mt-6 flex flex-wrap gap-3 md:mt-8">
             <a
               href="#products"
               className="inline-flex h-12 items-center rounded-full bg-accent px-6 text-sm text-on-accent transition-opacity hover:opacity-90"
@@ -241,7 +273,7 @@ function StatsReel({ locale, stats }: { locale: string; stats: StatItem[] }) {
           const isCity = item.id === "city" || !/^-?\d+(\.\d+)?$/.test(item.value.trim());
           return (
             <FadeRise key={item.id}>
-              <div className="border border-line bg-card/60 p-6 backdrop-blur-sm">
+              <div className="liquid-glass p-6">
                 {isCity ? (
                   <CitySlot
                     locale={locale}
@@ -274,6 +306,7 @@ function AboutWipe({
   hero: SiteContent["hero"];
 }) {
   const reduce = useReducedMotion();
+  const narrow = useNarrowViewport();
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -287,7 +320,12 @@ function AboutWipe({
   const markOpacity = useTransform(scrollYProgress, [0, 0.08, 0.28, 0.42], [1, 1, 0.35, 0]);
   const markScale = useTransform(scrollYProgress, [0, 0.35], [1, 1.12]);
   const stageFade = useTransform(scrollYProgress, [0.82, 1], [1, 0]);
-  const copyReady = useTransform(scrollYProgress, (v) => (v >= 0.42 ? 1 : 0));
+  const narrowRef = useRef(narrow);
+  narrowRef.current = narrow;
+  const copyReady = useTransform(scrollYProgress, (v) => {
+    const threshold = narrowRef.current ? 0.32 : 0.42;
+    return v >= threshold ? 1 : 0;
+  });
   const [typing, setTyping] = useState(false);
 
   useLayoutEffect(() => {
@@ -328,82 +366,81 @@ function AboutWipe({
 
   return (
     <section id="about" ref={ref} className="relative z-10 h-[240vh] scroll-mt-[var(--header-h)]">
-      <motion.div
-        className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] items-center overflow-hidden bg-black"
-        style={{ opacity: stageFade }}
-      >
-        <div className="absolute inset-0">
-          <Cover
-            src={about.image}
-            alt={title}
-            sizes="100vw"
-            className="absolute inset-0 min-h-full rounded-none"
+      <div className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] items-center overflow-hidden bg-black touch-pan-y">
+        <motion.div className="absolute inset-0" style={{ opacity: stageFade }}>
+          <div className="absolute inset-0">
+            <Cover
+              src={about.image}
+              alt={title}
+              sizes="100vw"
+              className="absolute inset-0 min-h-full rounded-none"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
+          </div>
+
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 left-0 z-20 w-1/2 bg-[#0a0a0a] will-change-transform"
+            style={{ x: doorL, opacity: doorFade }}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/35 to-black/20" />
-        </div>
-
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 z-20 w-1/2 bg-[#0a0a0a] will-change-transform"
-          style={{ x: doorL, opacity: doorFade }}
-        />
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/2 bg-[#0a0a0a] will-change-transform"
-          style={{ x: doorR, opacity: doorFade }}
-        />
-        <motion.div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
-          style={{ opacity: markOpacity, scale: markScale }}
-        >
-          <span className="text-[clamp(6rem,22vw,14rem)] font-medium leading-none text-accent">
-            ?
-          </span>
-        </motion.div>
-
-        <div className="cinematic-band relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-5 md:px-8">
-          <p
-            className="text-sm tracking-[0.22em] text-accent uppercase"
-            style={{ opacity: typing ? 1 : 0 }}
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-y-0 right-0 z-20 w-1/2 bg-[#0a0a0a] will-change-transform"
+            style={{ x: doorR, opacity: doorFade }}
+          />
+          <motion.div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center"
+            style={{ opacity: markOpacity, scale: markScale }}
           >
-            {eyebrow}
-          </p>
-          <TypeLine
-            as="h2"
-            text={title}
-            active={typing}
-            delayMs={80}
-            charMs={28}
-            className="mt-4 max-w-3xl text-4xl font-medium tracking-tight text-white md:text-6xl"
-          />
-          <TypeLine
-            text={body}
-            active={typing}
-            delayMs={Math.min(900, title.length * 28 + 160)}
-            charMs={14}
-            className="mt-5 max-w-2xl text-lg leading-8 text-white/80"
-          />
-          <dl className="mt-8 grid gap-3 sm:grid-cols-3">
-            {facts.map((fact, index) => (
-              <motion.div
-                key={fact.label}
-                className="border border-white/20 bg-black/35 px-4 py-4 backdrop-blur-sm"
-                initial={{ opacity: 0, y: 24 }}
-                animate={typing ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
-                transition={{
-                  delay: 0.55 + index * 0.18,
-                  duration: 0.45,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-              >
-                <dt className="text-xs text-white/60">{fact.label}</dt>
-                <dd className="mt-2 text-sm leading-6 text-white">{fact.value}</dd>
-              </motion.div>
-            ))}
-          </dl>
-        </div>
-      </motion.div>
+            <span className="text-[clamp(4.5rem,22vw,14rem)] font-medium leading-none text-accent">
+              ?
+            </span>
+          </motion.div>
+
+          <div className="cinematic-band relative z-10 mx-auto flex w-full max-w-6xl flex-col justify-center px-5 md:px-8">
+            <p
+              className="text-sm tracking-[0.22em] text-accent uppercase"
+              style={{ opacity: typing ? 1 : 0 }}
+            >
+              {eyebrow}
+            </p>
+            <TypeLine
+              as="h2"
+              text={title}
+              active={typing}
+              delayMs={80}
+              charMs={28}
+              className="mt-3 max-w-3xl text-3xl font-medium tracking-tight text-white md:mt-4 md:text-6xl"
+            />
+            <TypeLine
+              text={body}
+              active={typing}
+              delayMs={Math.min(900, title.length * 28 + 160)}
+              charMs={14}
+              className="mt-4 max-w-2xl text-base leading-7 text-white/80 md:mt-5 md:text-lg md:leading-8"
+            />
+            <dl className="mt-6 grid gap-3 sm:grid-cols-3 md:mt-8">
+              {facts.map((fact, index) => (
+                <motion.div
+                  key={fact.label}
+                  className="liquid-glass-sm px-4 py-4"
+                  initial={{ opacity: 0, y: 24 }}
+                  animate={typing ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+                  transition={{
+                    delay: 0.55 + index * 0.18,
+                    duration: 0.45,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <dt className="text-xs text-white/60">{fact.label}</dt>
+                  <dd className="mt-2 text-sm leading-6 text-white">{fact.value}</dd>
+                </motion.div>
+              ))}
+            </dl>
+          </div>
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -465,13 +502,13 @@ function ProductRail({
         />
         <div className="mx-auto mt-10 grid max-w-6xl gap-4 px-5 md:grid-cols-2 md:px-8">
           {visible.map((item) => (
-            <article key={item.id} className="overflow-hidden border border-line bg-card">
+            <article key={item.id} className="liquid-glass overflow-hidden">
               <div className="relative">
                 <Cover
                   src={item.image}
                   alt={t(item.name, locale)}
                   sizes="50vw"
-                  className="aspect-[3/4] max-h-[min(calc(var(--cinematic-band)*0.55),22rem)]"
+                  className="aspect-[3/4] max-h-[min(calc(var(--cinematic-band)*0.55),22rem)] rounded-none"
                 />
                 <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/95 via-black/55 to-transparent px-5 pb-5 pt-16">
                   <p className="text-xs tracking-wide text-accent">{t(item.tagline, locale)}</p>
@@ -494,7 +531,7 @@ function ProductRail({
       ref={ref}
       className="relative z-20 h-[280vh] scroll-mt-[var(--header-h)] border-t border-line"
     >
-      <div className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] flex-col overflow-hidden bg-[var(--color-bg)]">
+      <div className="sticky top-[var(--header-h)] flex h-[var(--cinematic-remaining)] flex-col overflow-hidden bg-[var(--color-bg)] touch-pan-y">
         <div className="cinematic-band flex min-h-0 flex-col justify-center">
           <ScrollHeadline
             eyebrow={t(products.eyebrow, locale)}
@@ -503,7 +540,7 @@ function ProductRail({
           />
           <motion.div
             ref={trackRef}
-            className="mt-8 flex min-h-0 w-max flex-1 gap-5 px-5 md:mt-10 md:px-8"
+            className="mt-6 flex min-h-0 w-max flex-1 gap-5 px-5 md:mt-10 md:px-8"
             style={{ x: xShift }}
           >
             {visible.map((item) => {
@@ -512,14 +549,14 @@ function ProductRail({
               return (
                 <article
                   key={item.id}
-                  className="w-[min(78vw,24rem)] shrink-0 overflow-hidden border border-line bg-card"
+                  className="liquid-glass w-[min(78vw,24rem)] shrink-0 overflow-hidden"
                 >
                   <div className="relative max-h-[min(calc(var(--cinematic-band)*0.55),22rem)]">
                     <Cover
                       src={item.image}
                       alt={name}
                       sizes="24rem"
-                      className="aspect-[3/4] max-h-[min(calc(var(--cinematic-band)*0.55),22rem)]"
+                      className="aspect-[3/4] max-h-[min(calc(var(--cinematic-band)*0.55),22rem)] rounded-none"
                     />
                     <div className="absolute inset-x-0 bottom-0 z-10 bg-gradient-to-t from-black/95 via-black/55 to-transparent px-5 pb-5 pt-16">
                       <p className="text-xs tracking-wide text-accent">{t(item.tagline, locale)}</p>
@@ -615,11 +652,16 @@ function ProjectCard({
   const body = (
     <article
       ref={ref}
-      className={`grid overflow-hidden border border-line bg-card md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] ${
+      className={`liquid-glass grid overflow-hidden md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] ${
         index % 2 === 1 ? "md:[&>div:first-child]:order-2" : ""
       }`}
     >
-      <Cover src={item.image} alt={title} sizes="50vw" className="aspect-[16/11] md:aspect-auto md:min-h-[22rem]" />
+      <Cover
+        src={item.image}
+        alt={title}
+        sizes="50vw"
+        className="aspect-[16/11] rounded-none md:aspect-auto md:min-h-[22rem]"
+      />
       <div className="flex flex-col justify-center p-6 md:p-10">
         <p className="text-xs text-muted-fg">{t(item.meta, locale)}</p>
         <h3 className="mt-3 text-2xl font-medium md:text-3xl">
@@ -635,7 +677,7 @@ function ProjectCard({
         {item.stack.length > 0 ? (
           <ul className="mt-5 flex flex-wrap gap-2">
             {item.stack.map((tech) => (
-              <li key={tech} className="border border-line px-2.5 py-1 text-xs text-muted-fg">
+              <li key={tech} className="liquid-glass-chip px-2.5 py-1 text-xs text-muted-fg">
                 {tech}
               </li>
             ))}
@@ -745,7 +787,7 @@ export function CinematicExperience(props: CinematicPayload) {
           </FadeRise>
           <ExperienceTrack>
             {experience.map((item) => (
-              <article key={item.id} className="border border-line bg-card/70 p-6 backdrop-blur-sm md:p-8">
+              <article key={item.id} className="liquid-glass p-6 md:p-8">
                 <div className="flex flex-col gap-2 md:flex-row md:items-baseline md:justify-between">
                   <h3 className="text-xl">{t(item.role, locale)}</h3>
                   <p className="text-sm text-muted-fg">
@@ -794,7 +836,7 @@ export function CinematicExperience(props: CinematicPayload) {
 
       <section id="contact" className="scroll-mt-[var(--header-h)] border-t border-line">
         <div className="cinematic-flow mx-auto max-w-6xl px-5 md:px-8">
-          <div className="relative overflow-hidden border border-line bg-card px-6 py-12 md:px-12 md:py-16">
+          <div className="liquid-glass relative overflow-hidden px-6 py-12 md:px-12 md:py-16">
             <Marquee text={t(props.contact.title, locale)} />
             <div className="relative">
               <p className="text-sm tracking-[0.22em] text-accent uppercase">
@@ -822,7 +864,7 @@ export function CinematicExperience(props: CinematicPayload) {
                   rel="noopener noreferrer"
                   className={
                     email
-                      ? "inline-flex h-12 items-center gap-2 rounded-full border border-line px-5 text-sm hover:border-accent"
+                      ? "liquid-glass-chip inline-flex h-12 items-center gap-2 px-5 text-sm hover:border-accent"
                       : "inline-flex h-12 items-center gap-2 rounded-full bg-accent px-5 text-sm text-on-accent hover:opacity-90"
                   }
                 >

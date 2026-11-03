@@ -77,8 +77,10 @@ export function TeamRoster({
         {filtered.map((member) => (
           <StaggerItem key={member.id}>
             <article
-              className={`flex gap-4 border border-line bg-card p-4 ${
-                signal ? "rounded-none" : "rounded-[1.75rem]"
+              className={`flex gap-4 p-4 ${
+                signal
+                  ? "rounded-none border border-line bg-card"
+                  : "liquid-glass border border-line bg-card"
               }`}
             >
               <Cover
